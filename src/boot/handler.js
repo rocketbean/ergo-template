@@ -5,10 +5,13 @@ import { Loading } from 'quasar'
 import { logginRoute } from 'src/statics/backend'
 import addProperties from 'src/components/addProperties'
 import attachLocation from 'src/components/location/location'
+import mapPointer from 'src/components/location/mapPointer'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
   Vue.component('addProperties', addProperties)
   Vue.component('attachLocation', attachLocation)
+  Vue.component('mapPointer', mapPointer)
+
   app.watch = {
     '$route': function (from, to) {
       // if (_prod !== 'local' ) {

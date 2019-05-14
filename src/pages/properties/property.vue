@@ -15,9 +15,10 @@
             <q-btn flat :label="property.name" />
             <q-toolbar color="primary">
               <q-tabs v-model="tab" shrink>
-                <q-tab name="tab1" icon="mail"  />
-                <q-tab name="tab2" icon="alarm"  />
-                <q-tab name="tab3" icon="movie"  />
+                <q-tab name="tab1" icon="fas fa-house-damage"  />
+                <q-tab name="tab2" icon="build"  />
+                <q-tab name="tab3" icon="photo_library"  />
+                <q-tab name="tab4" icon="fas fa-cogs"  />
               </q-tabs>
               <q-space />
               <q-btn flat round icon="location_on" @click="_modals({'attachLocation': {open: true}})" />

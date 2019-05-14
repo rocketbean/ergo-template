@@ -1,6 +1,73 @@
 <template>
-  <q-dialog v-model="attachLoc.open" persistent transition-show="flip-down" transition-hide="flip-up" :maximized="maximizedToggle">
-    <q-card class="bg-primary text-white">
+  <q-dialog v-model="attachLoc.open"  transition-show="flip-down" transition-hide="flip-up" :maximized="maximizedToggle" >
+    <div class="row full-width">
+      <div class="col-xs-12">
+        <q-stepper
+          v-model="step"
+          ref="stepper"
+          dark
+          contracted
+          class="bg-grey-10"
+          active-color="deep-orange"
+          done-color="primary"
+          animated
+        >
+          <q-step
+            :name="1"
+            title="Select campaign settings"
+            icon="locations"
+            :done="step > 1"
+          >
+            <q-card class="bg-grey-10 text-white no-shadow">
+              <q-card-section>
+                <div class=" text-center"> Please tell us about your location. </div>
+              </q-card-section>
+              <q-card-section>
+                <div class="q-pa-md">
+                  <div class="q-gutter-y-md column" style="min-width: 300px">
+                    <q-select filled dark  v-model="loc.country" label="Country" use-input input-debounce="0" :options="countries" @filter="filterFn" @filter-abort="abortFilterFn"  >
+                      <template v-slot:no-option>
+                        <q-item>
+                          <q-item-section class="text-grey">
+                            No results
+                          </q-item-section>
+                        </q-item>
+                      </template>
+                    </q-select>
+                    <q-input filled dark v-model="loc.city" label="City" stack-label  />
+                  </div>
+                </div>
+              </q-card-section>
+            </q-card>
+          </q-step>
+
+          <q-step
+            :name="2"
+            title="Create an ad group"
+            caption="Optional"
+            icon="create_new_folder"
+            :done="step > 2"
+          >
+
+            <mapPointer/>
+          </q-step>
+
+          <template v-slot:navigation>
+            <q-stepper-navigation>
+              <div class = "q-gutter-y-md flex" style = "padding:5px; justify-content:flex-end">
+                <q-btn flat icon-right = "chevron_right" @click="$refs.stepper.next()" v-if="step === 1"/>
+              </div>
+              <!-- <q-btn @click="$refs.stepper.next()" color="deep-orange" :label="step === 3 ? 'Finish' : '>'" /> -->
+              <div class = "q-gutter-y-md flex" style = "padding:5px; justify-content:flex-end" v-if="step > 1">
+                <q-btn flat color="deep-orange" @click="$refs.stepper.previous()" icon = "chevron_left" />
+                <q-btn flat icon-right = "save" @click="$refs.stepper.previous()"/>
+              </div>
+            </q-stepper-navigation>
+          </template>
+        </q-stepper>
+      </div>
+    </div>
+<!--     <q-card class="bg-primary text-white">
       <q-bar>
         <q-icon name="location_on" />
         <q-space />
@@ -20,7 +87,7 @@
       <q-card-section>
         <div class="q-pa-md">
           <div class="q-gutter-y-md column" style="min-width: 300px">
-            <q-select filled v-model="loc.country" label="Country" use-input input-debounce="0" :options="countries" @filter="filterFn" @filter-abort="abortFilterFn"  >
+            <q-select filled  v-model="loc.country" label="Country" use-input input-debounce="0" :options="countries" @filter="filterFn" @filter-abort="abortFilterFn"  >
               <template v-slot:no-option>
                 <q-item>
                   <q-item-section class="text-grey">
@@ -36,7 +103,7 @@
           </div>
         </div>
       </q-card-section>
-    </q-card>
+    </q-card> -->
   </q-dialog>
 </template>
 <script>
@@ -49,6 +116,8 @@ export default {
     return {
       maximizedToggle: false,
       countries: [],
+      markers: [],
+      step: 1,
       loc: {
         country: '',
         city: '',

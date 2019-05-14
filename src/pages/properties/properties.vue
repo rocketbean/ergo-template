@@ -1,13 +1,6 @@
 <template>
   <q-page style = "background-color:whitesmoke">
     <addProperties/>
-    <div class = "full-width text-right" style = "padding:10px" >
-      <q-btn icon = "fas fa-plus-circle" round color= "primary" @click="_modals({'addProperties': {open: true}})">
-        <q-tooltip>
-          Add Property
-        </q-tooltip>
-      </q-btn>
-    </div>
     <div v-if="properties.length < 1" class = "full-width" style = "height: 80vh; display:flex; align-items:center; justify-content:center ">
       <h5 class = "text-grey">
         <q-btn icon = "fas fa-plus-circle" round color= "primary" @click="_modals({'addProperties': {open: true}})">
@@ -20,6 +13,13 @@
     </div>
     <div v-else>
       <div class = "row">
+        <div class = "full-width text-right" style = "padding:10px" >
+          <q-btn icon = "fas fa-plus-circle" round color= "primary" @click="_modals({'addProperties': {open: true}})">
+            <q-tooltip>
+              Add Property
+            </q-tooltip>
+          </q-btn>
+        </div>
         <q-card class="my-card" style = "max-width:300px;margin:5px" v-for = "property in properties" >
           <q-img :src="getPrime(property.primary.path)" style = "min-width:300px; max-width:300px; min-height:250px;max-height:250px">
             <div class="absolute-bottom text-h6">

@@ -7,7 +7,8 @@ module.exports = function (ctx) {
     boot: [
       'i18n',
       'handler',
-      'axios'
+      'axios',
+      'vuemaps'
     ],
 
     css: [
@@ -70,7 +71,7 @@ module.exports = function (ctx) {
 
     devServer: {
       // https: true,
-      // port: 8080,
+      port: 8082,
       open: true // opens browser window automatically
     },
 

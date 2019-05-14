@@ -1,0 +1,1 @@
+initialLocation.vue
