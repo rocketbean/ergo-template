@@ -45,7 +45,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['_modals']),
+    ...mapActions(['_modals', '_activate']),
     getPrime(photo) {
       return 'http://localhost:8000/' + photo;
     },
@@ -53,6 +53,9 @@ export default {
   mounted () {
     _purl.post(route.properties.property.get(this.$route.params.property)).then(r => {
       this.property = r.data
+      this._activate({
+        'property': r.data
+      })
     })
   },
 }

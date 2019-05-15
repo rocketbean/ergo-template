@@ -48,9 +48,12 @@ export const loginchecker = _loginchecker
 export const cirrus8 = _cirrus8
 export const cirrus8Home = _cirrus8Home
 export const pub = _pub
-export const mapsApiKey = 'AIzaSyDV0YgP8h2qzLgag0cSmu8_o6Tc7hoSqYg'
+export const GPK = 'AIzaSyDfYt8Jz7XkEoUcQpr5FHRQsBlw_YCBz10';
 export const DEFIMAGE = 'statics/home_default.jpg'
 import store from 'src/store/index'
+export const mapTypes = ["administrative_area_level_5", "street_address", "street_name", "neighborhood"];
+
+
  /* backend routes */
 
 export const route = {
@@ -63,7 +66,10 @@ export const route = {
     get: apiroute + 'properties',
     store: apiroute + 'properties/store',
     property: {
-      get: property => apiroute + 'properties/' + property + '/show'
+      get: property => apiroute + 'properties/' + property + '/show',
+      location: {
+        store: property => apiroute + 'properties/' + property + '/locations/store'
+      }
     }
   }
 }

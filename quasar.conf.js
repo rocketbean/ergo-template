@@ -8,7 +8,8 @@ module.exports = function (ctx) {
       'i18n',
       'handler',
       'axios',
-      'vuemaps'
+      'vuemaps',
+      'geocoder'
     ],
 
     css: [

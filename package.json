@@ -10,6 +10,7 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
+    "@pderas/vue2-geocoder": "^1.1.0",
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.0",
     "quasar": "^1.0.0-beta.0",

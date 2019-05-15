@@ -28,7 +28,7 @@
             <q-input type="textarea" filled dark v-model="prop.description" label="Describe your property" stack-label  autogrow />
           </div>
           <div class = "q-gutter-y-md flex" style = "padding:5px; justify-content:flex-end">
-            <q-btn flat icon-right = "fas fa-save" @click = "save" v-close-overlay/>
+            <q-btn flat icon-right = "fas fa-save" @click = "save" />
           </div>
         </div>
       </q-card-section>
@@ -63,7 +63,7 @@ export default {
         description: this.prop.description
       }).then(r => {
         this._addProperty(r.data);
-        this._modals({'addProperties': {open: false}})
+        this._modals({'addProperties': {'open': false}})
       })
     }
   }

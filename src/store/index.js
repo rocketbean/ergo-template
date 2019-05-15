@@ -7,6 +7,7 @@ Vue.use(Vuex)
 import properties from './properties'
 import requests from './requests'
 import modals from './modals'
+import active from './active'
 
 /*
  * If not building with SSR mode, you can
@@ -14,17 +15,20 @@ import modals from './modals'
  */
 
 export default function (/* { ssrContext } */) {
+
   const Store = new Vuex.Store({
     modules: {
       properties,
       requests,
-      modals
+      modals,
+      active
       // example
     },
 
     // enable strict mode (adds overhead!)
     // for dev mode only
-    strict: process.env.DEV
+    // strict: process.env.DEV
+    strict: false
   })
 
   return Store

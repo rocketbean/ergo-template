@@ -49,7 +49,7 @@
             :done="step > 2"
           >
 
-            <mapPointer/>
+            <mapPointer :country= "loc.country" :city="loc.city"/>
           </q-step>
 
           <template v-slot:navigation>
@@ -60,50 +60,13 @@
               <!-- <q-btn @click="$refs.stepper.next()" color="deep-orange" :label="step === 3 ? 'Finish' : '>'" /> -->
               <div class = "q-gutter-y-md flex" style = "padding:5px; justify-content:flex-end" v-if="step > 1">
                 <q-btn flat color="deep-orange" @click="$refs.stepper.previous()" icon = "chevron_left" />
-                <q-btn flat icon-right = "save" @click="$refs.stepper.previous()"/>
+                <q-btn flat icon-right = "save" @click="saveLocation()"/>
               </div>
             </q-stepper-navigation>
           </template>
         </q-stepper>
       </div>
     </div>
-<!--     <q-card class="bg-primary text-white">
-      <q-bar>
-        <q-icon name="location_on" />
-        <q-space />
-        <q-btn dense flat icon="minimize" @click="maximizedToggle = false" :disable="!maximizedToggle">
-          <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
-        </q-btn>
-        <q-btn dense flat icon="crop_square" @click="maximizedToggle = true" :disable="maximizedToggle">
-          <q-tooltip v-if="!maximizedToggle" content-class="bg-white text-primary">Maximize</q-tooltip>
-        </q-btn>
-        <q-btn dense flat icon="close" v-close-popup>
-          <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
-        </q-btn>
-      </q-bar>
-      <q-card-section>
-        <div class=" text-center"> Please tell us about your location. </div>
-      </q-card-section>
-      <q-card-section>
-        <div class="q-pa-md">
-          <div class="q-gutter-y-md column" style="min-width: 300px">
-            <q-select filled  v-model="loc.country" label="Country" use-input input-debounce="0" :options="countries" @filter="filterFn" @filter-abort="abortFilterFn"  >
-              <template v-slot:no-option>
-                <q-item>
-                  <q-item-section class="text-grey">
-                    No results
-                  </q-item-section>
-                </q-item>
-              </template>
-            </q-select>
-            <q-input filled dark v-model="loc.city" label="City" stack-label  />
-          </div>
-          <div class = "q-gutter-y-md flex" style = "padding:5px; justify-content:flex-end">
-            <q-btn flat icon-right = "chevron_right" @click = "save"/>
-          </div>
-        </div>
-      </q-card-section>
-    </q-card> -->
   </q-dialog>
 </template>
 <script>
@@ -125,24 +88,38 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['modals']),
+    ...mapGetters(['modals', 'active']),
     attachLoc () {
       return this.modals.attachLocation
     },
   },
   methods: {
     ...mapActions(['_addProperty']),
+    saveLocation () {
+      console.log(this.active)
+      _purl.post(route.properties.property.location.store(this.active.property.id), {
+        address1: this.active.location.address1,
+        address2: this.active.location.address2,
+        state: this.active.location.state,
+        city: this.active.location.city,
+        country: this.active.location.country,
+        lat: this.active.location.lat,
+        lng: this.active.location.lng,
+      }).then(r => {
+        console.log(r.data)
+      })
+    },
     filterFn (val, update, abort) {
       update (() => {
-          if (val === '') {
-            _purl.get(route.ergo.countries).then(r => {
-              this.countries = r.data
-            })
-          }
-          else {
-            const needle = val.toLowerCase()
-            this.countries = this.countries.filter(v => v.label.toLowerCase().indexOf(needle) > -1)
-          }
+        if (val === '') {
+          _purl.get(route.ergo.countries).then(r => {
+            this.countries = r.data
+          })
+        }
+        else {
+          const needle = val.toLowerCase()
+          this.countries = this.countries.filter(v => v.label.toLowerCase().indexOf(needle) > -1)
+        }
       })
     },
     abortFilterFn () {

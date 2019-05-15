@@ -168,12 +168,14 @@ export const _purl = {
     if (data === '' || data === null) {
       return axe.post(_r)
     } else {
-      return axe.post(_r, data)
+      return axe.post(_r, data, {
+        'Content-Type' : 'application/json'
+      });
     }
   },
 
   postRequest (uri, data = {}) {
-      return axe.post(uri, data,{
+      return axe.post(uri, data, {
         headers: {
           'Authorization': 'Bearer '+ localStorage.getItem('_rt')
         }
