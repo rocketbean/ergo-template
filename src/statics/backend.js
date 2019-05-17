@@ -69,6 +69,9 @@ export const route = {
       get: property => apiroute + 'properties/' + property + '/show',
       location: {
         store: property => apiroute + 'properties/' + property + '/locations/store'
+      },
+      jobrequest: {
+        store: property => apiroute + 'properties/' + property + '/jobrequests/store'
       }
     }
   }

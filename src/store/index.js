@@ -33,3 +33,4 @@ export default function (/* { ssrContext } */) {
 
   return Store
 }
+//sudo systemctl restart apache2

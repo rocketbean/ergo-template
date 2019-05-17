@@ -96,7 +96,6 @@ export default {
   methods: {
     ...mapActions(['_addProperty']),
     saveLocation () {
-      console.log(this.active)
       _purl.post(route.properties.property.location.store(this.active.property.id), {
         address1: this.active.location.address1,
         address2: this.active.location.address2,

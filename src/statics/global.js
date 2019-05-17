@@ -262,6 +262,18 @@ export const _glob = {
   },
 
   /**
+   * checks the object if empty
+   * @var ;
+  */
+  isEmpty(obj) {
+      for(var key in obj) {
+          if(obj.hasOwnProperty(key))
+              return false;
+      }
+      return true;
+  },
+
+  /**
    * finding the index inside an array
    * @var ;
   */
