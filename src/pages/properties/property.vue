@@ -2,6 +2,7 @@
   <q-page style = "margin: 10px;background-color:whitesmoke">
     <attachLocation/>
     <addJobRequest/>
+    <addJrItem/>
     <div class = "flex">
       <div class = "bg-grey-8 full-width" style = "height:25vh; border-radius:4px" v-if="!loadMap">
       </div>
@@ -52,6 +53,27 @@
                 </q-btn>
                 your property has empty jobrequests
               </h5>
+            </div>
+            <div v-else >
+              <div class="row no-wrap ">
+                <q-toolbar class=" rounded-borders">
+                  <q-input borderless v-model="text" >
+                    <template v-slot:prepend>
+                      <q-icon v-if="text === ''" name="search" />
+                      <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
+                    </template>
+                  </q-input>
+                  <q-space/>
+                  <q-btn icon = "fas fa-plus-circle" round color= "deep-orange" @click="_modals({'addJobRequest': {open: true}})">
+                    <q-tooltip>
+                      add a JobRequest
+                    </q-tooltip>
+                  </q-btn>
+                </q-toolbar>
+              </div>
+              <q-list >
+                <jobrequest v-for= "(jobrequest, index) in property.jobrequests" :key="index" :jobrequest="jobrequest"/>
+              </q-list>
             </div>
           </q-tab-panel>
           <q-tab-panel name="suppliers" style = "padding:30px;">
@@ -109,6 +131,7 @@ export default {
   },
   data () {
     return {
+      text: '',
       property: {
         primary: {
           path: ''

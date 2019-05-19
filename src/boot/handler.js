@@ -6,6 +6,8 @@ import { logginRoute } from 'src/statics/backend'
 import addProperties from 'src/components/addProperties'
 import attachLocation from 'src/components/location/location'
 import addJobRequest from 'src/components/jobrequest/JobRequestAdd'
+import jobrequest from 'src/components/jobrequest/jobrequest'
+import addJrItem from 'src/components/jr_items/jritemsAdd'
 import mapPointer from 'src/components/location/mapPointer'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
@@ -13,6 +15,8 @@ export default async ({ app, router, Vue }) => {
   Vue.component('attachLocation', attachLocation)
   Vue.component('mapPointer', mapPointer)
   Vue.component('addJobRequest', addJobRequest)
+  Vue.component('addJrItem', addJrItem)
+  Vue.component('jobrequest', jobrequest)
 
   app.watch = {
     '$route': function (from, to) {

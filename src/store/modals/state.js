@@ -1,5 +1,8 @@
 export default {
   modals: {
+    addJrItem: {
+      open: false
+    },
     addProperties: {
       open: false
     },

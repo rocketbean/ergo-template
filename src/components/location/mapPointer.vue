@@ -12,7 +12,7 @@
       style="width: 510px; height: 300px"
       :options="{
        zoomControl: true,
-       mapTypeControl: false,
+       mapTypeControl: true,
        scaleControl: false,
        streetViewControl: true,
        rotateControl: false,
