@@ -60,7 +60,8 @@ export const route = {
   register: apiroute + 'register',
   attempt: apiroute + 'attempt',
   ergo: {
-    countries: apiroute + 'ergo/countries'
+    countries: apiroute + 'ergo/countries',
+    upload: apiroute + 'uploads/files/store?token='
   },
   properties: {
     get: apiroute + 'properties',
@@ -71,7 +72,10 @@ export const route = {
         store: property => apiroute + 'properties/' + property + '/locations/store'
       },
       jobrequest: {
-        store: property => apiroute + 'properties/' + property + '/jobrequests/store'
+        store: property => apiroute + 'properties/' + property + '/jobrequests/store',
+        item: {
+          store: (property, jr) => apiroute + 'properties/' + property + '/jobrequests/' + jr + '/items/store'
+        }
       }
     }
   }

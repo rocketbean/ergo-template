@@ -133,6 +133,7 @@ export default {
     return {
       text: '',
       property: {
+        jobrequests: [],
         primary: {
           path: ''
         },
