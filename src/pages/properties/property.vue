@@ -51,7 +51,7 @@
                     add a JobRequest
                   </q-tooltip>
                 </q-btn>
-                your property has empty jobrequests
+                your property has no jobrequests
               </h5>
             </div>
             <div v-else >
@@ -106,7 +106,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import {_purl} from 'src/statics/purl'
-import {route} from 'src/statics/backend'
+import {route, storage} from 'src/statics/backend'
 import {_glob} from 'src/statics/global'
 export default {
   watch: {
@@ -149,7 +149,7 @@ export default {
   methods: {
     ...mapActions(['_modals', '_activate']),
     getPrime(photo) {
-      return 'http://localhost:8000/' + photo;
+      return storage + photo;
     },
     getPosition(location) {
       return {

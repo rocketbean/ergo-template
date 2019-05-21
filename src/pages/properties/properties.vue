@@ -42,7 +42,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import {_purl} from 'src/statics/purl'
-import {route} from 'src/statics/backend'
+import {route, storage} from 'src/statics/backend'
 export default {
   computed: {
     ...mapGetters(['properties', 'requests'])
@@ -55,7 +55,7 @@ export default {
   methods: {
     ...mapActions(['_setRequest', '_properties', '_modals']),
     getPrime(photo) {
-      return 'http://localhost:8000/' + photo;
+      return storage + photo;
     },
     getProperties () {
       this.propLoad = true

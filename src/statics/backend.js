@@ -61,6 +61,7 @@ export const route = {
   attempt: apiroute + 'attempt',
   ergo: {
     countries: apiroute + 'ergo/countries',
+    tags: apiroute + 'ergo/tags',
     upload: apiroute + 'uploads/files/store?token='
   },
   properties: {

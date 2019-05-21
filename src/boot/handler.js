@@ -9,6 +9,7 @@ import addJobRequest from 'src/components/jobrequest/JobRequestAdd'
 import jobrequest from 'src/components/jobrequest/jobrequest'
 import addJrItem from 'src/components/jr_items/jritemsAdd'
 import jrItem from 'src/components/jr_items/jr_item'
+import jrItemDisplay from 'src/components/jr_items/jrItemDisplay'
 import mapPointer from 'src/components/location/mapPointer'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
@@ -19,6 +20,7 @@ export default async ({ app, router, Vue }) => {
   Vue.component('addJrItem', addJrItem)
   Vue.component('jobrequest', jobrequest)
   Vue.component('jrItem', jrItem)
+  Vue.component('jrItemDisplay', jrItemDisplay)
 
   app.watch = {
     '$route': function (from, to) {
