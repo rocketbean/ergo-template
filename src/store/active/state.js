@@ -1,6 +1,10 @@
 export default {
   active: {
-    property: {},
+    property: {
+      primary: {
+        path: ''
+      }
+    },
     jobrequest: {name: ''},
     jritem: {},
     location: {}

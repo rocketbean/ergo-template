@@ -3,6 +3,11 @@ export default {
     addJrItem: {
       open: false
     },
+    changePrimary: {
+      open: false,
+      property: {},
+      callback: ''
+    },
     addProperties: {
       open: false
     },

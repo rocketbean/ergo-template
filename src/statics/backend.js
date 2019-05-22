@@ -72,11 +72,16 @@ export const route = {
       location: {
         store: property => apiroute + 'properties/' + property + '/locations/store'
       },
+      primary: {
+        update: (property, photo) => apiroute + 'properties/' + property.id + '/update/primary/' + photo.id
+      },
       jobrequest: {
+        destroy: jr => apiroute + 'properties/' + jr.property_id + '/jobrequests/' + jr.id + '/destroy',
         store: property => apiroute + 'properties/' + property + '/jobrequests/store',
         item: {
-          store: (property, jr) => apiroute + 'properties/' + property + '/jobrequests/' + jr + '/items/store'
-        }
+          store: (property, jr) => apiroute + 'properties/' + property + '/jobrequests/' + jr + '/items/store',
+          destroy: (jr, item) => apiroute + 'jobrequests/' + jr.id + '/items/' + item.id + '/destroy' 
+         }
       }
     }
   }

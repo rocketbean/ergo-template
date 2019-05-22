@@ -9,7 +9,7 @@
     </q-item-section>
     <q-item-section side center>
       <div class = "flex" style ="flex-direction:row">
-        <q-btn round flat icon="close" color="white"/>
+        <q-btn round flat icon="close" color="white" @click = "destroyJrItem(item)" />
         <q-btn round flat icon="chevron_right" @click="activateJr()" color="white"/>
       </div>
     </q-item-section>
@@ -17,8 +17,13 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { route } from 'src/statics/backend'
+import { _purl } from 'src/statics/purl'
 export default {
   props: ['item'],
+  computed: {
+    ...mapGetters(['active'])
+  },
   methods: {
     ...mapActions(['_modals', '_activate']),
     activateJr() {
@@ -36,6 +41,12 @@ export default {
         return ' '
       }
     },
+    destroyJrItem(item) {
+      _purl.post(route.properties.property.jobrequest.item.destroy(this.active.jobrequest, item)).then(r => {
+        this._activate({jobrequest: r.data})
+        console.log(r)
+      })
+    }
 
   }
 }

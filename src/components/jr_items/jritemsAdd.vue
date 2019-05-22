@@ -41,11 +41,12 @@
                 filled
                 v-model="itemForm.tags"
                 use-chips
+                dark
+                auto-upload
                 label="Lazy load opts"
                 :options="tags"
                 @filter="filterFn"
                 @filter-abort="abortFilterFn"
-                style="width: 250px"
               >
                 <template v-slot:no-option>
                   <q-item>
@@ -109,6 +110,12 @@ export default {
     },
     jr () {
       this.resetItemForm()
+    },
+    'itemForm': {
+      handler (value) {
+        console.log(value)
+      },
+      deep:true
     }
   },
   computed: {
@@ -165,6 +172,7 @@ export default {
         files: [],
         photos: [],
         videos: [],
+        tags: [],
       }
     },
     getFile (data) {
@@ -190,12 +198,14 @@ export default {
       console.log('delayed filter aborted')
     },
     save () {
+
       _purl.post(route.properties.property.jobrequest.item.store(this.active.property.id, this.active.jobrequest.id), {
         name: this.itemForm.name,
         description: this.itemForm.description,
         videos: this.itemForm.videos,
         files: this.itemForm.files,
         photos: this.itemForm.photos,
+        tags: this.itemForm.tags
       }).then(r => {
         this.resetItemForm()
         this._activate({jobrequest: r.data})

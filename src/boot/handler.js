@@ -11,6 +11,7 @@ import addJrItem from 'src/components/jr_items/jritemsAdd'
 import jrItem from 'src/components/jr_items/jr_item'
 import jrItemDisplay from 'src/components/jr_items/jrItemDisplay'
 import mapPointer from 'src/components/location/mapPointer'
+import changePrimary from 'src/components/primary/change'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
   Vue.component('addProperties', addProperties)
@@ -21,6 +22,7 @@ export default async ({ app, router, Vue }) => {
   Vue.component('jobrequest', jobrequest)
   Vue.component('jrItem', jrItem)
   Vue.component('jrItemDisplay', jrItemDisplay)
+  Vue.component('changePrimary', changePrimary)
 
   app.watch = {
     '$route': function (from, to) {

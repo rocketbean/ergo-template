@@ -3,6 +3,7 @@
     <attachLocation/>
     <addJobRequest/>
     <addJrItem/>
+    <changePrimary/>
     <div class = "flex">
       <div class = "bg-grey-8 full-width" style = "height:25vh; border-radius:4px" v-if="!loadMap">
       </div>
@@ -19,12 +20,20 @@
           <GmapMarker :position="center" />
       </GmapMap>
       <div class = "full-width" style = "display:flex;justify-content:flex-start;align-items:center;height:20vh">
-        <q-img
-          class = "shadow-1"
-          :src="getPrime(property.primary.path)"
+        <q-img 
+          class = "shadow-1 photoHover"
+          ref = "primaryPhoto"
+          @click = "changePrimary"
+          @mouseenter =" hoverable = true"
+          @mouseleave =" hoverable = false"
+          :src="getPrime"
           spinner-color="white"
           style="height: 160px; min-width:180px; max-width: 180px;border: 2px solid white; border-radius:10px;margin-top:-40px;margin-left:20px;align-self:baseline"
-        />
+        >
+          <div v-if="hoverable" class = "full-width flex flex-center primaryphoto" style =  ""> 
+            <q-icon name = "add_a_photo" color="white" style = "font-size:300%;"/>            
+          </div>
+      </q-img>
         <div class="q-pa-md full-width" style = "align-self:flex-start">
           <q-btn flat :label="property.name" />
           <q-toolbar color="primary">
@@ -72,12 +81,11 @@
                 </q-toolbar>
               </div>
               <q-list >
-                <jobrequest v-for= "(jobrequest, index) in property.jobrequests" :key="index" :jobrequest="jobrequest"/>
+                <jobrequest v-for= "(jobrequest, index) in property.jobrequests" :key="index" :jobrequest="jobrequest" :serve="serve"/>
               </q-list>
             </div>
           </q-tab-panel>
           <q-tab-panel name="suppliers" style = "padding:30px;">
-
             <div class="text-h4 q-mb-md">Alarms</div>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>
@@ -97,8 +105,9 @@
           </q-tab-panel>
         </q-tab-panels>
       </div>
-      <div class = "col-sm-3 bg-grey shadow-2" style = "border-radius:3px">
-        
+      <div class = "col-sm-3 " style="padding:20px" >
+        <div class = "bg-grey-4 shadow-2 " style = "border-radius:3px; min-height:300px;margin:20px"></div>
+        <div class = "bg-grey-4 shadow-2 " style = "border-radius:3px; min-height:200px;margin:20px"></div>
       </div>
     </div>
   </q-page>
@@ -124,14 +133,18 @@ export default {
       if(value) {
         this.setMapping()
       }
-    }
+    },
   },
   computed: {
-    ...mapGetters(['active'])
+    ...mapGetters(['active']),
+    getPrime() {
+      return storage + this.active.property.primary.path;
+    },
   },
   data () {
     return {
       text: '',
+      hoverable: false,
       property: {
         jobrequests: [],
         primary: {
@@ -148,9 +161,6 @@ export default {
   },
   methods: {
     ...mapActions(['_modals', '_activate']),
-    getPrime(photo) {
-      return storage + photo;
-    },
     getPosition(location) {
       return {
         lat: parseFloat(location.lat),
@@ -162,15 +172,21 @@ export default {
         lat: parseFloat(this.property.location.lat),
         lng: parseFloat(this.property.location.lng)
       }
+    },
+    changePrimary () {
+      this._modals({'changePrimary': {'open' : true, 'property' : this.property, 'callback': this.getPrime }})
+    },
+    serve () {
+      _purl.post(route.properties.property.get(this.$route.params.property)).then(r => {
+        this.property = r.data
+        this._activate({
+          'property': r.data
+        })
+      })
     }
   },
   mounted () {
-    _purl.post(route.properties.property.get(this.$route.params.property)).then(r => {
-      this.property = r.data
-      this._activate({
-        'property': r.data
-      })
-    })
+    this.serve()
   },
 }
 </script>

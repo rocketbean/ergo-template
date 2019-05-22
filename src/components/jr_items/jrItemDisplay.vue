@@ -25,9 +25,18 @@
       </template>
     </q-carousel>
     <div style="padding:25px" class = "flex align-center">
-      <span class = "text-h5" style = "margin-right:10px"> {{item.name}}  </span>
+      <span class = "text-h5 text-weight-thin" style = "margin-right:10px">
+        {{item.name}} <br>
+        <q-chip dense outline size="xs" text-color="white" :icon="tag.icon"  v-for= "tag in item.tags">
+          {{tag.label}}
+        </q-chip>
+      </span>
       <q-space/>
-       <q-btn square  icon="fas fa-pen" @click="updateCallback(item)" size = "sm" class="text-blue" color = "warning" />
+       <q-btn outline round  icon="fas fa-pen" @click="updateCallback(item)" size = "sm" class="" color = "white" >
+        <q-tooltip>
+          update this line
+        </q-tooltip>
+       </q-btn>
       <br>
       <small class = ""> {{item.description}} </small>
     </div>
