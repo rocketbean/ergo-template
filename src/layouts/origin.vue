@@ -12,33 +12,36 @@
         <div style  = "margin-right:20px">
           
           <!-- <q-btn dense flat round icon="fas fa-exclamation-circle" size="sm"/> -->
-    <q-btn-dropdown
-      split
-      flat
-      rounded
-      icon-right="fas fa-exclamation-circle"
-      :content-style="{ width: '220px' }"
-    >
-      <q-list>
-        <q-item clickable v-close-popup>
-          <q-item-section>
-            <q-item-label>Photos</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable v-close-popup>
-          <q-item-section>
-            <q-item-label>Videos</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable v-close-popup>
-          <q-item-section>
-            <q-item-label>Articles</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-btn-dropdown>
+      <q-btn color="white" icon="fas fa-exclamation-circle" round flat>
+        <q-menu content-class="bg-primary text-white shadow-3" auto-close max-height="260px">
+          <q-list style="min-width: 300px">
+            <q-item clickable>
+              <q-item-section>New tab</q-item-section>
+            </q-item>
+            <q-item clickable>
+              <q-item-section>New incognito tab</q-item-section>
+            </q-item>
+            <q-separator dark />
+            <q-item clickable>
+              <q-item-section>Recent tabs</q-item-section>
+            </q-item>
+            <q-item clickable>
+              <q-item-section>History</q-item-section>
+            </q-item>
+            <q-item clickable>
+              <q-item-section>Downloads</q-item-section>
+            </q-item>
+            <q-separator dark />
+            <q-item clickable>
+              <q-item-section>Settings</q-item-section>
+            </q-item>
+            <q-separator dark />
+            <q-item clickable>
+              <q-item-section>Help &amp; Feedback</q-item-section>
+            </q-item>
+          </q-list>
+        </q-menu>
+      </q-btn>
         </div>
       </q-toolbar>
     </q-header>
