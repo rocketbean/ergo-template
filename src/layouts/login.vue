@@ -83,4 +83,5 @@ export default {
   background-repeat: no-repeat !important;
   background-position: bottom !important;
 }
+
 </style>

@@ -8,11 +8,52 @@
           <q-icon name="fab fa-centercode" />
           ergo
         </q-toolbar-title>
+        <q-space ></q-space>
+        <div style  = "margin-right:20px">
+          
+          <!-- <q-btn dense flat round icon="fas fa-exclamation-circle" size="sm"/> -->
+    <q-btn-dropdown
+      split
+      flat
+      rounded
+      icon-right="fas fa-exclamation-circle"
+      :content-style="{ width: '220px' }"
+    >
+      <q-list>
+        <q-item clickable v-close-popup>
+          <q-item-section>
+            <q-item-label>Photos</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable v-close-popup>
+          <q-item-section>
+            <q-item-label>Videos</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable v-close-popup>
+          <q-item-section>
+            <q-item-label>Articles</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </q-btn-dropdown>
+        </div>
       </q-toolbar>
     </q-header>
     <q-drawer v-model="left" side="left" behavior="desktop" bordered :mini="minislot" >
       <!-- drawer content -->
       <q-list >
+        <q-item clickable style = "min-height:150px;background-image:url('/statics/test1.png');background-size: cover;align-items:flex-end">
+          <q-item-section avatar style = "justify-self: flex-end">
+            <q-avatar round style = "color:white;font-size:300%;font-weight:300;" icon="perm_identity" class = "shadow-2" color="grey-8" />
+          </q-item-section>
+          <q-item-section class = "full-width"  style="background:rgba(0,0,0,0.4); padding:3px;border-radius:4px;">
+            <q-item-label class = "text-white" > {{user.name}} </q-item-label>
+            <q-item-label class = "text-white" style = "font-weight:300" overline > {{user.email}} </q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item clickable @click.native="pushRoute('/dashboard')" >
           <q-item-section avatar>
             <q-icon name="dashboard" color="grey-8" />
@@ -55,49 +96,6 @@
         </q-item>
       </q-list>
 
-<!--       <q-list slot = "mini">
-        <q-item clickable @click.native="pushRoute('/dashboard')" >
-          <q-item-section avatar>
-            <q-icon name="dashboard" color="grey-8" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Dashboard</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable @click.native="pushRoute('/properties')" >
-          <q-item-section avatar>
-            <q-icon name="fas fa-home" color="grey-8" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Github</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable @click.native="pushRoute('/dashboard')" >
-          <q-item-section avatar>
-            <q-icon color="grey-8" name="chat" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Discord Chat Channel</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable @click.native="pushRoute('/dashboard')">
-          <q-item-section avatar>
-            <q-icon color="grey-8" name="record_voice_over" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Forum</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable @click.native="pushRoute('/dashboard')" >
-          <q-item-section avatar>
-            <q-icon color="grey-8" name="rss_feed" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Twitter</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list> -->
-
     </q-drawer>
 
     <q-page-container>
@@ -108,7 +106,13 @@
 </template>
 
 <script>
+import {_user} from 'src/statics/token'
 export default {
+  computed: {
+    user () {
+      return _user.getUser()
+    }
+  }, 
   data () {
     return {
       left: true,
@@ -119,6 +123,16 @@ export default {
     pushRoute(route) {
       this.$router.push(route)
     },
+    onMainClick () {
+      console.log('Clicked on main button')
+    },
+
+    onItemClick () {
+      console.log('Clicked on an Item')
+    }
+  },
+  mounted () {
+    console.log(this.$refs.infoDD)
   }
-}
+} 
 </script>
