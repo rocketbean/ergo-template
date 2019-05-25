@@ -22,6 +22,14 @@ const routes = [
       { path: ':property', component: () => import('pages/properties/property.vue') },
     ]
   },
+  {
+    path: '/suppliers',
+    component: () => import('layouts/origin.vue'),
+    children: [
+      { path: '', component: () => import('pages/suppliers/suppliers.vue') },
+      // { path: ':property', component: () => import('pages/properties/property.vue') },
+    ]
+  },
 ]
 
 // Always leave this as last one

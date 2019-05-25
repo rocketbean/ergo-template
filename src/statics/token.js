@@ -161,6 +161,9 @@ export const _user = {
    * @var x ;
   */
   storeUser (_u) {
+    if (localStorage.getItem(_u) === null) {
+      localStorage.removeItem(_u)
+    }
     var hash = window.btoa(JSON.stringify(_u))
     localStorage.setItem('_u', hash)
   },

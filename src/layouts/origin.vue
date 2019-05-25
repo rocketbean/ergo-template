@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh LpR lfr">
-
+  <addSupplier/>
     <q-header bordered class="bg-primary text-white">
       <q-toolbar>
         <q-btn dense flat round :icon="minislot ? 'chevron_right' : 'chevron_left'" @click="minislot = minislot ? false : true" />
@@ -18,8 +18,8 @@
             <q-item clickable>
               <q-item-section>New tab</q-item-section>
             </q-item>
-            <q-item clickable>
-              <q-item-section>New incognito tab</q-item-section>
+            <q-item clickable @click = "_modals({'addSuppliers': {'open': true}})">
+              <q-item-section>Register your Service Company</q-item-section>
             </q-item>
             <q-separator dark />
             <q-item clickable>
@@ -73,6 +73,14 @@
             <q-item-label>Properties</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item clickable @click.native="pushRoute('/suppliers')" v-if="showSupplier">
+          <q-item-section avatar>
+            <q-icon color="grey-8" name="fas fa-truck-moving" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>suppliers</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item clickable @click.native="pushRoute('/dashboard')">
           <q-item-section avatar>
             <q-icon color="grey-8" name="chat" />
@@ -110,19 +118,33 @@
 
 <script>
 import {_user} from 'src/statics/token'
+import { mapGetters, mapActions } from 'vuex'
+import { _purl } from 'src/statics/purl'
+import { route } from 'src/statics/backend'
+
 export default {
   computed: {
+    ...mapGetters(['modals']),
     user () {
       return _user.getUser()
+    },
+    showSupplier () {
+      if(this.user.services.length > 0) {
+        return true
+      } else {
+        return false
+      }
     }
+
   }, 
   data () {
     return {
       left: true,
-      minislot: true
+      minislot: true,
     }
   },
   methods: {
+    ...mapActions(['_modals']),
     pushRoute(route) {
       this.$router.push(route)
     },
@@ -135,7 +157,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$refs.infoDD)
   }
 } 
 </script>

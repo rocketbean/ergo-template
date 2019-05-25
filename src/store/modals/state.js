@@ -11,6 +11,9 @@ export default {
     addProperties: {
       open: false
     },
+    addSuppliers: {
+      open: false
+    },
     addJobRequest: {
       open: false
     },

@@ -64,6 +64,9 @@ export const route = {
     tags: apiroute + 'ergo/tags',
     upload: apiroute + 'uploads/files/store?token='
   },
+  suppliers: {
+    store: apiroute + 'suppliers/store'
+  },
   properties: {
     get: apiroute + 'properties',
     store: apiroute + 'properties/store',
