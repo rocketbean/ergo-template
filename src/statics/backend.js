@@ -65,7 +65,8 @@ export const route = {
     upload: apiroute + 'uploads/files/store?token='
   },
   suppliers: {
-    store: apiroute + 'suppliers/store'
+    store: apiroute + 'suppliers/store',
+    get: apiroute + 'suppliers'
   },
   properties: {
     get: apiroute + 'properties',

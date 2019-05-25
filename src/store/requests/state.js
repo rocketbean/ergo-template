@@ -1,5 +1,6 @@
 export default {
   requests: {
-    properties: false
+    properties: false,
+    suppliers: false
   }
 }

@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 import properties from './properties'
+import suppliers from './suppliers'
 import requests from './requests'
 import modals from './modals'
 import active from './active'
@@ -19,6 +20,7 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       properties,
+      suppliers,
       requests,
       modals,
       active
