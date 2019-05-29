@@ -44,7 +44,7 @@
               <q-tab name="settings" icon="fas fa-cogs"  />
             </q-tabs>
             <q-space />
-            <q-btn flat round icon="location_on" @click="_modals({'attachLocation': {open: true}})" />
+            <q-btn flat round icon="location_on" @click="_modals({'attachLocation': {'open': true, 'locationUrl': saveLocationUrl}})" />
           </q-toolbar>
         </div>
       </div>
@@ -140,6 +140,9 @@ export default {
     getPrime() {
       return storage + this.active.property.primary.path;
     },
+    saveLocationUrl () {
+      return route.properties.property.location.store(this.active.property.id);
+    }
   },
   data () {
     return {

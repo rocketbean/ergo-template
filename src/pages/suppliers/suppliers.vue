@@ -6,10 +6,9 @@
           {{ supplier.name }}
         </div>
       </q-img>
-      <q-card-actions align="around">
-        <q-btn flat round color="primary" icon="delete" />
-        <q-btn flat round color="primary" icon="border_color" />
-        <q-btn flat round color="primary" icon="chevron_right" @click="pushRoute(supplier)" />
+      <q-card-actions align="right" class = "flex" style = "flex-direction:row">
+        <q-btn flat color="primary" icon="fas fa-cogs" @click="pushRoute(supplier)"/>
+        <q-btn flat color="primary" icon="chevron_right" @click="streamRoute(supplier)"/>
       </q-card-actions>
     </q-card>
     <q-inner-loading :showing="suppLoad">
@@ -23,7 +22,7 @@ import {_purl} from 'src/statics/purl'
 import {route, storage} from 'src/statics/backend'
 export default {
   computed: {
-    ...mapGetters(['suppliers', 'requests'])
+    ...mapGetters(['suppliers', 'requests']),
   },
   data () {
     return {
@@ -34,6 +33,9 @@ export default {
     ...mapActions(['_setRequest', '_suppliers', '_modals']),
     getPrime(photo) {
       return storage + photo;
+    },
+    streamRoute (supplier) {
+      window.open ('stream/' + window.btoa(supplier.id), '_blank')
     },
     getSuppliers () {
       this.suppLoad = true

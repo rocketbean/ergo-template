@@ -18,7 +18,8 @@ export default {
       open: false
     },
     attachLocation: {
-      open: false
+      open: false,
+      locationUrl: ''
     },
   }
 }

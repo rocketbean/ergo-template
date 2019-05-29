@@ -1,12 +1,12 @@
 import axios from 'axios'
 export const axe = axios
 let prod = 'local' // 'local' | 'dev' | 'live'
-var _apiroute, _localapiroute, _loginchecker, _cirrus8, _cirrus8Home, _signed, _pub, _qToken, _storage // eslint-disable-line no-unused-vars
+var _apiroute, _serviceRoute, _loginchecker, _cirrus8, _cirrus8Home, _signed, _pub, _qToken, _storage // eslint-disable-line no-unused-vars
 
 if (prod === 'local') {
   _apiroute = 'http://localhost:8000/api/'
   _signed = 'http://localhost:8080/c8-api-dev/public/sso/signed/'
-  _localapiroute = 'http://localhost:8080/c8-api-dev/public/sso/'
+  _serviceRoute = 'http://localhost:8000/service/'
   _loginchecker = 'http://localhost:8080/c8-api-dev/public/sso/reqsignin'
   _cirrus8 = 'http://localhost:8080/cirrus8/framework/'
   _cirrus8Home = 'http://localhost:8080/cirrus8/framework/?module=home&command=home'
@@ -17,7 +17,7 @@ if (prod === 'local') {
 if (prod === 'dev') {
   _apiroute = 'https://c8-api-dev.cirrus8.com.au/sso/'
   _signed = 'https://c8-api-dev.cirrus8.com.au/sso/signed/'
-  _localapiroute = 'https://c8-api-dev.cirrus8.com.au'
+  _serviceRoute = 'http://localhost:8000/service/'
   _loginchecker = 'https://c8-api-dev.cirrus8.com.au/sso/reqsignin'
   _cirrus8 = 'https://c8-dev.cirrus8.com.au/framework/'
   _cirrus8Home = 'https://c8-dev.cirrus8.com.au/framework/?module=home&command=home'
@@ -29,7 +29,7 @@ if (prod === 'dev') {
 if (prod === 'live') {
   _apiroute = 'https://c8-api.cirrus8.com.au/sso/'
   _signed = 'https://c8-api.cirrus8.com.au/sso/signed/'
-  _localapiroute = 'https://c8-api.cirrus8.com.au'
+  _serviceRoute = 'http://localhost:8000/service/'
   _loginchecker = 'https://c8-api.cirrus8.com.au/sso/reqsignin'
   _cirrus8 = 'https://client.cirrus8.com.au/framework/'
   _cirrus8Home = 'https://client.cirrus8.com.au/framework/?module=home&command=home'
@@ -43,7 +43,7 @@ export const apiroute = _apiroute
 export const storage = _storage
 export const signed = _signed
 export const check = _apiroute + 'session/check?app='
-export const localapiroute = _localapiroute
+export const serviceRoute = _serviceRoute
 export const loginchecker = _loginchecker
 export const cirrus8 = _cirrus8
 export const cirrus8Home = _cirrus8Home
@@ -64,9 +64,18 @@ export const route = {
     tags: apiroute + 'ergo/tags',
     upload: apiroute + 'uploads/files/store?token='
   },
+  stream: {
+    attempt: supplier => serviceRoute + 'attempt/' + supplier
+  },
   suppliers: {
     store: apiroute + 'suppliers/store',
-    get: apiroute + 'suppliers'
+    get: apiroute + 'suppliers',
+    supplier: {
+      get: supplier => apiroute + 'suppliers/' + supplier + '/show',
+      location: {
+        store: supplier => apiroute + 'suppliers/' + supplier + '/locations/store'
+      },
+    }
   },
   properties: {
     get: apiroute + 'properties',

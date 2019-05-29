@@ -27,6 +27,15 @@ const routes = [
     component: () => import('layouts/origin.vue'),
     children: [
       { path: '', component: () => import('pages/suppliers/suppliers.vue') },
+      { path: ':supplier', component: () => import('pages/suppliers/supplier.vue') },
+      // { path: ':property', component: () => import('pages/properties/property.vue') },
+    ]
+  },
+  {
+    path: '/stream/:supplier',
+    component: () => import('layouts/stream.vue'),
+    children: [
+      { path: '', component: () => import('pages/stream/stream.vue') },
       // { path: ':property', component: () => import('pages/properties/property.vue') },
     ]
   },

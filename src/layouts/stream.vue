@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh  Hpr lFf">
+  <q-layout view="hHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -13,14 +13,14 @@
         </q-btn>
 
         <q-toolbar-title>
-          Quasar App
+          Ergo
         </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" bordered content-class="bg-grey-2">
+    <q-drawer v-model="leftDrawerOpen"  content-class="bg-whitesmoke" >
       <q-list>
         <q-item-label header>Essential Links</q-item-label>
         <q-item clickable tag="a" target="_blank" href="http://v1.quasar-framework.org">

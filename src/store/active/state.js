@@ -5,6 +5,11 @@ export default {
         path: ''
       }
     },
+    supplier: {
+      primary: {
+        path: ''
+      }
+    },
     jobrequest: {name: ''},
     jritem: {},
     location: {}

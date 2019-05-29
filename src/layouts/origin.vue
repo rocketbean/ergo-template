@@ -129,7 +129,7 @@ export default {
       return _user.getUser()
     },
     showSupplier () {
-      if(this.user.services.length > 0) {
+      if(this.user.suppliers.length > 0) {
         return true
       } else {
         return false
