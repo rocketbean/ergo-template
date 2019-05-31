@@ -9,15 +9,43 @@ import { route, storage } from 'src/statics/backend'
 import { _token, _user } from 'src/statics/token'
 export default {
   watch: {
+    'loadpage': function (value) {
+      alert()
+      // if(value) {
+      //   this.$q.loading.show({
+      //     message: this.loading.message
+      //   })
+      // } else {
+      //   this.$q.loading.hide()
+      // }
+    },
     'index': function (value) {
       this.authenticate()
-      console.log(_token.getRawToken())
-      console.log(value)
-    } 
+    },
+    '_streamToken': function (value) {
+      if (value === '') {
+        this.authenticate()
+      }
+    },
+  },
+  computed : {
+    _streamToken () {
+      return this.auth._t;
+    },
+    loadpage () {
+      return this.pageLoad.load
+    }
   },
   data () {
     return {
-      load: false,
+      auth: {
+        _t: '',
+        expiry: ''
+      },
+      pageLoad: {
+        load: false,
+        message: ''
+      },
       index: 0,
     }
   },
@@ -25,9 +53,18 @@ export default {
     decryptData () {
       return window.atob(this.$route.params.supplier)
     },
-    authenticate () {
+    authenticate () { 
+        // this.$q.loading.show({
+        //   message: this.loading.message
+        // })
+      // this.pageLoad.message = 'authenticating your token'
+      // this.pageLoad.load = true
       _purl.post(route.stream.attempt(this.index)).then(r => {
-        console.log(r)
+        if(r.data.access_token) {
+          this.auth._t = r.data.access_token
+          this.auth.expiry = r.data.expires_in
+        }
+        this.pageLoad.load = false
       })
     }
   },
