@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lFf">
+  <q-layout view="hHh Lpr lFH" >
     <q-header elevated>
       <q-toolbar>
           <q-icon name="menu" />
@@ -12,12 +12,12 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen"  content-class="bg-whitesmoke text-grey-8" >
+    <q-drawer v-model="leftDrawerOpen" content-class="bg-whitesmoke text-grey-8" >
       <q-list dense v-if="loadclient">
         <q-item  >
-          <q-item-section avatar>
-            <q-avatar size="100px" rounded>
-              <img :src="getPrime(supplier.primary.path)">
+          <q-item-section avatar >
+            <q-avatar size="85px" rounded >
+              <img :src="getPrime(supplier.primary.path)" >
             </q-avatar>
           </q-item-section>
           <q-item-section>
@@ -44,6 +44,11 @@
           </q-item-section>
         </q-item>
       </q-list>
+    </q-drawer>
+
+    <q-drawer side="right" v-model="leftDrawerOpen" content-class="bg-whitesmoke text-grey-8" >
+        <div class = "bg-grey-4 shadow-2 " style = "border-radius:3px; min-height:300px;margin:20px"></div>
+        <div class = "bg-grey-4 shadow-2 " style = "border-radius:3px; min-height:200px;margin:20px" v-for = "n in 5"></div>
     </q-drawer>
 
     <q-page-container>
