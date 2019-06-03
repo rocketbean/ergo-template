@@ -1,16 +1,18 @@
 <template>
   <q-page style = "background-color:whitesmoke">
-    <q-card class="my-card" style = "max-width:300px;margin:5px" v-for = "supplier in suppliers" >
-      <q-img :src="getPrime(supplier.primary.path)" style = "min-width:300px; max-width:300px; min-height:250px;max-height:250px">
-        <div class="absolute-bottom text-h6">
-          {{ supplier.name }}
-        </div>
-      </q-img>
-      <q-card-actions align="right" class = "flex" style = "flex-direction:row">
-        <q-btn flat color="primary" icon="fas fa-cogs" @click="pushRoute(supplier)"/>
-        <q-btn flat color="primary" icon="chevron_right" @click="streamRoute(supplier)"/>
-      </q-card-actions>
-    </q-card>
+    <div class="row">
+      <q-card class="my-card" style = "max-width:300px;margin:5px" v-for = "supplier in suppliers" >
+        <q-img :src="getPrime(supplier.primary.path)" style = "min-width:300px; max-width:300px; min-height:250px;max-height:250px">
+          <div class="absolute-bottom text-h6">
+            {{ supplier.name }}
+          </div>
+        </q-img>
+        <q-card-actions align="right" class = "flex" style = "flex-direction:row">
+          <q-btn flat color="primary" icon="fas fa-cogs" @click="pushRoute(supplier)"/>
+          <q-btn flat color="primary" icon="chevron_right" @click="streamRoute(supplier)"/>
+        </q-card-actions>
+      </q-card>
+    </div>
     <q-inner-loading :showing="suppLoad">
       <q-spinner-puff size="110px" color="primary" />
     </q-inner-loading>

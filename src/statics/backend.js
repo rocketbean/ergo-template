@@ -65,7 +65,8 @@ export const route = {
     upload: apiroute + 'uploads/files/store?token='
   },
   stream: {
-    attempt: supplier => serviceRoute + 'attempt/' + supplier
+    attempt: supplier => serviceRoute + 'attempt/' + supplier,
+    fetch: supplier => serviceRoute + supplier + '/fetch'
   },
   suppliers: {
     store: apiroute + 'suppliers/store',
