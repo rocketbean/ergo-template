@@ -16,7 +16,6 @@
           </q-btn>
         </q-bar>
       </q-header>
-
       <q-footer :style = "showFooter ? 'max-height:20vh;overflow:auto' : ''" class = "bg-blue-grey-8 " >
         <q-scroll-area style="height: 20vh; " v-if="showFooter">
           <q-list >

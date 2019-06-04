@@ -3,6 +3,9 @@ export default {
     addJrItem: {
       open: false
     },
+    jrview: {
+      open: false,
+    },
     changePrimary: {
       open: false,
       property: {},

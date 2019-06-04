@@ -138,7 +138,7 @@ export default {
   computed: {
     ...mapGetters(['active']),
     getPrime() {
-      return storage + this.active.property.primary.path;
+      return storage + this.active.property.primary.thumb;
     },
     saveLocationUrl () {
       return route.properties.property.location.store(this.active.property.id);

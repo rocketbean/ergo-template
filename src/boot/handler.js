@@ -13,6 +13,8 @@ import jrItemDisplay from 'src/components/jr_items/jrItemDisplay'
 import mapPointer from 'src/components/location/mapPointer'
 import changePrimary from 'src/components/primary/change'
 import addSupplier from 'src/components/supplier/add'
+import entry from 'src/components/stream/entry'
+import jrview from 'src/components/stream/jrview'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
   Vue.component('addProperties', addProperties)
@@ -23,6 +25,8 @@ export default async ({ app, router, Vue }) => {
   Vue.component('addJrItem', addJrItem)
   Vue.component('jobrequest', jobrequest)
   Vue.component('jrItem', jrItem)
+  Vue.component('jrview', jrview)
+  Vue.component('entry', entry)
   Vue.component('jrItemDisplay', jrItemDisplay)
   Vue.component('changePrimary', changePrimary)
 

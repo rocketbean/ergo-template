@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lFH" >
+  <q-layout view="hHh Lpr lFf" style = "background-color:whitesmoke">
     <q-header elevated>
       <q-toolbar>
           <q-icon name="menu" />
@@ -26,21 +26,49 @@
           </q-item-section>
         </q-item>
         <q-separator spaced />
-        <q-item clickable tag="a" target="_blank" href="https://github.com/quasarframework/">
+
+        <q-item clickable tag="a" target="_blank" >
+          <q-item-section avatar>
+            <q-icon name="account_balance" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Accounts</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable tag="a" target="_blank" >
+          <q-item-section avatar>
+            <q-icon name="timeline" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>History</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable tag="a" target="_blank" :active="active" active-class="bg-grey-4 text-grey-8">
+          <q-item-section avatar>
+            <q-icon name="history" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Timeline</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable tag="a" target="_blank" >
+          <q-item-section avatar>
+            <q-icon name="rate_review" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Reviews</q-item-label>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable tag="a" target="_blank" >
           <q-item-section avatar>
             <q-icon name="fas fa-cogs" />
           </q-item-section>
           <q-item-section>
             <q-item-label>Settings</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable tag="a" target="_blank" href="https://github.com/quasarframework/">
-          <q-item-section avatar>
-            <q-icon name="fas fa-building" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Profile</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
@@ -52,7 +80,7 @@
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view v-if="loadclient" :auth="auth" :index="index" />
     </q-page-container>
   </q-layout>
 </template>
@@ -65,16 +93,6 @@ import { _glob } from 'src/statics/global'
 import axios from 'axios'
 export default {
   watch: {
-    'loadpage': function (value) {
-      alert()
-      // if(value) {
-      //   this.$q.loading.show({
-      //     message: this.loading.message
-      //   })
-      // } else {
-      //   this.$q.loading.hide()
-      // }
-    },
     'index': function (value) {
       this.authenticate()
     },
@@ -93,18 +111,11 @@ export default {
     },
     loadpage () {
       return this.pageLoad.load
-    },
-    headers() {
-      return {
-        headers: {
-          'Authorization' : 'Bearer ' + this.auth._t,
-          'Accept' : 'application/pdf'
-        }
-      }
-    },
+    }
   },
   data () {
     return {
+      active: true,
       leftDrawerOpen: true,
       loadclient: false,
       auth: {
@@ -126,17 +137,6 @@ export default {
     },
     decryptData () {
       return window.atob(this.$route.params.supplier)
-    },
-    setHead (token ) {
-      axios.interceptors.request.use((config) => {
-          if (token) {
-            config.headers['Authorization'] = `Bearer ${ token }`;
-          }
-          return config;
-        }, 
-        (error) => {
-          return Promise.reject(error);
-        });
     },
     progress () {
       this.$q.loading.show({

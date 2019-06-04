@@ -66,7 +66,8 @@ export const route = {
   },
   stream: {
     attempt: supplier => serviceRoute + 'attempt/' + supplier,
-    fetch: supplier => serviceRoute + supplier + '/fetch'
+    fetch: supplier => serviceRoute + supplier + '/fetch',
+    stream: supplier => serviceRoute + supplier + '/stream',
   },
   suppliers: {
     store: apiroute + 'suppliers/store',
