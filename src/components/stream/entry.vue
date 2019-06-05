@@ -2,13 +2,20 @@
   <div>
     <q-card class="my-card" style = "max-width:876px" >
       <!-- <img src="https://cdn.quasar.dev/img/mountains.jpg"> -->
-    <q-toolbar flat class="text-white bg-blue-grey-8 ">
+    <q-toolbar flat class="text- bg- ">
       <q-avatar class = "shadow-2">
         <img :src="getPrime(jr.property.primary.path)">
       </q-avatar>
-        <q-toolbar-title class ="text-weight-thin">{{ jr.property.name }}</q-toolbar-title>
+        <q-toolbar-title class ="text-weight-light " style ="display:flex;flex-direction:column;">
+          <small style = "cursor:pointer">{{ setTextLimiter(jr.property.name, 30) }}
+            <q-tooltip anchor="center middle" self="center middle" >
+              {{jr.property.name}}
+            </q-tooltip>
+          </small>
+          <small class = "text-grey" style = "font-size:50%">{{ jr.created_at }}</small>
+        </q-toolbar-title>
         <div class = "flex " style = "justify-content:space-between">
-            <q-chip dense outline size="xs" text-color="white" :icon="tag.icon"  v-for= "tag in jr.tags">
+            <q-chip dense outline size="xs" text-color="" :icon="tag.icon"  v-for= "tag in jr.tags">
               {{tag.label}}
             </q-chip>
         </div>
@@ -61,6 +68,17 @@ export default {
     activateJr(jobrequest) {
       this._modals({'jrview': {open: true}})
       this.activator(jobrequest)
+    },
+    setTextLimiter (val, nos) {
+      if(val !== null) {
+        if(val.length > nos) {
+          return val.substring(0,nos) + '....';
+        } else {
+          return val
+        }
+      } else {
+        return ' '
+      }
     },
     getPrime(photo) {
       return storage + photo;
