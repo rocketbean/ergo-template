@@ -58,6 +58,19 @@ export default {
   },
   data () {
     return {
+      actived: {
+        jr: ''
+      },
+      tags: [],
+      itemForm: {
+        id: 0,
+        name: '',
+        description: '',
+        files: [],
+        photos: [],
+        videos: [],
+        tags: []
+      },
       slide: 1,
       drawer: true,
       miniState: true
@@ -68,6 +81,9 @@ export default {
     activateJr(jobrequest) {
       this._modals({'jrview': {open: true}})
       this.activator(jobrequest)
+    },
+    loadItem (item) {
+      this.itemForm = item
     },
     setTextLimiter (val, nos) {
       if(val !== null) {

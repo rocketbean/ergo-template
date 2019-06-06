@@ -51,11 +51,20 @@ export default {
     stream() {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.auth._t
       _purl.get(route.stream.stream(this.ind)).then (r => {
-        this.entries = r.data
+        this.registerData(r.data);
+        
       })
     },
+    registerData(data) {
+    this.entries = data.map(d => {
+      d.items.map(item => {
+        item.selector = false
+        return item
+      })
+      return d
+    })
+    },
     activator (data) {
-      console.log(data)
       this.jr = data
     }
   },

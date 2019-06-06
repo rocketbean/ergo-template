@@ -9,11 +9,13 @@ import addJobRequest from 'src/components/jobrequest/JobRequestAdd'
 import jobrequest from 'src/components/jobrequest/jobrequest'
 import addJrItem from 'src/components/jr_items/jritemsAdd'
 import jrItem from 'src/components/jr_items/jr_item'
+import jrItemView from 'src/components/jr_items/jr_item_view'
 import jrItemDisplay from 'src/components/jr_items/jrItemDisplay'
 import mapPointer from 'src/components/location/mapPointer'
 import changePrimary from 'src/components/primary/change'
 import addSupplier from 'src/components/supplier/add'
 import entry from 'src/components/stream/entry'
+import addJobOrder from 'src/components/stream/jo_add'
 import jrview from 'src/components/stream/jrview'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
@@ -25,10 +27,12 @@ export default async ({ app, router, Vue }) => {
   Vue.component('addJrItem', addJrItem)
   Vue.component('jobrequest', jobrequest)
   Vue.component('jrItem', jrItem)
+  Vue.component('jrItemView', jrItemView)
   Vue.component('jrview', jrview)
   Vue.component('entry', entry)
   Vue.component('jrItemDisplay', jrItemDisplay)
   Vue.component('changePrimary', changePrimary)
+  Vue.component('addJobOrder', addJobOrder)
 
   app.watch = {
     '$route': function (from, to) {

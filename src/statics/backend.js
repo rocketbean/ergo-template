@@ -77,6 +77,13 @@ export const route = {
       location: {
         store: supplier => apiroute + 'suppliers/' + supplier + '/locations/store'
       },
+      properties: {
+        jobrequests: {
+          joborders: {
+            
+          }
+        }
+      }
     }
   },
   properties: {

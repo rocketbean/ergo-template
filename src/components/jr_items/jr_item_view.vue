@@ -9,8 +9,8 @@
     </q-item-section>
     <q-item-section side center>
       <div class = "flex" style ="flex-direction:row">
-        <q-btn round flat icon="close" color="white" @click = "destroyJrItem(item)" />
         <q-btn round flat icon="chevron_right" @click="activateJr(item)" color="white"/>
+        <q-btn round flat v-if="item.selector" size="sm" icon="border_color" @click="activateJr(item)" color="white"/>
       </div>
     </q-item-section>
   </q-item>
@@ -27,7 +27,6 @@ export default {
   methods: {
     ...mapActions(['_modals', '_activate']),
     activateJr() {
-      console.log(this.index)
       this.jractive(this.item, this.index);
     },
     setTextLimiter (val) {
@@ -41,11 +40,8 @@ export default {
         return ' '
       }
     },
-    destroyJrItem(item) {
-      _purl.post(route.properties.property.jobrequest.item.destroy(this.active.jobrequest, item)).then(r => {
-        this._activate({jobrequest: r.data})
-        console.log(r)
-      })
+    loadUp(item) {
+      console.log(item)
     }
 
   }

@@ -19,7 +19,7 @@
       <q-footer :style = "showFooter ? 'max-height:20vh;overflow:auto' : ''" class = "bg-blue-grey-8 " >
         <q-scroll-area style="height: 20vh; " v-if="showFooter">
           <q-list >
-            <jrItem v-for = "item in items" :item="item"/>
+            <jrItem v-for = "item in items" :item="item" :jractive="jractive"/>
           </q-list>
         </q-scroll-area>
           <template v-slot:top-left>
@@ -160,6 +160,9 @@ export default {
     loadItem (item) {
       this.itemForm = item
     },
+    jractive (item) {
+      this._activate({'jritem': item})
+    },
     updateItem () {
       console.log('update item')
     },
@@ -197,7 +200,6 @@ export default {
       console.log('delayed filter aborted')
     },
     save () {
-
       _purl.post(route.properties.property.jobrequest.item.store(this.active.property.id, this.active.jobrequest.id), {
         name: this.itemForm.name,
         description: this.itemForm.description,
