@@ -17,8 +17,12 @@ import addSupplier from 'src/components/supplier/add'
 import entry from 'src/components/stream/entry'
 import addJobOrder from 'src/components/stream/jo_add'
 import jrview from 'src/components/stream/jrview'
+import joPublish from 'src/components/joborder/publish'
+import joItems from 'src/components/joborder/items'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
+  Vue.component('joItems', joItems)
+  Vue.component('joPublish', joPublish)
   Vue.component('addProperties', addProperties)
   Vue.component('addSupplier', addSupplier)
   Vue.component('attachLocation', attachLocation)

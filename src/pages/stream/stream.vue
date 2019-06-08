@@ -1,20 +1,12 @@
 <template>
   <q-page class = "flex " style = "padding:30px;justify-content:center;">
+    <joPublish/>
     <jrview  :active="jr"/>
     <q-inner-loading :showing="visible">
       <q-spinner size="50px" color="primary" />
     </q-inner-loading>
     <div class="q-pa-md " v-for="entry in entries">
       <entry  :jr="entry" :activator="activator"/>
-  <!--     <q-card class="my-card">
-        <img src="https://cdn.quasar.dev/img/mountains.jpg">
-
-        <q-card-actions align="around">
-          <q-btn flat round color="red" icon="favorite" />
-          <q-btn flat round color="teal" icon="bookmark" />
-          <q-btn flat round color="primary" icon="share" />
-        </q-card-actions>
-      </q-card> -->
     </div>
   </q-page>
 </template>
@@ -52,7 +44,10 @@ export default {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.auth._t
       _purl.get(route.stream.stream(this.ind)).then (r => {
         this.registerData(r.data);
-        
+        this.visible = false
+      }).catch(e => {
+        _glob.notify('we encountered a network problem', 'negative');
+        this.visible = false
       })
     },
     registerData(data) {

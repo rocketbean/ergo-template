@@ -9,11 +9,11 @@
       <q-uploader multiple class="full-width shadow-0" :url="beroute" dark @uploaded = "getFile" :field-name="(file) => 'file'"/>
     </div>
     <div class = "q-gutter-y-md flex" style = "padding:5px; justify-content:flex-end">
-      <q-btn flat round icon = "fas fa-pen-square" @click = "updateItem" v-if = "itemForm.id !== 0">
-        <q-tooltip> update </q-tooltip>
+      <q-btn flat   icon = "attachment" @click = "save" >
+        <q-tooltip> attach quotation to item </q-tooltip>
       </q-btn>
-      <q-btn flat round icon = "fas fa-plus-circle" @click = "save" >
-        <q-tooltip> attach quotation </q-tooltip>
+      <q-btn flat   icon = "collections_bookmark" @click = "publish" >
+        <q-tooltip> publish this quotation </q-tooltip>
       </q-btn>
     </div>
   </div>
@@ -25,7 +25,7 @@ import {_token} from 'src/statics/token'
 import {_purl} from 'src/statics/purl'
 
 export default {
-  props: ['item', 'loadItem'],
+  props: ['item', 'loadItem', 'orderCallback'],
   computed: {
     beroute () {
       return route.ergo.upload + _token.getRawToken()
@@ -59,6 +59,9 @@ export default {
     },
     save () {
       this.loadItem(this.itemForm)
+    },
+    publish () {
+      this.orderCallback()
     },
     getFile (data) {
       let file = JSON.parse(data.xhr.response)

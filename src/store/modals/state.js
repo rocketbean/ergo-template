@@ -6,6 +6,11 @@ export default {
     jrview: {
       open: false,
     },
+    publishJo: {
+      open: false,
+      data: {},
+      jr: {}
+    },
     changePrimary: {
       open: false,
       property: {},

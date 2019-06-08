@@ -36,7 +36,7 @@
       <q-drawer side="right"  v-model="drawerR" :width="350" :breakpoint="300" dark content-class="q-pa-sm bg-blue-grey-8 text-white " >
         <div >
           <div class="q-pa-md">
-            <addJobOrder :item = "jritem" :loadItem="loadItem"/>
+            <addJobOrder :item = "jritem" :loadItem="loadItem" :orderCallback = "orderCallback"/>
           </div>
         </div>
       </q-drawer>
@@ -68,6 +68,12 @@ import {_purl} from 'src/statics/purl'
 export default {
   props: ['active'],
   watch: {
+    'orders': {
+      handler (value) {
+        console.log(value)
+      },
+      deep:true
+    },
     'active': {
       handler (value) {
         if(value.items.length > 0) {
@@ -97,6 +103,12 @@ export default {
     }
   },
   methods : {
+    ...mapActions(['_modals']),
+    orderCallback () {
+      console.log(this.active.items)
+      this._modals({'publishJo': {'open': true, data: this.orders, jr: this.active }});
+      console.log('orderCallback');
+    },
     loadItem (data) {
       this.orders.push(data);
       this.active.items[this.keyitem].selector = true
@@ -108,7 +120,7 @@ export default {
 
   },
   mounted () {
-    console.log(this.active)
+
   }
 
 }

@@ -14,7 +14,7 @@
 
     <q-drawer v-model="leftDrawerOpen" content-class="bg-whitesmoke text-grey-8" >
       <q-list dense v-if="loadclient">
-        <q-item  >
+        <q-item>
           <q-item-section avatar >
             <q-avatar size="85px" rounded >
               <img :src="getPrime(supplier.primary.path)" >
