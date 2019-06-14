@@ -9,7 +9,8 @@ export default {
     publishJo: {
       open: false,
       data: {},
-      jr: {}
+      jr: {},
+      items: []
     },
     changePrimary: {
       open: false,

@@ -9,3 +9,7 @@ export const modals_ = (state, payload) => {
       }
     }
 }
+
+export const pushJoItems_ = (state, payload) => {
+	state.modals.publishJo.items.push(payload)
+}

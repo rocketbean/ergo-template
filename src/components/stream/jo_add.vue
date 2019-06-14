@@ -46,8 +46,10 @@ export default {
     }
   },
   methods: {
-    resetItemForm (item) {
+    ...mapActions(['_pushJoItems']),
+    resetItemForm () {
       this.itemForm = {
+        jr: {},
         id: 0,
         name: '',
         description: '',
@@ -58,7 +60,12 @@ export default {
       }
     },
     save () {
-      this.loadItem(this.itemForm)
+      this.itemForm.jr = this.item
+      this.itemForm.id = this.item.id
+      this._pushJoItems(this.itemForm)
+      // this.loadItem(this.itemForm)
+
+      this.resetItemForm()
     },
     publish () {
       this.orderCallback()
@@ -71,7 +78,7 @@ export default {
     },
   },
   mounted () {
-
+    console.log(this.$store)
   }
 }
 </script>

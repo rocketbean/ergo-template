@@ -50,7 +50,6 @@ import { route, storage } from 'src/statics/backend'
 import { _token, _user } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 import axios from 'axios'
-
 export default {
   props: ['jr','activator'],
   computed : {
@@ -84,6 +83,7 @@ export default {
     },
     loadItem (item) {
       this.itemForm = item
+
     },
     setTextLimiter (val, nos) {
       if(val !== null) {
@@ -99,6 +99,8 @@ export default {
     getPrime(photo) {
       return storage + photo;
     },
+  },
+  mounted () {
   }
 }
 </script>

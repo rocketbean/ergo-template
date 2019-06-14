@@ -6,12 +6,12 @@
           <q-step :name="1" title="Select campaign settings" icon="locations" :done="step > 1" >
             <q-card class="bg-grey-10 text-white no-shadow">
               <q-card-section>
-                <div class=" text-center"> Please tell us about your location. </div>
+                <div class=" text-center"> Estimation List  </div>
               </q-card-section>
               <q-card-section>
                 <div class="q-pa-md">
                   <div class="q-gutter-y-md column" style="min-width: 300px">
-                    <joItems :items = "data" :jr = "jr"/>
+                    <joItems :items = "data" :jr = "jr" :publishModal = "publishModal"/>
                   </div>
                 </div>
               </q-card-section>
@@ -49,6 +49,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { _purl } from 'src/statics/purl'
 import { route } from 'src/statics/backend'
+import JobOrderItem from 'src/statics/joborder'
 
 export default {
   watch: {
@@ -69,13 +70,14 @@ export default {
     },
     publish () {
       return this.modals.publishJo
-    },
+    }
   },
   data () {
     return {
       maximizedToggle: false,
       step: 1,
       jr: [],
+      joitems: [],
       data: []
     }
   },

@@ -90,6 +90,9 @@ export default {
     ...mapGetters(['modals']),
     jrv () {
       return this.modals.jrview;
+    },
+    joi () {
+      return JobOrderItem
     }
   },
   data () {
@@ -105,9 +108,7 @@ export default {
   methods : {
     ...mapActions(['_modals']),
     orderCallback () {
-      console.log(this.active.items)
       this._modals({'publishJo': {'open': true, data: this.orders, jr: this.active }});
-      console.log('orderCallback');
     },
     loadItem (data) {
       this.orders.push(data);

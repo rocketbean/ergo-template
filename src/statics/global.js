@@ -273,17 +273,6 @@ export const _glob = {
       return true;
   },
 
-  /**
-   * finding the index inside an array
-   * @var ;
-  */
-  findNpmsIndex (haystack, needle) {
-    return haystack.map(function (item) {
-      if (parseInt(item.user_id) === parseInt(needle)) {
-        return item.user_id
-      }
-    }).indexOf(parseInt(needle))
-  },
 
   /**
    * finding the index inside an array with index name
@@ -297,15 +286,6 @@ export const _glob = {
     }).indexOf(parseInt(needle))
   },
 
-  /**
-   * filters the array
-   * @var ;
-  */
-  excludeTests (haystack, q) {
-    var gx = this.filterItems(haystack.clients, q)
-    var ex = gx.forEach(f => haystack.clients.splice(haystack.clients.findIndex(e => e.name === f.name), 1))
-    return ex
-  },
 
   filterItems (arr, q) {
     const filterItem = (query) => {
@@ -329,13 +309,6 @@ export const _glob = {
     })
   },
 
-  /**
-   * replace relation to module name
-   * @var str;
-  */
-  modularize (arr) {
-
-  },
 
   /**
    * @param toggles the given value;
@@ -404,50 +377,6 @@ export const _glob = {
   },
 
   /**
-   * add labels and value for select display
-   * @var [array | object]
-  */
-  relatedTo (module, moduleName) {
-    var keys = Object.entries(module)
-    var newkeys = keys.filter((el) => {
-      if (el[0].indexOf('_id') > -1) {
-        if (el[0] !== 'user_id') {
-          if(el[0].indexOf('y_id') > -1) {
-            el[0] = el[0].replace('y_id', 'ies')
-          } else {
-            el[0] = el[0].replace('_id', 's')
-          }
-          return el
-        }
-      }
-    })
-    newkeys.map(k => {
-      var _n = k[0]
-      if( _n === 'companies') {
-        var ind = this.findIndexAtCode(store.getters[_n], k[1])
-      } else {
-        var ind = this.findIndex(store.getters[_n], k[1])
-      }
-      if(ind > -1) {
-        var statemap = store.getters[_n][ind]
-        if (statemap[moduleName] !== undefined) {
-          statemap[moduleName].push(module)
-        }
-      }
-    })
-  },
-
-  map_payee (payee) {
-    switch (parseInt(payee)) {
-      case 1:
-        return 'account_code_own'
-      case 2:
-        return 'account_code_out'
-      case 3:
-        return 'account_code_rec'
-    }
-  },
-  /**
    * status map
    * @ret [ str ]
   */
@@ -512,39 +441,6 @@ export const _glob = {
     }
   },
 
-  /**
-   * status map
-   * @ret [ str ]
-  */
-  map_priority (priority) {
-    switch (priority) {
-      case 1:
-        return {
-          label: 'Low',
-          color: 'positive'
-        }
-      case 2:
-        return {
-          label: 'Medium',
-          color: 'warning'
-        }
-      case 3:
-        return {
-          label: 'High',
-          color: 'negative'
-        }
-      case 4:
-        return {
-          label: 'Quote',
-          color: 'tertiary'
-        }
-      default:
-        return {
-          label: 'undefined',
-          color: 'gray'
-        }
-    }
-  },
 
   /**
    * pattern map
@@ -576,6 +472,15 @@ export const _glob = {
           sublabel: 'undefined',
           color: 'gray'
         }
+    }
+  },
+
+  calculateItems(items, tax = false) {
+    let _t = 0;
+    items.map(item => _t += parseInt(item.estimation))
+    return {
+      total: _t,
+      tax
     }
   }
 }
