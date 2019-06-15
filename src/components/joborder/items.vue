@@ -25,7 +25,7 @@
 import {mapGetters, mapActions} from 'vuex'
 import {_glob} from 'src/statics/global'
 export default {
-  props: ['items', 'jr', 'publishModal'],
+  props: ['jr', 'publishModal'],
   watch: {
     publishModal: {
       handler (value) {
@@ -64,7 +64,6 @@ export default {
   },
   mounted () {
     this.getTotal()
-    console.log(this.itms)
   }
 }
 </script>

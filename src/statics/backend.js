@@ -80,7 +80,7 @@ export const route = {
       properties: {
         jobrequests: {
           joborders: {
-            store: (supplier, property, jr) => apiroute + 'suppliers/' + supplier.id + '/properties/' + property.id + '/jobrequests/' + jr.id + '/store'
+            store: (supplier, property, jr) => apiroute + 'suppliers/' + supplier.id + '/properties/' + property.id + '/jobrequests/' + jr.id + '/joborders/store'
           }
         }
       }

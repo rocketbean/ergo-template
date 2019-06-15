@@ -19,9 +19,15 @@ import addJobOrder from 'src/components/stream/jo_add'
 import jrview from 'src/components/stream/jrview'
 import joPublish from 'src/components/joborder/publish'
 import joItems from 'src/components/joborder/items'
+import step2 from 'src/components/joborder/step2'
+import step3 from 'src/components/joborder/step3'
+import unlisted from 'src/components/joborder/unlisted'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
   Vue.component('joItems', joItems)
+  Vue.component('jo_step2', step2)
+  Vue.component('jo_step3', step3)
+  Vue.component('unlisted', unlisted)
   Vue.component('joPublish', joPublish)
   Vue.component('addProperties', addProperties)
   Vue.component('addSupplier', addSupplier)

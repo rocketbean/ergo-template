@@ -10,3 +10,7 @@ export function _pushJoItems ({commit, state}, item) {
 	  return commit('pushJoItems_', item)
 	}
 }
+
+export function _joForm ({commit}, payload) {
+  return commit('joForm_', payload)
+}

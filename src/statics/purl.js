@@ -76,13 +76,16 @@ export const _purl = {
    * @param throws the post request to the server;
    * @var func;
   */
-  throwPost (xuri, data = {}) {
+  throwPost (xuri, data = {}, headers) {
     var _t = this.setToken()
+    let config = {
+      headers
+    }
     var _r = xuri + _t
     if (data === '' || data === null) {
       return axe.post(_r)
     } else {
-      return axe.post(_r, data)
+      return axe.post(_r, data, config)
     }
   },
 
@@ -90,13 +93,13 @@ export const _purl = {
    * @param xuri | data : constructs the post function;
    * @var func;
   */
-  post (xuri, data = {}) {
+  post (xuri, data = {}, headers = {}) {
     if (!this.logged()) {
       return _user.rehash().then(r => {
-        return this.throwPost(xuri, data)
+        return this.throwPost(xuri, data, headers)
       })
     } else {
-      return this.throwPost(xuri, data)
+      return this.throwPost(xuri, data, headers)
     }
   },
 

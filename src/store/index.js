@@ -9,6 +9,7 @@ import suppliers from './suppliers'
 import requests from './requests'
 import modals from './modals'
 import active from './active'
+import stream from './stream'
 
 /*
  * If not building with SSR mode, you can
@@ -23,7 +24,8 @@ export default function (/* { ssrContext } */) {
       suppliers,
       requests,
       modals,
-      active
+      active,
+      stream
       // example
     },
 

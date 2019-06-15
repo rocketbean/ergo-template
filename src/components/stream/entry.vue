@@ -51,7 +51,7 @@ import { _token, _user } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 import axios from 'axios'
 export default {
-  props: ['jr','activator'],
+  props: ['jr'],
   computed : {
     ...mapGetters(['active']),
   },
@@ -78,12 +78,11 @@ export default {
   methods: {
     ...mapActions(['_modals', '_activate']),
     activateJr(jobrequest) {
-      this._modals({'jrview': {open: true}})
-      this.activator(jobrequest)
+      this._modals({'jrview': {open: true, jobrequest: jobrequest}})
+      // this.activator(jobrequest)
     },
     loadItem (item) {
       this.itemForm = item
-
     },
     setTextLimiter (val, nos) {
       if(val !== null) {

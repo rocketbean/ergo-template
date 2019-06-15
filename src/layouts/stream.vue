@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import { _purl } from 'src/statics/purl'
 import { route, storage } from 'src/statics/backend'
 import { _token, _user } from 'src/statics/token'
@@ -132,6 +133,7 @@ export default {
     }
   },
   methods: { 
+    ...mapActions(['_stream']),
     getPrime(photo) {
       return storage + photo;
     },
@@ -161,6 +163,7 @@ export default {
     test() {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.auth._t
       _purl.get(route.stream.fetch(this.index)).then(r => {
+        this._stream({'supplier': r.data})
         this.supplier = r.data
         this.loadclient = true
         this.$q.loading.hide()

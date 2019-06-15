@@ -63,8 +63,8 @@ export default {
       this.itemForm.jr = this.item
       this.itemForm.id = this.item.id
       this._pushJoItems(this.itemForm)
+      this.item.selector = true
       // this.loadItem(this.itemForm)
-
       this.resetItemForm()
     },
     publish () {
@@ -78,7 +78,6 @@ export default {
     },
   },
   mounted () {
-    console.log(this.$store)
   }
 }
 </script>

@@ -5,11 +5,17 @@ export default {
     },
     jrview: {
       open: false,
+      jobrequest: {}
     },
     publishJo: {
       open: false,
       data: {},
-      jr: {},
+      jr: {
+        items: []
+      },
+      form: {
+        remarks: ''
+      },
       items: []
     },
     changePrimary: {

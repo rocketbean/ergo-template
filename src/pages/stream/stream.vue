@@ -1,12 +1,12 @@
 <template>
   <q-page class = "flex " style = "padding:30px;justify-content:center;">
     <joPublish/>
-    <jrview  :active="jr"/>
+    <jrview/>
     <q-inner-loading :showing="visible">
       <q-spinner size="50px" color="primary" />
     </q-inner-loading>
     <div class="q-pa-md " v-for="entry in entries">
-      <entry  :jr="entry" :activator="activator"/>
+      <entry  :jr="entry" />
     </div>
   </q-page>
 </template>
@@ -28,7 +28,6 @@ export default {
   },
   data( ) {
     return {
-      jr: {},
       visible: true,
       _auth: {
         _t: '',
@@ -59,9 +58,6 @@ export default {
       return d
     })
     },
-    activator (data) {
-      this.jr = data
-    }
   },
   mounted () {
     this.ind = this.index

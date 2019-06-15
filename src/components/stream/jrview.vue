@@ -66,7 +66,7 @@ import {_token} from 'src/statics/token'
 import {_purl} from 'src/statics/purl'
 
 export default {
-  props: ['active'],
+  props: [],
   watch: {
     'orders': {
       handler (value) {
@@ -90,6 +90,9 @@ export default {
     ...mapGetters(['modals']),
     jrv () {
       return this.modals.jrview;
+    },
+    active () {
+      return this.modals.jrview.jobrequest
     },
     joi () {
       return JobOrderItem
