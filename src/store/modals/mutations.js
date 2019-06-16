@@ -18,3 +18,9 @@ export const joForm_ = (state, payload) => {
   state.modals.publishJo.form[payload.form] = payload.value
 }
 
+export const resetPublishJo_ = (state, payload) => {
+  state.modals.publishJo = payload
+}
+
+
+

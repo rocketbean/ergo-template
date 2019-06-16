@@ -476,8 +476,8 @@ export const _glob = {
   },
 
   calculateItems(items, tax = false) {
-    let _t = 0;
-    items.map(item => _t += parseInt(item.estimation))
+    let _t = Number(0);
+    items.map(item => _t += Number(item.estimation))
     return {
       total: _t,
       tax

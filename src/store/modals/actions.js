@@ -14,3 +14,19 @@ export function _pushJoItems ({commit, state}, item) {
 export function _joForm ({commit}, payload) {
   return commit('joForm_', payload)
 }
+
+
+export function _resetPublishJo ({commit}, payload) {
+  let pj = {
+      open: false,
+      data: {},
+      jr: {
+        items: []
+      },
+      form: {
+        remarks: ''
+      },
+      items: []
+    }
+  return commit('resetPublishJo_', pj)
+}

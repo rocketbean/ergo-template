@@ -101,12 +101,13 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['_resetPublishJo']),
     publishjo () {
       _purl.post(route.suppliers.supplier.properties.jobrequests.joborders.store(this.streamSupplier, this.jr.property, this.jr), {
         'remarks': this.publish.form.remarks,
         'items': this.joborderitems,
       }, { 'Authorization': _token.getRawToken() }).then(r => {
-        console.log(r)
+        this._resetPublishJo();
       })
     },
     save () {

@@ -7,7 +7,7 @@
           <q-item-label caption>{{ item.description }}</q-item-label>
         </q-item-section>
         <q-item-section  side>
-          <q-item-label >$ {{ item.estimation }} </q-item-label>
+          <q-item-label >$ {{ Number(item.estimation).toFixed(2) }} </q-item-label>
         </q-item-section >
       </q-item>
       <q-item dense>
@@ -15,7 +15,7 @@
           Total
         </q-item-section >
         <q-item-section  side>
-          <q-item-label >${{total.amount}} </q-item-label>
+          <q-item-label >${{ total.amount }} </q-item-label>
         </q-item-section >
       </q-item>
     </q-list>
