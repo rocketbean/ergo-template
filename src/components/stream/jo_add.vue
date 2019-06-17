@@ -23,7 +23,6 @@ import { mapGetters, mapActions } from 'vuex'
 import {route} from 'src/statics/backend'
 import {_token} from 'src/statics/token'
 import {_purl} from 'src/statics/purl'
-
 export default {
   props: ['item', 'loadItem', 'orderCallback'],
   computed: {

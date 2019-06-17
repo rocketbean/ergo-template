@@ -12,6 +12,9 @@
 
     <q-item-section side center>
       <div class = "flex" style ="flex-direction:row">
+        <q-btn round flat icon="list_alt" v-if="jobrequest.joborders.length > 0" >
+          <q-badge floating color="red">{{ unseen }}</q-badge>
+        </q-btn>
         <q-btn round flat icon="close" @click="destroyJr(jobrequest)"/>
         <q-btn round flat icon="chevron_right" @click="activateJr()"/>
       </div>
@@ -26,6 +29,15 @@ export default {
   props: ['jobrequest', 'serve'],
   computed: {
     ...mapGetters(['active']),
+    unseen () {
+      let val = 0;
+      this.jobrequest.joborders.map(jo => {
+        if(jo.view === 2) {
+          val = val + 1
+        }
+      })
+      return val
+    }
   },
   methods: {
     ...mapActions(['_modals', '_activate']),
