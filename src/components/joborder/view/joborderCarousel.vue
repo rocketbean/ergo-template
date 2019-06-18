@@ -2,17 +2,18 @@
   <q-carousel
     swipeable
     animated
+    navigation
+    height = "320px"
     v-model="slide"
-    thumbnails
     autoplay
     infinite
     arrows
     :fullscreen.sync="fullscreen"
   >
-    <q-carousel-slide v-for = "(photo, index) in item.photos" :key= "index" :name="index + 1" :img-src="photoUrl(photo.path)" />
+    <q-carousel-slide v-for = "(photo, index) in item.photos" :key= "index" :name="index + 1" :img-src="photoUrl(photo.thumb)" />
     <template v-slot:control>
       <q-carousel-control
-        position="bottom-right"
+        position="bottom-left"
         :offset="[18, 18]"
       >
         <q-btn

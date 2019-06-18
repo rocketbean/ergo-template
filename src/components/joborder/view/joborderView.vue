@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md q-gutter-sm">
+  <div class=" q-gutter-sm">
       <q-card class = "shadow-0">
         <!-- <q-img src="https://media-cdn.tripadvisor.com/media/photo-s/0a/47/a8/91/chicken-salad-sandwich.jpg" /> -->
         <joborderModalCarousel :item="item"/>
