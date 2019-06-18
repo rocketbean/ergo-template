@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model = "jrv.open" transition-show="fadeIn" transition-hide="fadeOut" :maximized="maximizedToggle" persistent>
+  <q-dialog v-model = "jobModal.open" transition-show="fadeIn" transition-hide="fadeOut" :maximized="maximizedToggle" persistent>
     <q-layout view="hHh lpR ffR"  container class="bg-primary" style="width: 80vw; max-width: 100vw; height:90vh;" >
       <q-header >
         <q-bar class ="bg-blue-grey-8 shadow-1">
@@ -20,7 +20,7 @@
       <q-footer :style = "showFooter ? 'max-height:20vh;overflow:auto' : ''" class = "bg-blue-grey-8 " >
         <q-scroll-area style="height: 20vh; " v-if="showFooter">
           <q-list >
-            <jrItemView v-for = "(item, index) in active.items" :index="index" :item="item" :jractive = "jractive"/>
+            <jrItemView v-for = "(item, index) in joborder.items" :index="index" :item="item.jobrequestitem" :jractive = "activateItem"/>
           </q-list>
         </q-scroll-area>
           <template v-slot:top-left>
@@ -36,7 +36,8 @@
       <q-drawer side="right"  v-model="drawerR" :width="350" :breakpoint="300" dark content-class="q-pa-sm bg-blue-grey-8 text-white " >
         <div >
           <div class="q-pa-md">
-            <addJobOrder :item = "jritem" :loadItem="loadItem" :orderCallback = "orderCallback"/>
+            <!-- <addJobOrder :item = "jritem" :loadItem="loadItem" :orderCallback = "orderCallback"/> -->
+            <joborderModalView :joborder= "joborder" :item="joitem"/>
           </div>
         </div>
       </q-drawer>
@@ -60,71 +61,49 @@
   </q-dialog>
 </template>
 <script>
+import { _purl } from 'src/statics/purl'
 import { mapGetters, mapActions } from 'vuex'
-import {route} from 'src/statics/backend'
-import {_token} from 'src/statics/token'
-import {_purl} from 'src/statics/purl'
+import { route, storage } from 'src/statics/backend'
+import { _token, _user } from 'src/statics/token'
+import { _glob } from 'src/statics/global'
 
 export default {
-  watch: {
-    'orders': {
-      handler (value) {
-        console.log(value)
-      },
-      deep:true
-    },
-    'active': {
-      handler (value) {
-        if(value.items.length > 0) {
-          this.jritem = value.items[0]
-          this.showFooter = true
-        } else {
-          this.showFooter = false
-        }
-      },
-      deep: true
-    },
-  },
   computed: {
-    ...mapGetters(['modals']),
-    jrv () {
-      return this.modals.jrview;
+    ...mapGetters(['modals', 'active']),
+    jobModal () {
+    	return this.modals.joborderModal
     },
-    active () {
-      return this.modals.jrview.jobrequest
+    jobrequest () {
+    	return this.active.jobrequest
     },
-    joi () {
-      return JobOrderItem
+    joborder () {
+    	return this.active.joborder
     }
   },
   data () {
     return {
       keyitem: 0,
-      orders: [],
       jritem: {},
+      joitem: {},
       showFooter: true,
       drawerR: true,
       maximizedToggle: false
     }
   },
-  methods : {
-    ...mapActions(['_modals']),
-    orderCallback () {
-      this._modals({'publishJo': {'open': true, data: this.orders, jr: this.active }});
+  methods: {
+    ...mapActions([]),
+    loadItem () {
+
     },
-    loadItem (data) {
-      this.orders.push(data);
-      this.active.items[this.keyitem].selector = true
-    },
-    jractive(item, ind) {
+    activateItem(item, ind) {
       this.keyitem = ind
       this.jritem = item
+      this.joitem = this.joborder.items[ind]
+      console.log(this.joitem)
     }
-
   },
   mounted () {
-
+    console.log(this.active.joborder)
   }
-
 }
 </script>

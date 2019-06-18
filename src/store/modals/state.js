@@ -7,6 +7,9 @@ export default {
       open: false,
       jobrequest: {}
     },
+    joborderModal: {
+      open: false,
+    },
     publishJo: {
       open: false,
       data: {},

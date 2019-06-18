@@ -1,6 +1,7 @@
 <template>
   <q-page style = "background-color:whitesmoke">
     <addProperties/>
+    
     <div v-if="properties.length < 1" class = "full-width" style = "height: 80vh; display:flex; align-items:center; justify-content:center ">
       <h5 class = "text-grey">
         <q-btn icon = "fas fa-plus-circle" round color= "primary" @click="_modals({'addProperties': {open: true}})">

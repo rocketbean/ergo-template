@@ -50,7 +50,7 @@ export default {
     },
     activateJo () {
       this._activate({joborder: this.jo})
-      this._modals({'addJrItem': {open: true}})
+      this._modals({'joborderModal': {open: true}})
     },
     setTextLimiter (val) {
       return _glob.setTextLimiter(val, 85)

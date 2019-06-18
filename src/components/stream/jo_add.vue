@@ -58,22 +58,22 @@ export default {
         tags: [],
       }
     },
-    save () {
-      this.itemForm.jr = this.item
-      this.itemForm.id = this.item.id
-      this._pushJoItems(this.itemForm)
-      this.item.selector = true
-      // this.loadItem(this.itemForm)
-      this.resetItemForm()
-    },
-    publish () {
-      this.orderCallback()
-    },
     getFile (data) {
       let file = JSON.parse(data.xhr.response)
       this.itemForm.photos.push(file.photo)
       this.itemForm.videos.push(file.video)
       this.itemForm.files.push(file.file)
+    },
+    save () {
+      this.itemForm.jr = this.item
+      this.itemForm.id = this.item.id
+      this._pushJoItems(this.itemForm)
+      this.item.selector = true
+      this.loadItem(this.itemForm)
+      this.resetItemForm()
+    },
+    publish () {
+      this.orderCallback()
     },
   },
   mounted () {

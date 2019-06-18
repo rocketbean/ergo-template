@@ -24,9 +24,17 @@ import step3 from 'src/components/joborder/step3'
 import unlisted from 'src/components/joborder/unlisted'
 import joListModal from 'src/components/joborder/publishedList'
 import joListModal_items from 'src/components/joborder/publishedList_items'
+import joborderModal from 'src/components/joborder/view/joborderModal'
+import joborderModalView from 'src/components/joborder/view/joborderView'
+import joborderModalCarousel from 'src/components/joborder/view/joborderCarousel'
 
 // "async" is optional
 export default async ({ app, router, Vue }) => {
+
+  Vue.component('joborderModal', joborderModal)
+  Vue.component('joborderModalView', joborderModalView)
+  Vue.component('joborderModalCarousel', joborderModalCarousel)
+  
   Vue.component('joListModal-items', joListModal_items)
   Vue.component('joListModal', joListModal)
   Vue.component('joItems', joItems)

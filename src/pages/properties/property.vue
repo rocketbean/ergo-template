@@ -5,6 +5,7 @@
     <addJrItem/>
     <joListModal/>
     <changePrimary/>
+    <joborderModal/>
     <div class = "flex">
       <div class = "bg-grey-8 full-width" style = "height:25vh; border-radius:4px" v-if="!loadMap">
       </div>
