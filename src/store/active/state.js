@@ -11,6 +11,7 @@ export default {
       }
     },
     jobrequest: {name: ''},
+    joborder: {remarks: ''},
     jritem: {},
     location: {}
   }

@@ -27,7 +27,6 @@ export default {
   methods: {
     ...mapActions(['_modals', '_activate']),
     activateJr() {
-      console.log(this.index)
       this.jractive(this.item, this.index);
     },
     setTextLimiter (val) {

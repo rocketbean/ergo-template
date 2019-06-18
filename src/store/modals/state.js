@@ -18,6 +18,9 @@ export default {
       },
       items: []
     },
+    publishList: {
+      open: false,
+    },
     changePrimary: {
       open: false,
       property: {},

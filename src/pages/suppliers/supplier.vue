@@ -107,7 +107,7 @@ export default {
   methods: {
     ...mapActions(['_modals', '_activate']),
     changePrimary () {
-      this._modals({'changePrimary': {'open' : true, 'supplier' : this.supplier, 'callback': this.getPrime }})
+      this._modals({'changePrimary': {'open' : true, 'data' : this.active.supplier, 'uri': route.suppliers.supplier.primary.update, 'active': 'supplier'}})
     },
     getPosition(location) {
       return {

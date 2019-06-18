@@ -77,6 +77,9 @@ export const route = {
       location: {
         store: supplier => apiroute + 'suppliers/' + supplier + '/locations/store'
       },
+      primary: {
+        update: (supplier, photo) => apiroute + 'suppliers/' + supplier.id + '/update/primary/' + photo.id
+      },
       properties: {
         jobrequests: {
           joborders: {

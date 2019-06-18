@@ -66,8 +66,9 @@ export default {
   methods: {
     ...mapActions(['_activate', '_modals']),
     save () {
-      _purl.post(route.properties.property.primary.update(this.changePrimary.property, this.photo)).then(r => {
-        this._activate({'property': r.data})
+      console.log(this.changePrimary)
+      _purl.post(this.changePrimary.uri(this.changePrimary.data, this.photo)).then(r => {
+        this._activate({ [ this.changePrimary.active ]: r.data})
         this._modals({'changePrimary': { 'open' : false }})
       })
     },

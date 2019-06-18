@@ -3,6 +3,7 @@
     <attachLocation/>
     <addJobRequest/>
     <addJrItem/>
+    <joListModal/>
     <changePrimary/>
     <div class = "flex">
       <div class = "bg-grey-8 full-width" style = "height:25vh; border-radius:4px" v-if="!loadMap">
@@ -177,7 +178,7 @@ export default {
       }
     },
     changePrimary () {
-      this._modals({'changePrimary': {'open' : true, 'property' : this.property, 'callback': this.getPrime }})
+      this._modals({'changePrimary': {'open' : true, 'data' : this.property, 'active': 'property', 'uri': route.properties.property.primary.update }})
     },
     serve () {
       _purl.post(route.properties.property.get(this.$route.params.property)).then(r => {

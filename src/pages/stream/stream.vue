@@ -11,9 +11,9 @@
   </q-page>
 </template>
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import { _purl } from 'src/statics/purl'
 import { route, storage } from 'src/statics/backend'
-import { mapGetters, mapActions } from 'vuex'
 import { _token, _user } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 import axios from 'axios'

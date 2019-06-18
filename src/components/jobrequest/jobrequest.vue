@@ -12,11 +12,11 @@
 
     <q-item-section side center>
       <div class = "flex" style ="flex-direction:row">
-        <q-btn round flat icon="list_alt" v-if="jobrequest.joborders.length > 0" >
-          <q-badge floating color="red">{{ unseen }}</q-badge>
-        </q-btn>
         <q-btn round flat icon="close" @click="destroyJr(jobrequest)"/>
         <q-btn round flat icon="chevron_right" @click="activateJr()"/>
+        <q-btn round flat icon="list_alt" v-if="jobrequest.joborders.length > 0" @click = "activatePublishList()">
+          <q-badge floating color="red">{{ unseen }}</q-badge>
+        </q-btn>
       </div>
     </q-item-section>
   </q-item>
@@ -44,6 +44,10 @@ export default {
     activateJr() {
       this._activate({jobrequest: this.jobrequest})
       this._modals({'addJrItem': {open: true}})
+    },
+    activatePublishList () {
+      this._activate({jobrequest: this.jobrequest})
+      this._modals({'publishList': {open: true}})
     },
     destroyJr(jobrequest) {
       _purl.post(route.properties.property.jobrequest.destroy(jobrequest)).then(r => {
