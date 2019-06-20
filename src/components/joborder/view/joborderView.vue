@@ -5,18 +5,23 @@
         <joborderModalCarousel :item="item" v-if="item.photos.length > 0"/>
         <q-card-section class = "bg-blue-grey-8">
           <div :style = "item.photos.length > 0 ? 'margin-top:-12px' : 'display:flex;align-items:center'">
-  
-              <div :style="primaryStyle">
-                <div class="col-auto text-weight-medium text-capitalize ellipsis" style = "font-size:110%; display: flex;align-items: center;padding-bottom: 10px;">
+              <div class = "full-width" :style="primaryStyle">
+                <div class="col-auto text-weight-medium text-capitalize ellipsis" style = "font-size:110%; display: flex;align-items: center;padding-bottom: 10px; width: 100%">
                   <q-avatar avatar class=" shadow-3" size="60px">
                       <q-img  round :src="getPrime(joborder.supplier.primary.thumb)" /> 
                   </q-avatar>
                   <div class = "rounded-borders" style = "display: flex;flex-direction: column;padding-left: 4px; width: 100%">
-                    <span>
+                    <div style = "display: flex;width: 100% ">
                       {{ joborder.supplier.name }}
-                    </span>
+                    </div>
                     <q-rating v-model="stars" :max="5" size="16px" />
                   </div>
+                  <q-space/>
+                  <q-btn color= "positive" round size = "sm" icon = "check" @click = "openApproveJo"> 
+                    <q-tooltip>
+                      Approve this quotation
+                    </q-tooltip> 
+                  </q-btn>
                 </div>
               </div>
           </div>
@@ -29,11 +34,6 @@
           <div class="text-subtitle2 text-white text-weight-light" style = "padding:4px"><small>{{ item.remarks }}</small></div>
         </q-card-section>
 
-
-        <q-card-actions class = "bg-blue-grey-8">
-          <q-btn flat round icon="event"  />
-          <q-btn flat color="primary" @click="res">Reserve</q-btn>
-        </q-card-actions>
       </q-card>
   </div>
 </template>
@@ -62,13 +62,13 @@ export default {
     }
   },
   methods: {
-    ...mapActions([]),
-    res () {
-      console.log(this.item)
-    },
+    ...mapActions(['_modals']),
     getPrime(path) {
       return storage + path;
     },
+    openApproveJo () {
+      this._modals({'approveJobOrder': {open: true, title: this.joborder.supplier.name}})
+    }
   },
   mounted () {
   }

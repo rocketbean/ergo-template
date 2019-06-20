@@ -27,9 +27,12 @@ import joListModal_items from 'src/components/joborder/publishedList_items'
 import joborderModal from 'src/components/joborder/view/joborderModal'
 import joborderModalView from 'src/components/joborder/view/joborderView'
 import joborderModalCarousel from 'src/components/joborder/view/joborderCarousel'
+import approveJoborderModal from 'src/components/joborder/approve'
 
 // "async" is optional
 export default async ({ app, router, Vue }) => {
+
+  Vue.component('approveJoborderModal', approveJoborderModal)
 
   Vue.component('joborderModal', joborderModal)
   Vue.component('joborderModalView', joborderModalView)

@@ -112,7 +112,6 @@ export default {
     },
     'itemForm': {
       handler (value) {
-        console.log(value)
       },
       deep:true
     }

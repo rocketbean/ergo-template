@@ -1,13 +1,13 @@
 <template>
   <div>
     <q-list dark  separator >
-      <q-item clickable v-ripple v-for="item in itms">
+      <q-item clickable v-ripple v-for="item in items">
         <q-item-section>
-          <q-item-label>{{ setTextLimiter(item.jr.name) }}</q-item-label>
+          <q-item-label>{{ setTextLimiter(item.jobrequestitem.name) }}</q-item-label>
           <q-item-label caption>{{ item.description }}</q-item-label>
         </q-item-section>
         <q-item-section  side>
-          <q-item-label >$ {{ Number(item.estimation).toFixed(2) }} </q-item-label>
+          <q-item-label >$ {{ Number(item.amount).toFixed(2) }} </q-item-label>
         </q-item-section >
       </q-item>
       <q-item dense>
@@ -25,7 +25,7 @@
 import {mapGetters, mapActions} from 'vuex'
 import {_glob} from 'src/statics/global'
 export default {
-  props: ['jr', 'publishModal'],
+  props: ['jr', 'publishModal', 'items'],
   watch: {
     publishModal: {
       handler (value) {
@@ -39,9 +39,6 @@ export default {
     itms () {
       return this.joborderitems
     },
-    itm () {
-      return this.items
-    }
   },
   data () {
     return {
@@ -57,7 +54,7 @@ export default {
       return _glob.setTextLimiter(val, 35)
     },
     getTotal () {
-      let _t = _glob.calculateItems(this.itms);
+      let _t = _glob.calculateItems(this.items);
       this.total.amount = _t.total 
       this.total.taxed = _t.tax 
     }

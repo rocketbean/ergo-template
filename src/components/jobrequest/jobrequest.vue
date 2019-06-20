@@ -12,10 +12,16 @@
 
     <q-item-section side center>
       <div class = "flex" style ="flex-direction:row">
-        <q-btn round flat icon="close" @click="destroyJr(jobrequest)"/>
-        <q-btn round flat icon="chevron_right" @click="activateJr()"/>
+        <q-btn round flat icon="close" @click="destroyJr(jobrequest)" v-if="jobrequest.status_id < 1"/>
+        <q-btn round flat icon="chevron_right" @click="activateJr()"  v-if="jobrequest.status_id < 1"/>
         <q-btn round flat icon="list_alt" v-if="jobrequest.joborders.length > 0" @click = "activatePublishList()">
           <q-badge floating color="red" v-if = "unseen > 0">{{ unseen }}</q-badge>
+        </q-btn>
+        <q-btn round flat v-if="jobrequest.status_id > 2" icon="fas fa-exclamation-circle" >
+          <q-tooltip>
+            notifications
+          </q-tooltip>
+          </v-container>
         </q-btn>
       </div>
     </q-item-section>

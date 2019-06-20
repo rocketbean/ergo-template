@@ -477,7 +477,7 @@ export const _glob = {
 
   calculateItems(items, tax = false) {
     let _t = Number(0);
-    items.map(item => _t += Number(item.estimation))
+    items.map(item => _t += Number(item.amount))
     return {
       total: _t,
       tax

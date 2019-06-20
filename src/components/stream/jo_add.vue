@@ -4,7 +4,7 @@
     <q-banner class="bg-primary text-white shadow-2" style = "border-radius:10px">
       <small> {{ item.name }} </small>
     </q-banner>
-      <q-input type = "number" filled dark v-model="itemForm.estimation" label="Estimation" stack-label prefix="$"  />
+      <q-input type = "number" filled dark v-model="itemForm.amount" label="Estimation" stack-label prefix="$"  />
       <q-input type="textarea" filled dark v-model="itemForm.description" label="remarks" stack-label  autogrow /> 
       <q-uploader multiple class="full-width shadow-0" :url="beroute" dark @uploaded = "getFile" :field-name="(file) => 'file'"/>
     </div>
@@ -35,7 +35,7 @@ export default {
       itemForm: {
         jr: 0,
         id: 0,
-        estimation: 0,
+        amount: 0,
         description: '',
         files: [],
         photos: [],
@@ -65,7 +65,7 @@ export default {
       this.itemForm.files.push(file.file)
     },
     save () {
-      this.itemForm.jr = this.item
+      this.itemForm.jobrequestitem = this.item
       this.itemForm.id = this.item.id
       this._pushJoItems(this.itemForm)
       this.item.selector = true

@@ -10,6 +10,9 @@ export default {
     joborderModal: {
       open: false,
     },
+    approveJobOrder: {
+      open: false
+    },
     publishJo: {
       open: false,
       data: {},

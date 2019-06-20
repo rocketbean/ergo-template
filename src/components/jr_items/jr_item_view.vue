@@ -1,7 +1,7 @@
 <template>
   <q-item clickable>
     <q-item-section avatar >
-      <q-chip square v-if="jo" dense>
+      <q-chip square v-if="jo" dense style = "min-width: 70px">
         <q-avatar color="blue-grey-9" text-color="white">$</q-avatar>
         {{ jo.amount }}
       </q-chip>
