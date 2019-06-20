@@ -41,7 +41,7 @@
           <q-toolbar color="primary">
             <q-tabs v-model="tab" shrink>
               <q-tab name="jobrequests" icon="fas fa-house-damage"  />
-              <q-tab name="suppliers" icon="build"  />
+              <q-tab name="suppliers" icon="fas fa-users"  />
               <q-tab name="photos" icon="photo_library"  />
               <q-tab name="settings" icon="fas fa-cogs"  />
             </q-tabs>

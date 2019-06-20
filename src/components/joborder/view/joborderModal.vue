@@ -20,7 +20,7 @@
       <q-footer :style = "showFooter ? 'max-height:20vh;overflow:auto' : ''" class = "bg-blue-grey-8 " >
         <q-scroll-area style="height: 20vh; " v-if="showFooter">
           <q-list >
-            <jrItemView v-for = "(item, index) in joborder.items" :index="index" :item="item.jobrequestitem" :jractive = "activateItem"/>
+            <jrItemView v-for = "(item, index) in joborder.items" :index="index" :item="item.jobrequestitem" :jo="item" :jractive = "activateItem" />
           </q-list>
         </q-scroll-area>
           <template v-slot:top-left>
@@ -37,7 +37,7 @@
         <div >
           <div class="q-pa-md">
             <!-- <addJobOrder :item = "jritem" :loadItem="loadItem" :orderCallback = "orderCallback"/> -->
-            <joborderModalView :joborder= "joborder" :item="joitem"/>
+            <joborderModalView :joborder= "joborder" :item="joitem" v-if="!isEmpty(joitem)"/>
           </div>
         </div>
       </q-drawer>
@@ -68,10 +68,20 @@ import { _token, _user } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 
 export default {
+  watch: {
+    jobModalOpen (value) {
+      if(value) {
+        this.activateItem(this.jobrequest.items[0],0)
+      }
+    }
+  },
   computed: {
     ...mapGetters(['modals', 'active']),
     jobModal () {
-    	return this.modals.joborderModal
+      return this.modals.joborderModal
+    },
+    jobModalOpen () {
+      return this.modals.joborderModal.open
     },
     jobrequest () {
     	return this.active.jobrequest
@@ -95,15 +105,16 @@ export default {
     loadItem () {
 
     },
+    isEmpty (obj) {
+      return _glob.isEmpty(obj)
+    },
     activateItem(item, ind) {
       this.keyitem = ind
       this.jritem = item
       this.joitem = this.joborder.items[ind]
-      console.log(this.joitem)
     }
   },
   mounted () {
-    console.log(this.active.joborder)
   }
 }
 </script>

@@ -51,6 +51,15 @@ export default {
     activateJo () {
       this._activate({joborder: this.jo})
       this._modals({'joborderModal': {open: true}})
+      this.setAsViewed(this.jo)
+
+    },
+    setAsViewed(joborder) {
+      if(joborder.view > 1) {
+        _purl.post(route.joborders.viewed(joborder)).then( r => {
+          joborder.view = 1
+        })
+      }
     },
     setTextLimiter (val) {
       return _glob.setTextLimiter(val, 85)

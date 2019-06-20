@@ -69,6 +69,9 @@ export const route = {
     fetch: supplier => serviceRoute + supplier + '/fetch',
     stream: supplier => serviceRoute + supplier + '/stream',
   },
+  joborders: {
+    viewed: joborder => apiroute + 'joborders/' + joborder.id + '/viewed/'
+  },
   suppliers: {
     store: apiroute + 'suppliers/store',
     get: apiroute + 'suppliers',
@@ -83,7 +86,7 @@ export const route = {
       properties: {
         jobrequests: {
           joborders: {
-            store: (supplier, property, jr) => apiroute + 'suppliers/' + supplier.id + '/properties/' + property.id + '/jobrequests/' + jr.id + '/joborders/store'
+            store: (supplier, property, jr) => apiroute + 'suppliers/' + supplier.id + '/properties/' + property.id + '/jobrequests/' + jr.id + '/joborders/store',
           }
         }
       }

@@ -1,7 +1,11 @@
 <template>
   <q-item clickable>
     <q-item-section avatar >
-      <q-avatar  text-color="white" icon="fas fa-tools" />
+      <q-chip square v-if="jo" dense>
+        <q-avatar color="blue-grey-9" text-color="white">$</q-avatar>
+        {{ jo.amount }}
+      </q-chip>
+      <q-avatar v-else text-color="white" icon="fas fa-tools" />
     </q-item-section>
     <q-item-section>
       <q-item-label>{{item.name}}</q-item-label>
@@ -20,7 +24,7 @@ import { mapGetters, mapActions } from 'vuex'
 import { route } from 'src/statics/backend'
 import { _purl } from 'src/statics/purl'
 export default {
-  props: ['item', 'jractive', 'index'],
+  props: ['item', 'jractive', 'index', 'jo'],
   computed: {
     ...mapGetters(['active'])
   },

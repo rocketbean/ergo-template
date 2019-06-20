@@ -2,26 +2,31 @@
   <div class=" q-gutter-sm">
       <q-card class = "shadow-0">
         <!-- <q-img src="https://media-cdn.tripadvisor.com/media/photo-s/0a/47/a8/91/chicken-salad-sandwich.jpg" /> -->
-        <joborderModalCarousel :item="item"/>
+        <joborderModalCarousel :item="item" v-if="item.photos.length > 0"/>
         <q-card-section class = "bg-blue-grey-8">
-          <q-avatar avatar class="absolute shadow-3" style="top: 0; right: 12px; transform: translateY(-50%);" size="60px">
-            <q-img  round :src="getPrime(joborder.supplier.primary.thumb)" />
-          </q-avatar>
-          <div class="row no-wrap items-center">
-            <div class="col-auto text-weight-medium text-capitalize ellipsis" style = "font-size:110%">{{ joborder.supplier.name }}</div>
-            <div class="col-auto text-grey q-pt-md">
-                
-            </div>
+          <div :style = "item.photos.length > 0 ? 'margin-top:-12px' : 'display:flex;align-items:center'">
+  
+              <div :style="primaryStyle">
+                <div class="col-auto text-weight-medium text-capitalize ellipsis" style = "font-size:110%; display: flex;align-items: center;padding-bottom: 10px;">
+                  <q-avatar avatar class=" shadow-3" size="60px">
+                      <q-img  round :src="getPrime(joborder.supplier.primary.thumb)" /> 
+                  </q-avatar>
+                  <div class = "rounded-borders" style = "display: flex;flex-direction: column;padding-left: 4px; width: 100%">
+                    <span>
+                      {{ joborder.supplier.name }}
+                    </span>
+                    <q-rating v-model="stars" :max="5" size="16px" />
+                  </div>
+                </div>
+              </div>
           </div>
-
-          <q-rating v-model="stars" :max="5" size="32px" />
         </q-card-section>
 
         <q-card-section class = "bg-blue-grey-8">
+          <div class="text-subtitle1 text-right"><small class = "text-grey">est: </small>${{ item.amount }}</div>
           <span>{{ item.jobrequestitem.name }}</span> <br>
-          <small>estimation :</small>
-          <div class="text-subtitle1">$ {{ item.amount }}</div>
-          <div class="text-subtitle2 text-grey">{{ item.remarks }}</div>
+          <q-separator color="white"/>
+          <div class="text-subtitle2 text-white text-weight-light" style = "padding:4px"><small>{{ item.remarks }}</small></div>
         </q-card-section>
 
 
@@ -43,6 +48,13 @@ export default {
   props: ['joborder', 'item'],
   computed: {
     ...mapGetters(['active']),
+    primaryStyle () {
+      if(this.item.photos.length > 0) {
+        return "top: 0; left: 12px; transform: translateY(-50%);height:50px;margin-bottom:-25px"
+      } else {
+        return 'margin-bottom:-20px'
+      }
+    }
   },
   data () {
     return {
@@ -59,7 +71,6 @@ export default {
     },
   },
   mounted () {
-    console.log(this.item)
   }
 }
 </script>
