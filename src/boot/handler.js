@@ -3,6 +3,7 @@ import { _token, _user, ignoreRoutes } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 import { Loading } from 'quasar'
 import { logginRoute } from 'src/statics/backend'
+import statusIcon from 'src/components/status/status'
 import addProperties from 'src/components/addProperties'
 import attachLocation from 'src/components/location/location'
 import addJobRequest from 'src/components/jobrequest/JobRequestAdd'
@@ -31,6 +32,9 @@ import approveJoborderModal from 'src/components/joborder/approve'
 
 // "async" is optional
 export default async ({ app, router, Vue }) => {
+
+
+  Vue.component('statusIcon', statusIcon)
 
   Vue.component('approveJoborderModal', approveJoborderModal)
 

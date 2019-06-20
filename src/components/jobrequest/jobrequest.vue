@@ -6,7 +6,10 @@
       </q-avatar>
     </q-item-section>
     <q-item-section>
-      <q-item-label>{{jobrequest.name}}</q-item-label>
+      <q-item-label class = " full-width">
+        {{jobrequest.name}}
+        <statusIcon :status_id = "jobrequest.status_id" />
+      </q-item-label>
       <q-item-label caption>{{jobrequest.description}}</q-item-label>
     </q-item-section>
 

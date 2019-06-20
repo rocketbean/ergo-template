@@ -10,6 +10,7 @@ import requests from './requests'
 import modals from './modals'
 import active from './active'
 import stream from './stream'
+import status from './status'
 
 /*
  * If not building with SSR mode, you can
@@ -25,7 +26,8 @@ export default function (/* { ssrContext } */) {
       requests,
       modals,
       active,
-      stream
+      stream,
+      status,
       // example
     },
 
