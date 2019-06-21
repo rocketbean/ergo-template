@@ -57,6 +57,7 @@ export const mapTypes = ["administrative_area_level_5", "street_address", "stree
  /* backend routes */
 
 export const route = {
+  notify: apiroute + 'testClass',
   register: apiroute + 'register',
   attempt: apiroute + 'attempt',
   ergo: {
