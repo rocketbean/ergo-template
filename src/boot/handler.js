@@ -29,10 +29,11 @@ import joborderModal from 'src/components/joborder/view/joborderModal'
 import joborderModalView from 'src/components/joborder/view/joborderView'
 import joborderModalCarousel from 'src/components/joborder/view/joborderCarousel'
 import approveJoborderModal from 'src/components/joborder/approve'
+import topMenuGeneral from 'src/layouts/parts/top-menu-general'
+import topMenuUserNotification from 'src/layouts/parts/top-menu-user-notification'
 
 // "async" is optional
 export default async ({ app, router, Vue }) => {
-
 
   Vue.component('statusIcon', statusIcon)
 
@@ -63,6 +64,9 @@ export default async ({ app, router, Vue }) => {
   Vue.component('jrItemDisplay', jrItemDisplay)
   Vue.component('changePrimary', changePrimary)
   Vue.component('addJobOrder', addJobOrder)
+
+  Vue.component('topMenuGeneral', topMenuGeneral)
+  Vue.component('topMenuUserNotification', topMenuUserNotification)
 
   app.watch = {
     '$route': function (from, to) {

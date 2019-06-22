@@ -17,23 +17,11 @@
               </q-card-section>
             </q-card>
           </q-step>
-          <q-step
-            :name="2"
-            title="Create an ad group"
-            caption="Optional"
-            icon="notes"
-            :done="step > 2"
-          >
+          <q-step :name="2" title="add remarks for this quotation" caption="Optional" icon="notes" :done="step > 2" >
             <jo_step2 />
           </q-step>
 
-          <q-step
-            :name="3"
-            title="Create an ad group"
-            caption="Optional"
-            icon="check_circle"
-            :done="step > 2"
-          >
+          <q-step :name="3" title="Review your quotation" caption="Optional" icon="check_circle":done="step > 2">
             <jo_step3 />
           </q-step>
 

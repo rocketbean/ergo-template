@@ -6,8 +6,8 @@
         <q-card-section class = "bg-blue-grey-8">
           <div :style = "item.photos.length > 0 ? 'margin-top:-12px' : 'display:flex;align-items:center'">
               <div class = "full-width" :style="primaryStyle">
-                <div class="col-auto text-weight-medium text-capitalize ellipsis" style = "font-size:110%; display: flex;align-items: center;padding-bottom: 10px; width: 100%">
-                  <q-avatar avatar class=" shadow-3" size="60px">
+                <div class="text-weight-medium text-capitalize ellipsis" style = " display: flex;align-items: center;padding-bottom: 10px; width: 100%">
+                  <q-avatar avatar class=" shadow-3" size="50px">
                       <q-img  round :src="getPrime(joborder.supplier.primary.thumb)" /> 
                   </q-avatar>
                   <div class = "rounded-borders" style = "display: flex;flex-direction: column;padding-left: 4px; width: 100%">

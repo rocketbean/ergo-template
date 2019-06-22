@@ -12,35 +12,8 @@
         <div style  = "margin-right:20px">
           
           <!-- <q-btn dense flat round icon="fas fa-exclamation-circle" size="sm"/> -->
-      <q-btn color="white" icon="fas fa-exclamation-circle" round flat>
-        <q-menu content-class="bg-primary text-white shadow-3" auto-close max-height="260px">
-          <q-list style="min-width: 300px">
-            <q-item clickable>
-              <q-item-section>New tab</q-item-section>
-            </q-item>
-            <q-item clickable @click = "_modals({'addSuppliers': {'open': true}})">
-              <q-item-section>Register your Service Company</q-item-section>
-            </q-item>
-            <q-separator dark />
-            <q-item clickable>
-              <q-item-section>Recent tabs</q-item-section>
-            </q-item>
-            <q-item clickable>
-              <q-item-section>History</q-item-section>
-            </q-item>
-            <q-item clickable>
-              <q-item-section>Downloads</q-item-section>
-            </q-item>
-            <q-separator dark />
-            <q-item clickable>
-              <q-item-section>Settings</q-item-section>
-            </q-item>
-            <q-separator dark />
-            <q-item clickable>
-              <q-item-section>Help &amp; Feedback</q-item-section>
-            </q-item>
-          </q-list>
-        </q-menu>
+        <topMenuUserNotification/>
+        <topMenuGeneral/>
       </q-btn>
         </div>
       </q-toolbar>

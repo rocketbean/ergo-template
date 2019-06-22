@@ -60,6 +60,7 @@ export const route = {
   notify: apiroute + 'testClass',
   register: apiroute + 'register',
   attempt: apiroute + 'attempt',
+  alerts: apiroute + 'alerts',
   ergo: {
     countries: apiroute + 'ergo/countries',
     tags: apiroute + 'ergo/tags',
