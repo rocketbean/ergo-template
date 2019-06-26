@@ -11,7 +11,7 @@
     class = "rounded-borders shadow-2"
     :fullscreen.sync="fullscreen"
   >
-    <q-carousel-slide  v-for = "(photo, index) in item.photos" :key= "index" :name="index + 1" :img-src="photoUrl(photo.thumb)" />
+    <q-carousel-slide  v-for = "(photo, index) in item.photos" :key= "index" :name="index + 1" :img-src="photoUrl(photo.path)" />
     <template v-slot:control>
       <q-carousel-control
         position="top-right"

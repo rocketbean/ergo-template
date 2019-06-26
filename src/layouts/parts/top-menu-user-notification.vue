@@ -1,24 +1,28 @@
 <template>
-  <q-btn color="white" icon="notifications" round flat>
+  <q-btn color="white" icon="notifications" round flat>    
+    <joborderModal/>
+    <joListModal/>
+    <approveJoborderModal/>
+    <addJobRequest/>
+    <addJrItem/>
     <q-menu v-model = "menu" content-class="bg-primary text-white shadow-3" auto-close max-height="480px" >
       <q-infinite-scroll @load="getAlerts" :offset="250">
         <q-list separator >
-          <div v-for = "alert in alerts" style ="min-width:500px">
-            <q-item clickable>
+          <div v-for = "_a in notifications" style ="min-width:500px">
+            <q-item clickable @click.native= "_a.notify($store)">
               <q-item-section side>
-                <q-avatar>
-                  <q-icon name="star"  />
+                <q-avatar class = "shadow-3">
+                  <q-img class = "shadow-3" :src="getPrime(_a)"  />
                 </q-avatar>
               </q-item-section>
 
               <q-item-section>
-                <q-item-label>{{alert.title}}</q-item-label>
-                <q-item-label caption lines="2">{{ alert.message }}</q-item-label>
+                <q-item-label>{{_a.title}}</q-item-label>
+                <q-item-label caption lines="2">{{ _a.message }}</q-item-label>
               </q-item-section>
 
               <q-item-section side top>
-                <q-item-label caption>5 min ago</q-item-label>
-                <q-icon name="star" color="yellow" />
+                <q-item-label caption class = "text-grey-2 text-weight-thin">{{ _a.created_at }}</q-item-label>
               </q-item-section>
             </q-item>
             <q-separator spaced inset />
@@ -34,8 +38,9 @@
   </q-btn>
 </template>
 <script>
+import notification from 'src/statics/notification';
 import { mapGetters, mapActions } from 'vuex';
-import { route } from 'src/statics/backend'
+import { route, storage } from 'src/statics/backend'
 import { _purl } from 'src/statics/purl'
   export default {
     watch: {
@@ -43,7 +48,10 @@ import { _purl } from 'src/statics/purl'
         if(value) {
           // this.getAlerts();
         }
-      }
+      },
+    },
+    computed: {
+      ...mapGetters(['notifications']),
     },
     data () {
       return {
@@ -52,13 +60,26 @@ import { _purl } from 'src/statics/purl'
       }
     },
     methods: {
+      getPrime(_a) {
+        console.log(_a)
+        return storage + _a.subject.property.primary.thumb;
+      },
+       ...mapActions(['_notification', '_modals', '_active']),
       getAlerts() {
         _purl.post(route.alerts).then(r => {
           r.data.map( alert => {
-            this.alerts.push(alert)
+            let _ta = this.takeAction
+            this._notification(new notification(alert))
+            // this.$notifier._push(alert)
           })
         })
-      },
+      },    
+      takeAction() {
+        
+      }
+    },
+    mounted () {
+      
     }
   }
 </script>

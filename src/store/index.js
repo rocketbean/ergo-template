@@ -11,6 +11,7 @@ import modals from './modals'
 import active from './active'
 import stream from './stream'
 import status from './status'
+import notifications from './notifications'
 
 /*
  * If not building with SSR mode, you can
@@ -27,7 +28,7 @@ export default function (/* { ssrContext } */) {
       modals,
       active,
       stream,
-      status,
+      notifications,
       // example
     },
 
