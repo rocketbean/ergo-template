@@ -203,17 +203,6 @@ export default {
   mounted () {
     this.serve()
     this.testLocate()
-    // let datas = [];
-    // datas.push({"action":"dispatch","subject":"_activate","data":'{"jobrequest" : {"id":3,"user_id":1,"approved_by":null,"property_id":1,"status_id":2,"job_order_id":null,"name":"test","description":"test","created_at":"2019-06-21 06:40:43","updated_at":"2019-06-21 06:40:43","items":[{"id":7,"user_id":1,"property_id":1,"job_request_id":3,"name":"test","description":"test","created_at":"2019-06-21 06:40:53","updated_at":"2019-06-21 06:40:53","photos":[],"videos":[],"files":[],"tags":[]}],"photos":[],"files":[],"videos":[],"tags":[],"joborders":[]}}'});
-
-
-    // datas.push({"action":"dispatch","subject":"_modals","data":'{"addJrItem": {"open": true}}'})
-    // // let rem = JSON.parse(data.data)
-    // // console.log(this.$store[data.action]('_modals': { 'attachLocation': { 'open': true }}))
-    // // this.$store[data.action](data.subject)
-    // datas.map(data => {
-    //   this.$store[data.action](data.subject, JSON.parse(data.data))
-    // })
   },
 }
 </script>

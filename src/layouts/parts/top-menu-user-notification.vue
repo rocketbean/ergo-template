@@ -9,16 +9,16 @@
       <q-infinite-scroll @load="getAlerts" :offset="250">
         <q-list separator >
           <div v-for = "_a in notifications" style ="min-width:500px">
-            <q-item clickable @click.native= "_a.notify($store)">
+            <q-item clickable @click.native="actions(_a)">
               <q-item-section side>
                 <q-avatar class = "shadow-3">
-                  <q-img class = "shadow-3" :src="getPrime(_a)"  />
+                  <!-- <q-img class = "shadow-3" :src="getPrime(_a)"  /> -->
                 </q-avatar>
               </q-item-section>
 
               <q-item-section>
-                <q-item-label>{{_a.title}}</q-item-label>
-                <q-item-label caption lines="2">{{ _a.message }}</q-item-label>
+                <q-item-label>{{_a.data.title}}</q-item-label>
+                <q-item-label caption lines="2">{{ _a.data.message }}</q-item-label>
               </q-item-section>
 
               <q-item-section side top>
@@ -60,16 +60,20 @@ import { _purl } from 'src/statics/purl'
       }
     },
     methods: {
+       ...mapActions(['_notification', '_modals', '_active']),
       getPrime(_a) {
-        console.log(_a)
         return storage + _a.subject.property.primary.thumb;
       },
-       ...mapActions(['_notification', '_modals', '_active']),
+      actions (notification) {
+        if(notification.data._modals) {
+          this._modals(notification.data._modals)
+        }
+      },
       getAlerts() {
         _purl.post(route.alerts).then(r => {
           r.data.map( alert => {
-            let _ta = this.takeAction
-            this._notification(new notification(alert))
+            // let _ta = this.takeAction
+            this._notification(alert)
             // this.$notifier._push(alert)
           })
         })

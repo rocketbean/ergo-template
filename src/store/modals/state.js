@@ -5,7 +5,7 @@ export default {
     },
     jrview: {
       open: false,
-      jobrequest: {}
+      jobrequest: 0
     },
     joborderModal: {
       open: false,

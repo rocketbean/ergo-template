@@ -72,10 +72,14 @@ export const route = {
     stream: supplier => serviceRoute + supplier + '/stream',
   },
   joborders: {
+    get: joborder => apiroute + 'joborders/' + joborder,
     viewed: joborder => apiroute + 'joborders/' + joborder.id + '/viewed/',
     jobrequests: {
       confirm: (joborder, jobrequest) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/confirm/',
     }
+  },
+  jobrequests: {
+    get: jobrequest => apiroute + 'jobrequests/' + jobrequest,
   },
   suppliers: {
     store: apiroute + 'suppliers/store',

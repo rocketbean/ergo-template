@@ -29,6 +29,7 @@ export default function (/* { ssrContext } */) {
       active,
       stream,
       notifications,
+      status
       // example
     },
 

@@ -1,10 +1,13 @@
 <template>
   <q-dialog v-model = "jri.open" transition-show="fadeIn" transition-hide="fadeOut" :maximized="maximizedToggle" persistent>
     <q-layout view="hHh lpR ffR"  container class="bg-primary" style="width: 80vw; max-width: 100vw; height:90vh;" >
+
       <q-header >
+
         <q-bar class ="bg-blue-grey-8 shadow-1">
           <q-icon name="fas fa-house-damage" />
-          <q-space />
+          <q-space/>
+          <q-linear-progress indeterminate v-if ="modalLoader"   color="blue-grey-8" dark stripe rounded style="height: 10px"  class="q-mt-sm" />
           <q-btn dense flat icon="minimize" @click="maximizedToggle = false" :disable="!maximizedToggle">
             <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
           </q-btn>
@@ -15,7 +18,9 @@
             <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
           </q-btn>
         </q-bar>
+
       </q-header>
+
       <q-footer :style = "showFooter ? 'max-height:20vh;overflow:auto' : ''" class = "bg-blue-grey-8 " >
         <q-scroll-area style="height: 20vh; " v-if="showFooter">
           <q-list >
@@ -72,17 +77,15 @@
       </q-drawer>
         <q-page-container padding style = "height:775px" class = "">
           <q-card class="bg-primary text-white shadow-0" >
-          <q-card-section>
-            <!-- <div class="text-h6 text-center">{{ active.jobrequest.name }}</div> -->
-            <div v-if = "!showFooter" class =  "full-width flex" style="justify-content: center; align-items: center;min-height:600px">
-              <span style = "font-size:250%;font-weight:300" class=" text-grey-3 text-center"> Please add an item to your request <q-avatar icon = "fas fa-chevron-circle-right" style = "font-size:250%"/> </span>
-            </div>
-            <div v-else>
-              <jrItemDisplay :item="jritem" :updateCallback= "loadItem"/>
-            </div>
-          </q-card-section>
-          <q-card-section>
-          </q-card-section>
+            <q-card-section>
+              <!-- <div class="text-h6 text-center">{{ active.jobrequest.name }}</div> -->
+              <div v-if = "!showFooter" class =  "full-width flex" style="justify-content: center; align-items: center;min-height:600px">
+                <span style = "font-size:250%;font-weight:300" class=" text-grey-3 text-center"> Please add an item to your request <q-avatar icon = "fas fa-chevron-circle-right" style = "font-size:250%"/> </span>
+              </div>
+              <div v-else>
+                <jrItemDisplay :item="jritem" :updateCallback= "loadItem"/>
+              </div>
+            </q-card-section>
           </q-card> 
         </q-page-container>
     </q-layout>
@@ -114,7 +117,15 @@ export default {
       handler (value) {
       },
       deep:true
-    }
+    },
+    'jri': {
+      handler (value) {
+        if (value.open) {
+          this._FetchActivate(value.data).then(this.modalLoader = false)
+        }
+      },
+      deep: true
+    },
   },
   computed: {
     ...mapGetters(['modals', 'active']),
@@ -137,6 +148,7 @@ export default {
   data () {
     return {
       tags: [],
+      modalLoader: true,
       itemForm: {
         id: 0,
         name: '',
@@ -155,7 +167,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['_activate']),
+    ...mapActions(['_activate', '_FetchActivate']),
     loadItem (item) {
       this.itemForm = item
     },
@@ -211,6 +223,9 @@ export default {
         this._activate({jobrequest: r.data})
       })
     }
+  },
+  mounted () {
+
   }
 }
 </script>

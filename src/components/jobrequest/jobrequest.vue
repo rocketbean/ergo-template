@@ -8,6 +8,7 @@
     <q-item-section>
       <q-item-label class = " full-width">
         {{jobrequest.name}}
+        {{jobrequest.status_id}}
         <statusIcon :status_id = "jobrequest.status_id" />
       </q-item-label>
       <q-item-label caption>{{jobrequest.description}}</q-item-label>
@@ -49,7 +50,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['_modals', '_activate']),
+    ...mapActions(['_modals', '_FetchActivate', '_activate']),
     activateJr() {
       this._activate({jobrequest: this.jobrequest})
       this._modals({'addJrItem': {open: true}})
