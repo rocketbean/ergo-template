@@ -6,9 +6,10 @@
     <addJobRequest/>
     <addJrItem/>
     <q-menu v-model = "menu" content-class="bg-primary text-white shadow-3" auto-close max-height="480px" >
-      <q-infinite-scroll @load="getAlerts" :offset="250">
+      <q-infinite-scroll ref="qis" @load="getAlerts" :offset="offset" >
         <q-list separator >
           <div v-for = "_a in notifications" style ="min-width:500px">
+            <q-separator spaced inset />
             <q-item clickable @click.native="actions(_a)">
               <q-item-section side>
                 <q-avatar class = "shadow-3">
@@ -25,10 +26,9 @@
                 <q-item-label caption class = "text-grey-2 text-weight-thin">{{ _a.created_at }}</q-item-label>
               </q-item-section>
             </q-item>
-            <q-separator spaced inset />
           </div>
         </q-list>
-        <template v-slot:loading>
+        <template v-slot:loading >
           <div class="row justify-center q-my-md" style ="min-width:500px">
             <q-spinner-dots color="white" size="40px" />
           </div>
@@ -42,6 +42,7 @@ import notification from 'src/statics/notification';
 import { mapGetters, mapActions } from 'vuex';
 import { route, storage } from 'src/statics/backend'
 import { _purl } from 'src/statics/purl'
+import { _glob } from 'src/statics/global'
   export default {
     watch: {
       menu (value) {
@@ -56,13 +57,13 @@ import { _purl } from 'src/statics/purl'
     data () {
       return {
         menu : false,
-        alerts: []
+        alerts: [],
+        offset: 10
       }
     },
     methods: {
        ...mapActions(['_notification', '_modals', '_active']),
       getPrime(_a) {
-        console.log(_a)
         return storage + _a.data.subject.primary.thumb;
       },
       actions (notification) {
@@ -70,16 +71,16 @@ import { _purl } from 'src/statics/purl'
           this._modals(notification.data._modals)
         }
       },
-      getAlerts() {
+      getAlerts(index, done) {
         _purl.post(route.alerts).then(r => {
           r.data.data.map( alert => {
-            console.log(alert)
-            this._notification(alert)
+            if(!_glob.findIndexAt_(this.notifications, alert.id, 'id')) {
+              this._notification(alert)
+            }
+            done()
+            this.$refs.qis.stop()
           })
         })
-      },    
-      takeAction() {
-        
       }
     },
     mounted () {
