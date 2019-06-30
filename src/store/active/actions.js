@@ -10,15 +10,34 @@ function prereq (payload) {
   return _route[payload];
 }
 
+function resolver (_resolver, payload) {
+    if(_resolver.length === Object.keys(payload).length)
+      return true;
+    else 
+      return false;
+}
+
 export function _activate ({commit}, payload) {
   return commit('activate_', payload)
 }
 
 export function _FetchActivate ({commit}, payload) {
-  Object.keys(payload).map(p => {
-    let _r = prereq(p)
-    _purl.post(_r(payload[p])).then(r => {
-      return commit('activate_', {[p]: r.data})
+  return new Promise ((resolve, reject) => {
+    let _resolver = [];
+    Object.keys(payload).map(p => {
+      let _r = prereq(p)
+      _purl.post(_r(payload[p])).then(r => {
+        _resolver.push(p);
+        if(resolver(_resolver, payload)) {
+          resolve('test')
+        }
+        return commit('activate_', {[p]: r.data})
+      }).catch(e => {
+        _resolver.push(p);
+        if(resolver(_resolver, payload)) {
+          resolve('test')
+        }
+      })
     })
   })
   // console.log(payload)

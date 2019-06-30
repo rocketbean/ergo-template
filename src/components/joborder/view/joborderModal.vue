@@ -69,10 +69,13 @@ import { _glob } from 'src/statics/global'
 
 export default {
   watch: {
-    jobModalOpen (value) {
-      if(value) {
-        this.activateItem(this.jobrequest.items[0],0)
-      }
+    jobModal: {
+      handler (value) {
+        if (value.open) {
+          this._FetchActivate(value.data).then(r => this.activateItem(this.jobrequest.items[0],0) )
+        }
+      },
+      deep:true
     }
   },
   computed: {
@@ -101,7 +104,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions([]),
+    ...mapActions(['_FetchActivate']),
     loadItem () {
 
     },

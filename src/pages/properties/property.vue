@@ -202,7 +202,7 @@ export default {
   },
   mounted () {
     this.serve()
-    this.testLocate()
+    // this.testLocate()
   },
 }
 </script>

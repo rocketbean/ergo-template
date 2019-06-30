@@ -121,7 +121,7 @@ export default {
     'jri': {
       handler (value) {
         if (value.open) {
-          this._FetchActivate(value.data).then(this.modalLoader = false)
+          this._FetchActivate(value.data)
         }
       },
       deep: true

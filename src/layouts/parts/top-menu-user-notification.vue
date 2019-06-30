@@ -12,7 +12,7 @@
             <q-item clickable @click.native="actions(_a)">
               <q-item-section side>
                 <q-avatar class = "shadow-3">
-                  <!-- <q-img class = "shadow-3" :src="getPrime(_a)"  /> -->
+                  <q-img class = "shadow-3" :src="getPrime(_a)"  />
                 </q-avatar>
               </q-item-section>
 
@@ -62,7 +62,8 @@ import { _purl } from 'src/statics/purl'
     methods: {
        ...mapActions(['_notification', '_modals', '_active']),
       getPrime(_a) {
-        return storage + _a.subject.property.primary.thumb;
+        console.log(_a)
+        return storage + _a.data.subject.primary.thumb;
       },
       actions (notification) {
         if(notification.data._modals) {
@@ -71,10 +72,9 @@ import { _purl } from 'src/statics/purl'
       },
       getAlerts() {
         _purl.post(route.alerts).then(r => {
-          r.data.map( alert => {
-            // let _ta = this.takeAction
+          r.data.data.map( alert => {
+            console.log(alert)
             this._notification(alert)
-            // this.$notifier._push(alert)
           })
         })
       },    
