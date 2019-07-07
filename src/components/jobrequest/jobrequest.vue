@@ -1,12 +1,12 @@
 <template>
-  <q-item clickable>
+  <q-item clickable >
     <q-item-section avatar>
       <q-avatar square >
         <q-avatar round color="teal" text-color="white" icon="directions" />
       </q-avatar>
     </q-item-section>
     <q-item-section>
-      <q-item-label class = " full-width">
+      <q-item-label class = " full-width" @click="viewJobRequest">
         {{jobrequest.name}}
         {{jobrequest.status_id}}
         <statusIcon :status_id = "jobrequest.status_id" />
@@ -26,6 +26,11 @@
             notifications
           </q-tooltip>
           </v-container>
+        </q-btn>
+        <q-btn round flat icon="chevron_right" v-if="jobrequest.joborders.length > 0" @click = "viewJobRequest()">
+          <q-tooltip>
+            view jobrequest
+          </q-tooltip>
         </q-btn>
       </div>
     </q-item-section>
@@ -54,6 +59,9 @@ export default {
     activateJr() {
       this._activate({jobrequest: this.jobrequest})
       this._modals({'addJrItem': {open: true}})
+    },
+    viewJobRequest () {
+      this._modals({'jobrequestView': {open: true, data: {jobrequest: this.jobrequest.id}}})
     },
     activatePublishList () {
       this._activate({jobrequest: this.jobrequest})

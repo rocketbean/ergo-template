@@ -17,19 +17,29 @@
                     <q-rating v-model="stars" :max="5" size="16px" />
                   </div>
                   <q-space/>
-                  <q-btn color= "positive" round size = "sm" icon = "check" @click = "openApproveJo"> 
-                    <q-tooltip>
-                      Approve this quotation
-                    </q-tooltip> 
-                  </q-btn>
                 </div>
               </div>
           </div>
         </q-card-section>
 
         <q-card-section class = "bg-blue-grey-8">
-          <div class="text-subtitle1 text-right"><small class = "text-grey">est: </small>${{ item.amount }}</div>
-          <span>{{ item.jobrequestitem.name }}</span> <br>
+          <div class = "actions flex" style = "justify-content:flex-end"> 
+            <q-btn color= "positive" round size = "sm" icon = "check" @click = "openApproveJo" v-if="jobrequest.status_id === 2"> 
+              <q-tooltip>
+                Approve this quotation
+              </q-tooltip> 
+            </q-btn>
+
+            <q-btn color= "warning" round size = "sm" icon = "check" @click = "openApproveJo" v-if="jobrequest.status_id === 3"> 
+              <q-tooltip>
+                Approve this quotation
+              </q-tooltip> 
+            </q-btn>
+          </div>
+          <div style = "display:flex;justify-content:space-between;align-items:center;padding:4px">
+            <span>{{ item.jobrequestitem.name }}</span>
+            <div class="text-subtitle1 text-right"><small class = "text-grey">est: </small>${{ item.amount }}</div>
+          </div>
           <q-separator color="white"/>
           <div class="text-subtitle2 text-white text-weight-light" style = "padding:4px"><small>{{ item.remarks }}</small></div>
         </q-card-section>
@@ -48,6 +58,9 @@ export default {
   props: ['joborder', 'item'],
   computed: {
     ...mapGetters(['active']),
+    jobrequest () {
+      return this.active.jobrequest
+    },
     primaryStyle () {
       if(this.item.photos.length > 0) {
         return "top: 0; left: 12px; transform: translateY(-50%);height:50px;margin-bottom:-25px"

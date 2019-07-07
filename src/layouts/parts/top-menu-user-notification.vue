@@ -1,5 +1,6 @@
 <template>
   <q-btn color="white" icon="notifications" round flat>    
+    <jobrequestView/>
     <joborderModal/>
     <joListModal/>
     <approveJoborderModal/>

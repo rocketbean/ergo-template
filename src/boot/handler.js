@@ -31,10 +31,18 @@ import joborderModalCarousel from 'src/components/joborder/view/joborderCarousel
 import approveJoborderModal from 'src/components/joborder/approve'
 import topMenuGeneral from 'src/layouts/parts/top-menu-general'
 import topMenuUserNotification from 'src/layouts/parts/top-menu-user-notification'
+import jobrequestView from 'src/components/jobrequest/view/modal'
+import jobrequestViewSide from 'src/components/jobrequest/view/side-right'
+import jobrequestViewItemDisplay from 'src/components/jobrequest/view/itemDisplay'
 
 // "async" is optional
 export default async ({ app, router, Vue }) => {
-
+  //jobrequest view
+  Vue.component('jobrequestView', jobrequestView)
+  Vue.component('jobrequestViewSide', jobrequestViewSide)
+  Vue.component('jobrequestViewItemDisplay', jobrequestViewItemDisplay)
+  
+  //statuses
   Vue.component('statusIcon', statusIcon)
 
   Vue.component('approveJoborderModal', approveJoborderModal)

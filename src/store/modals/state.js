@@ -13,6 +13,10 @@ export default {
     approveJobOrder: {
       open: false
     },
+    jobrequestView: {
+      open: false,
+      data: {}
+    },
     publishJo: {
       open: false,
       data: {},
