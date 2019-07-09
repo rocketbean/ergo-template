@@ -23,18 +23,37 @@
         </q-card-section>
 
         <q-card-section class = "bg-blue-grey-8">
-          <div class = "actions flex" style = "justify-content:flex-end"> 
-            <q-btn color= "positive" round size = "sm" icon = "check" @click = "openApproveJo" v-if="jobrequest.status_id === 2"> 
-              <q-tooltip>
-                Approve this quotation
-              </q-tooltip> 
-            </q-btn>
+          <div class = "actions flex" style = "justify-content:space-between">
+            <q-chip square dense style = "justify-self:self-start">
+              <span style ="color:gray">total est: </span> ${{ generalTotal.total }}
+            </q-chip>
 
-            <q-btn color= "warning" round size = "sm" icon = "check" @click = "openApproveJo" v-if="jobrequest.status_id === 3"> 
-              <q-tooltip>
-                Approve this quotation
-              </q-tooltip> 
-            </q-btn>
+            <div>
+
+                <div  v-if = "jobrequest.status_id === 2">
+                  <q-btn round flat color="positive" icon = "check" size="sm" @click = "openApproveJo">
+                    <q-tooltip>
+                      approve this quotation
+                    </q-tooltip>
+                  </q-btn>
+                </div>
+
+                <div  v-if = "jobrequest.status_id === 3">
+                  <q-btn-group rounded outline>
+                    <q-btn rounded flat color="warning" icon="repeat" size="sm" :disabled="jobrequest.status_id === 3">
+                      <q-tooltip>
+                        rollback to pending
+                      </q-tooltip>
+                    </q-btn>
+                    <q-btn rounded flat color="positive" icon="chevron_right" size="sm" :disabled="jobrequest.status_id === 3">
+                      <q-tooltip>
+                        set as completed
+                      </q-tooltip>
+                    </q-btn>
+                  </q-btn-group>
+                </div>
+
+            </div>
           </div>
           <div style = "display:flex;justify-content:space-between;align-items:center;padding:4px">
             <span>{{ item.jobrequestitem.name }}</span>
@@ -67,11 +86,18 @@ export default {
       } else {
         return 'margin-bottom:-20px'
       }
+    },
+    generalTotal () {
+      return this.getTotal()
     }
   },
   data () {
     return {
       stars: 3,
+      total: {
+        amount: 0,
+        taxed: false
+      }
     }
   },
   methods: {
@@ -81,9 +107,13 @@ export default {
     },
     openApproveJo () {
       this._modals({'approveJobOrder': {open: true, title: this.joborder.supplier.name}})
+    },
+    getTotal () {
+      return _glob.calculateItems(this.joborder.items);
     }
   },
   mounted () {
+
   }
 }
 </script>

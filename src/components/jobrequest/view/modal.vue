@@ -20,7 +20,7 @@
       <q-drawer side="right"  v-model="drawerR" :width="350" :breakpoint="300" dark content-class="q-pa-sm bg-blue-grey-8 text-white " >
         <div style="height:100%">
           <div class="q-pa-md" v-if= "jobrequest.joborder">
-            <jobrequestViewSide :supplier="jobrequest.joborder.supplier" :items="jobrequest.joborder.items" :activateItem="activateItem"/>
+            <jobrequestViewSide :supplier="jobrequest.joborder.supplier" :items="jobrequest.joborder.items" :activateItem="activateItem" :keyItem = "keyitem"/>
           </div>
           <div v-else style = "display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;"> 
             <q-icon class = "text-white" name= "info" style = "font-size:300%;margin-bottom:20px"/>
@@ -32,7 +32,7 @@
       <q-page-container padding style = "height:775px" class = "">
         <q-card class="bg-primary text-white shadow-0" >
           <q-card-section>
-              <jobrequestViewItemDisplay :item="joitem" :updateCallback= "loadItem"/>
+              <jobrequestViewItemDisplay :item="joitem" :updateCallback= "loadItem" />
           </q-card-section>
         <q-card-section>
         </q-card-section>

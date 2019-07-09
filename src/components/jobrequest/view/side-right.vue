@@ -1,10 +1,10 @@
 <template>
   <div class=" q-gutter-sm">
       <q-card square class = "shadow-0">
-        <q-card-section class = "bg-blue-grey-8">
+        <q-card-section class = "bg-blue-grey-8" style = "padding-bottom:5px;">
           <div style = "margin-top:-12px">
-              <div class = "full-width" style="margin-bottom:-20px">
-                <div class="text-weight-medium text-capitalize ellipsis" style = " display: flex;align-items: center;padding-bottom: 10px; width: 100%">
+              <div class = "full-width" >
+                <div class="text-weight-medium text-capitalize ellipsis" style = " display: flex;align-items: center; width: 100%">
                   <q-avatar avatar class=" shadow-3" size="50px">
                       <q-img  round :src="getPrime(supplier.primary.thumb)" /> 
                   </q-avatar>
@@ -14,15 +14,47 @@
                     </div>
                     <q-rating v-model="stars" :max="5" size="16px" />
                   </div>
-                  <q-space/>
                 </div>
+              </div>
+              <div style = "display:flex; justify-content:space-between;margin-top:14px">
+                <div style = "justify-self:flex-start">
+                  <statusIcon :status_id = "jobrequest.status_id" outlineColor="blue"/>
+                </div>
+                <div  v-if = "jobrequest.status_id === 3">
+                  <q-btn round flat color="positive" icon = "fas fa-clipboard-check" size="sm" @click="confirmQuote">
+                    <q-tooltip>
+                      confirm this quotation
+                    </q-tooltip>
+                  </q-btn>
+                </div>
+
+                <div  v-if = "jobrequest.status_id === 4">
+                  <q-btn-group rounded outline>
+                    <q-btn rounded flat color="warning" icon="repeat" size="sm" :disabled="jobrequest.status_id === 3">
+                      <q-tooltip>
+                        rollback to pending
+                      </q-tooltip>
+                    </q-btn>
+                    <q-btn rounded flat color="positive" icon="chevron_right" size="sm" :disabled="jobrequest.status_id === 3">
+                      <q-tooltip>
+                        set as completed
+                      </q-tooltip>
+                    </q-btn>
+                  </q-btn-group>
+                </div>
+                
               </div>
           </div>
         </q-card-section>
         <q-card-section class = "bg-blue-grey-8">
           <q-separator color="white"/>
           <q-list dark  separator style="max-width: 318px">
-            <q-item clickable v-ripple v-for ="(item, index) in items" @click = "activateItem(item, index)">
+            <q-item clickable v-ripple v-for ="(item, index) in items" @click = "activateItem(item, index)" >
+            <q-item-section side top v-if = "keyItem === index" >
+              <div style = "display:flex;align-items:center; height:100%">
+              <q-icon name = "fas fa-play" />
+              </div>
+            </q-item-section>
               <q-item-section>
                 <q-item-label>{{ item.jobrequestitem.name }}</q-item-label>
                 <q-item-label caption> {{ setTextLimit(item.jobrequestitem.description)}} </q-item-label>
@@ -42,14 +74,21 @@ import { _token, _user } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 
 export default {
-  props: ['supplier', 'items', "activateItem"],
+  props: ['supplier', 'items', "activateItem", "keyItem"],
   computed: {
+    ...mapGetters(['active']),
     primaryStyle () {
       if(this.items.photos.length > 0) {
         return "top: 0; left: 12px; transform: translateY(-50%);height:50px;margin-bottom:-25px"
       } else {
         return 'margin-bottom:-20px'
       }
+    },
+    joborder () {
+      return this.active.joborder
+    },
+    jobrequest () {
+      return this.active.jobrequest
     }
   },
   data () {
@@ -58,6 +97,13 @@ export default {
     }
   },
   methods: {
+    confirmQuote () {
+      _purl.post(route.joborders.jobrequests.confirm(this.jo, this.jr)).then(r => {
+        this.jo = r.data.joborder
+        this.jr = r.data.jobrequest
+        console.log(r)
+      })
+    },
     getPrime(path) {
       return storage + path;
     },

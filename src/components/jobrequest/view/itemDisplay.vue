@@ -26,14 +26,16 @@
     </q-carousel>
     <div style="padding:25px" class = "flex align-center">
       <span class = "text-h5 text-weight-thin" style = "margin-right:10px">
-        {{item.name}} <br>
-        <q-chip dense outline size="xs" text-color="white" :icon="tag.icon"  v-for= "tag in item.tags">
+        <q-chip dense outline size="xs" text-color="white" :icon="tag.icon"  v-for= "tag in item.jobrequestitem.tags" >
           {{tag.label}}
         </q-chip>
       </span>
       <q-space/>
       <br>
-      <small > {{item.remarks}} </small>
+      <div class="text-subtitle1 text-right"><small class = "text-grey">est: </small>${{ item.amount }}</div>
+      <div style= "padding:10px">
+        <p > {{item.remarks}} </p>
+      </div>
     </div>
   </div>
 </template>
@@ -44,6 +46,19 @@ import {route, storage} from 'src/statics/backend'
 
 export default {
  props: ['item', 'updateCallback'],
+  watch: {
+    watchItem: {
+      handler (value) {
+        console.log(value);
+      },
+      deep:true
+    }
+  },
+  computed: {
+    watchItem () {
+      return this.item;
+    }
+  },
   data () {
     return {
       slide: 1,
@@ -53,7 +68,7 @@ export default {
   methods: {
     photoUrl(photo) {
       return storage + photo;
-    },
+    }
   }
 }
 </script>

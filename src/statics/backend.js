@@ -75,6 +75,7 @@ export const route = {
     get: joborder => apiroute + 'joborders/' + joborder,
     viewed: joborder => apiroute + 'joborders/' + joborder.id + '/viewed/',
     jobrequests: {
+      approve: (joborder, jobrequest) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/approve/',
       confirm: (joborder, jobrequest) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/confirm/',
     }
   },
