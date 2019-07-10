@@ -77,6 +77,7 @@ export const route = {
     jobrequests: {
       approve: (joborder, jobrequest) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/approve/',
       confirm: (joborder, jobrequest) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/confirm/',
+      complete: (joborder, jobrequest) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/complete/',
     }
   },
   jobrequests: {

@@ -15,10 +15,20 @@ export default {
   		icon	  : 'fas fa-clock',
   		message	: 'pending',
   	},
-  	{
-  		id		  :  4,
-  		icon	  : 'fas fa-check',
-  		message	: 'confirmed',
-  	},
+    {
+      id      :  4,
+      icon    : 'fas fa-tools',
+      message : 'in progress',
+    },
+    {
+      id      :  5,
+      icon    : 'playlist_add_check',
+      message : 'completed',
+    },
+    {
+      id      :  6,
+      icon    : 'playlist_add_check',
+      message : 'done',
+    },
   ]
 }

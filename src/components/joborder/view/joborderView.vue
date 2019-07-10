@@ -1,7 +1,17 @@
 <template>
   <div class=" q-gutter-sm">
-      <q-card class = "shadow-0">
+      <q-card square class = "shadow-0">
         <!-- <q-img src="https://media-cdn.tripadvisor.com/media/photo-s/0a/47/a8/91/chicken-salad-sandwich.jpg" /> -->
+      <q-tabs
+        dense
+        outlined
+        v-model="tab"
+        square
+        class="text-white bg-blue-grey-8"
+      >
+        <q-tab name="info" icon="info"/>
+        <q-tab name="comments" icon="comments" />
+      </q-tabs>
         <joborderModalCarousel :item="item" v-if="item.photos.length > 0"/>
         <q-card-section class = "bg-blue-grey-8">
           <div :style = "item.photos.length > 0 ? 'margin-top:-12px' : 'display:flex;align-items:center'">
@@ -23,38 +33,61 @@
         </q-card-section>
 
         <q-card-section class = "bg-blue-grey-8">
-          <div class = "actions flex" style = "justify-content:space-between">
-            <q-chip square dense style = "justify-self:self-start">
-              <span style ="color:gray">total est: </span> ${{ generalTotal.total }}
-            </q-chip>
+          <div v-if ="jobrequest.job_order_id === null || jobrequest.job_order_id === joborder.id">
+            <div class=  "flex" style = "justify-content:flex-end">
 
-            <div>
+              <div  v-if = "jobrequest.status_id === 2">
+                <q-btn round flat color="positive" icon = "check" size="sm" @click = "openApproveJo">
+                  <q-tooltip>
+                    approve this quotation
+                  </q-tooltip>
+                </q-btn>
+              </div>
 
-                <div  v-if = "jobrequest.status_id === 2">
-                  <q-btn round flat color="positive" icon = "check" size="sm" @click = "openApproveJo">
+              <div  v-if = "jobrequest.status_id === 3">
+                <q-banner rounded inline-actions class="text-white bg-blue shadow-1" >
+                  <div style = "display:flex;flex-direction:row;align-items:center" >
+                    <q-icon name = "info"  color = "white" style = "font-size:190%;padding-right:15px"/>
+                    <span class = "text-weight-thin" style = "font-size:80%"> please wait for the supplier to confirm the request.</span>
+                  </div>
+                </q-banner>
+              </div>
+
+              <div  v-if = "jobrequest.status_id === 4">
+                <q-banner rounded inline-actions class="text-white bg-indigo shadow-1" style = "margin:5px" >
+                  <div style = "display:flex;flex-direction:row;align-items:center" >
+                    <q-icon name = "info"  color = "white" style = "font-size:190%;padding-right:15px"/>
+                    <span class = "text-weight-thin" style = "font-size:80%"> please wait for the supplier to complete the request.</span>
+                  </div>
+                </q-banner>
+              </div>
+
+              <div v-if = "jobrequest.status_id === 5">
+                <q-btn-group  outline>
+                  <q-btn  flat color="warning" icon="replay" size="sm" @click= "completeJo">
                     <q-tooltip>
-                      approve this quotation
+                      set back as In Progress
                     </q-tooltip>
                   </q-btn>
-                </div>
+                  <q-btn  flat color="positive" icon="playlist_add_check" size="sm" @click= "completeJo">
+                    <q-tooltip>
+                      mark as Done
+                    </q-tooltip>
+                  </q-btn>
 
-                <div  v-if = "jobrequest.status_id === 3">
-                  <q-btn-group rounded outline>
-                    <q-btn rounded flat color="warning" icon="repeat" size="sm" :disabled="jobrequest.status_id === 3">
-                      <q-tooltip>
-                        rollback to pending
-                      </q-tooltip>
-                    </q-btn>
-                    <q-btn rounded flat color="positive" icon="chevron_right" size="sm" :disabled="jobrequest.status_id === 3">
-                      <q-tooltip>
-                        set as completed
-                      </q-tooltip>
-                    </q-btn>
-                  </q-btn-group>
-                </div>
+                </q-btn-group>
+              </div>
+            </div>
+            <div class = "actions flex" style = "justify-content:space-between">
+              <q-chip square dense style = "justify-self:self-start">
+                <span style ="color:gray">total est: </span> ${{ generalTotal.total }}
+              </q-chip>
+
+              <statusIcon :status_id = "jobrequest.status_id" outlineColor="blue"/>
 
             </div>
           </div>
+
           <div style = "display:flex;justify-content:space-between;align-items:center;padding:4px">
             <span>{{ item.jobrequestitem.name }}</span>
             <div class="text-subtitle1 text-right"><small class = "text-grey">est: </small>${{ item.amount }}</div>
@@ -87,6 +120,9 @@ export default {
         return 'margin-bottom:-20px'
       }
     },
+    pendingStatus () {
+      return [3,4].includes(this.jobrequest.status_id)
+    },
     generalTotal () {
       return this.getTotal()
     }
@@ -94,6 +130,7 @@ export default {
   data () {
     return {
       stars: 3,
+      tab: 'info',
       total: {
         amount: 0,
         taxed: false

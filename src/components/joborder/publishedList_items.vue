@@ -6,7 +6,6 @@
       </q-avatar>
     </q-item-section>
 
-
     <q-item-section top>
       <q-item-label lines="1">
         <span class="text-weight-light">{{ jo.supplier.name }}</span>
@@ -50,7 +49,10 @@ export default {
     },
     activateJo () {
       this._activate({joborder: this.jo})
-      this._modals({'joborderModal': {open: true}})
+      this._modals({'joborderModal': {open: true, data: {
+        jobrequest : this.jo.job_request_id,
+        joborder   : this.jo.id
+      }}})
       this.setAsViewed(this.jo)
 
     },
