@@ -54,7 +54,7 @@
             <q-item-label>suppliers</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item clickable @click.native="pushRoute('/dashboard')">
+        <q-item clickable @click.native="pushRoute('/joborders')">
           <q-item-section avatar>
             <q-icon color="grey-8" name="chat" />
           </q-item-section>

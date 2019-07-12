@@ -45,6 +45,15 @@
           </q-item-section>
         </q-item>
 
+        <q-item clickable tag="a" target="_blank" @click.native="pushRoute('/joborders')" >
+          <q-item-section avatar>
+            <q-icon name="fas fa-clipboard-list" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>joborders</q-item-label>
+          </q-item-section>
+        </q-item>
+
         <q-item clickable tag="a" target="_blank" :active="active" active-class="bg-grey-4 text-grey-8">
           <q-item-section avatar>
             <q-icon name="history" />
@@ -112,6 +121,9 @@ export default {
     },
     loadpage () {
       return this.pageLoad.load
+    },
+    fullpath () {
+      return this.$route.fullPath 
     }
   },
   data () {
@@ -136,6 +148,10 @@ export default {
     ...mapActions(['_stream']),
     getPrime(photo) {
       return storage + photo;
+    },
+    pushRoute(route) {
+
+      this.$router.push(this.fullpath + route)
     },
     decryptData () {
       return window.atob(this.$route.params.supplier)

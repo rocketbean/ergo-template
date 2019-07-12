@@ -70,6 +70,7 @@ export const route = {
     attempt: supplier => serviceRoute + 'attempt/' + supplier,
     fetch: supplier => serviceRoute + supplier + '/fetch',
     stream: supplier => serviceRoute + supplier + '/stream',
+    joborders: supplier => serviceRoute + supplier + '/joborders',
   },
   joborders: {
     get: joborder => apiroute + 'joborders/' + joborder,

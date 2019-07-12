@@ -37,22 +37,6 @@
                     </q-btn>
                   </q-btn-group>
                 </div>
-
-                <div v-if = "jobrequest.status_id === 5">
-                  <q-btn-group rounded outline>
-                    <q-btn rounded flat color="warning" icon="replay" size="sm" @click= "completeJo">
-                      <q-tooltip>
-                        set back as In Progress
-                      </q-tooltip>
-                    </q-btn>
-                    <q-btn rounded flat color="positive" icon="playlist_add_check" size="sm" @click= "completeJo">
-                      <q-tooltip>
-                        mark as Done
-                      </q-tooltip>
-                    </q-btn>
-
-                  </q-btn-group>
-                </div>
                 
               </div>
           </div>
@@ -114,12 +98,6 @@ export default {
     ...mapActions(['_activate']),
     confirmQuote () {
       _purl.post(route.joborders.jobrequests.confirm(this.joborder, this.jobrequest)).then(r => {
-        this._activate({'joborder': r.data.joborder});
-        this._activate({'jobrequest': r.data.jobrequest});
-      })
-    },
-    completeJo () {
-      _purl.post(route.joborders.jobrequests.complete(this.joborder, this.jobrequest)).then(r => {
         this._activate({'joborder': r.data.joborder});
         this._activate({'jobrequest': r.data.jobrequest});
       })
