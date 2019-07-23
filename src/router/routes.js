@@ -35,8 +35,8 @@ const routes = [
     path: '/stream/:supplier',
     component: () => import('layouts/stream.vue'),
     children: [
-      { path: '', component: () => import('pages/stream/stream.vue') },
-      { path: 'joborders', component: () => import('pages/stream/joborders.vue') },
+      { name : '/', path: '', component: () => import('pages/stream/stream.vue') },
+      { name: 'joborders', path: 'joborders', component: () => import('pages/stream/joborders.vue') },
     ]
   },
 ]

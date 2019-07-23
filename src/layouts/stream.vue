@@ -45,7 +45,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable tag="a" target="_blank" @click.native="pushRoute('/joborders')" >
+        <q-item clickable tag="a" target="_blank" @click.native="pushRoute('joborders')" >
           <q-item-section avatar>
             <q-icon name="fas fa-clipboard-list" />
           </q-item-section>
@@ -54,7 +54,7 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable tag="a" target="_blank" :active="active" active-class="bg-grey-4 text-grey-8">
+        <q-item clickable tag="a" target="_blank" :active="active" active-class="bg-grey-4 text-grey-8" @click.native="pushRoute('/')" >
           <q-item-section avatar>
             <q-icon name="history" />
           </q-item-section>
@@ -150,8 +150,8 @@ export default {
       return storage + photo;
     },
     pushRoute(route) {
-
-      this.$router.push(this.fullpath + route)
+      // if(!this.fullPath.include(route))
+      this.$router.push({ name: route })
     },
     decryptData () {
       return window.atob(this.$route.params.supplier)

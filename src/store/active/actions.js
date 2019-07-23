@@ -1,6 +1,7 @@
 import {_purl} from 'src/statics/purl'
 import {route} from 'src/statics/backend'
-
+import axios from 'axios'
+import {_token} from 'src/statics/token'
 function prereq (payload) {
   let _route = {
     jobrequest: route.jobrequests.get,
@@ -26,6 +27,7 @@ export function _FetchActivate ({commit}, payload) {
     let _resolver = [];
     Object.keys(payload).map(p => {
       let _r = prereq(p)
+      axios.defaults.headers.common['Authorization'] = _token.getRawToken()
       _purl.post(_r(payload[p])).then(r => {
         _resolver.push(p);
         if(resolver(_resolver, payload)) {

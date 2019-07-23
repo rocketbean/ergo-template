@@ -3,6 +3,7 @@ import { _token, _user, ignoreRoutes } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 import { Loading } from 'quasar'
 import { logginRoute } from 'src/statics/backend'
+import joborderList from 'src/pages/stream/parts/joborderlist'
 import statusIcon from 'src/components/status/status'
 import addProperties from 'src/components/addProperties'
 import attachLocation from 'src/components/location/location'
@@ -37,6 +38,9 @@ import jobrequestViewItemDisplay from 'src/components/jobrequest/view/itemDispla
 
 // "async" is optional
 export default async ({ app, router, Vue }) => {
+  //stream / joborders
+  Vue.component('joborderList', joborderList)
+
   //jobrequest view
   Vue.component('jobrequestView', jobrequestView)
   Vue.component('jobrequestViewSide', jobrequestViewSide)
