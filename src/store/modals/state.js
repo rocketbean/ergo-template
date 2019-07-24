@@ -22,6 +22,9 @@ export default {
       data: {},
       subject: {}
     },
+    direction: {
+      open: false,
+    },
     publishJo: {
       open: false,
       data: {},

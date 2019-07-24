@@ -34,7 +34,7 @@
         </div>
       </q-drawer>
 
-      <q-page-container padding style = "height:775px" class = "">
+      <q-page-container padding style = "height:700px" class = "">
         <q-card class=" bg-blue-grey-8 text-white margin-md" v-for= "attachment in attachments" v-if = "attachments.length > 0">
           <q-card-section>
             <fileloader :item = "attachment" v-if="attachment.photos.length > 0"/>

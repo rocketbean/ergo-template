@@ -32,6 +32,7 @@
 import Vue from 'vue'
 import {mapTypes} from 'src/statics/backend'
 import {mapGetters, mapActions} from 'vuex'
+
 export default {
   props: ['country','city'],
   data () {

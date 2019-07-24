@@ -3,6 +3,7 @@ import { _token, _user, ignoreRoutes } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 import { Loading } from 'quasar'
 import { logginRoute } from 'src/statics/backend'
+import directions from 'src/components/directions/modal'
 import attachmentView from 'src/components/Attachment/view/modal'
 import joborderList from 'src/pages/stream/parts/joborderlist'
 import statusIcon from 'src/components/status/status'
@@ -40,6 +41,9 @@ import fileloader from 'src/components/loader/fileLoader'
 
 // "async" is optional
 export default async ({ app, router, Vue }) => {
+  //directions
+  Vue.component('directions', directions)
+
   // attachmentView
   Vue.component('attachmentView', attachmentView)
 

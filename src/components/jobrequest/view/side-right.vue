@@ -19,6 +19,11 @@
               <div style = "display:flex; justify-content:space-between;margin-top:14px">
                 <div style = "justify-self:flex-start">
                   <statusIcon :status_id = "jobrequest.status_id" outlineColor="blue"/>
+                  <q-btn round flat icon="location_on" @click = "openDirection">
+                    <q-tooltip>
+                      locate property
+                    </q-tooltip>
+                  </q-btn>
                 </div>
                 <div  v-if = "jobrequest.status_id === 3">
                   <q-btn round flat color="positive" icon = "fas fa-clipboard-check" size="sm" @click="confirmQuote">
@@ -71,7 +76,7 @@ import { _glob } from 'src/statics/global'
 export default {
   props: ['supplier', 'items', "activateItem", "keyItem"],
   computed: {
-    ...mapGetters(['active']),
+    ...mapGetters(['active', 'modals']),
     primaryStyle () {
       if(this.items.photos.length > 0) {
         return "top: 0; left: 12px; transform: translateY(-50%);height:50px;margin-bottom:-25px"
@@ -95,7 +100,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['_activate']),
+    ...mapActions(['_activate', '_modals']),
     confirmQuote () {
       _purl.post(route.joborders.jobrequests.confirm(this.joborder, this.jobrequest)).then(r => {
         this._activate({'joborder': r.data.joborder});
@@ -107,6 +112,12 @@ export default {
     },
     setTextLimit (str) {
       return _glob.setTextLimiter(str, 150)
+    },
+    completeJo () {
+
+    },
+    openDirection () {
+      this._modals({'direction': {open: true}})
     }
   },
   mounted () {

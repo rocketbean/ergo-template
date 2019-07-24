@@ -8,7 +8,7 @@ export default async ({ app, router, Vue }) => {
   Vue.use(VueGoogleMaps, {
     load: {
       key: GPK,
-      libraries: 'places',
+      libraries: 'places, directions',
       v: '3.26',
     },
     installComponents: true

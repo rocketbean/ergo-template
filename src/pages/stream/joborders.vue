@@ -2,6 +2,7 @@
   <q-page style = "display: flex; padding:30px;justify-content:center;">
     <attachmentView/>
     <jobrequestView/>
+    <directions/>
     <div class="q-pa-md " style = "width :80%">
       <q-list v-for="entry in joborders" >
         <joborderList :joborder = "entry"/>
