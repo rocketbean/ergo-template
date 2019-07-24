@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     ...mapActions([]),
-      photoUrl(photo) {
+    photoUrl(photo) {
       return storage + photo;
     },
   },

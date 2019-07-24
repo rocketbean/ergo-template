@@ -32,11 +32,11 @@
         </q-chip>
       </span>
       <q-space/>
-       <q-btn outline round  icon="fas fa-pen" @click="updateCallback(item)" size = "sm" class="" color = "white" >
+    <!--    <q-btn outline round  icon="fas fa-pen" @click="updateCallback(item)" size = "sm" class="" color = "white" >
         <q-tooltip>
           update this line
         </q-tooltip>
-       </q-btn>
+       </q-btn> -->
       <br>
       <small class = ""> {{item.description}} </small>
     </div>

@@ -35,7 +35,6 @@ export default {
       return storage + photo;
     },
     joborderView () {
-      console.log({'jobrequestView': {open: true, data: {joborder: this.joborder.id, jobrequest: this.joborder.jobrequest.id}}})
       this._modals({'jobrequestView': {open: true, data: {joborder: this.joborder.id, jobrequest: this.joborder.jobrequest.id}}})
     }
 	},

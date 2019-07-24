@@ -66,6 +66,10 @@ export const route = {
     tags: apiroute + 'ergo/tags',
     upload: apiroute + 'uploads/files/store?token='
   },
+  attachments: {
+    get: apiroute + 'attachments',
+    store: apiroute + 'attachments/store'
+  },
   stream: {
     attempt: supplier => serviceRoute + 'attempt/' + supplier,
     fetch: supplier => serviceRoute + supplier + '/fetch',

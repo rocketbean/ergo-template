@@ -3,6 +3,7 @@ import { _token, _user, ignoreRoutes } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 import { Loading } from 'quasar'
 import { logginRoute } from 'src/statics/backend'
+import attachmentView from 'src/components/Attachment/view/modal'
 import joborderList from 'src/pages/stream/parts/joborderlist'
 import statusIcon from 'src/components/status/status'
 import addProperties from 'src/components/addProperties'
@@ -35,9 +36,16 @@ import topMenuUserNotification from 'src/layouts/parts/top-menu-user-notificatio
 import jobrequestView from 'src/components/jobrequest/view/modal'
 import jobrequestViewSide from 'src/components/jobrequest/view/side-right'
 import jobrequestViewItemDisplay from 'src/components/jobrequest/view/itemDisplay'
+import fileloader from 'src/components/loader/fileLoader'
 
 // "async" is optional
 export default async ({ app, router, Vue }) => {
+  // attachmentView
+  Vue.component('attachmentView', attachmentView)
+
+    // fileloader
+  Vue.component('fileloader', fileloader)
+    
   //stream / joborders
   Vue.component('joborderList', joborderList)
 

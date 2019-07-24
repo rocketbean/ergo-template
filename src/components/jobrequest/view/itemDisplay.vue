@@ -12,10 +12,7 @@
     >
       <q-carousel-slide v-for = "(photo, index) in item.photos" :key= "index" :name="index + 1" :img-src="photoUrl(photo.path)" />
       <template v-slot:control>
-        <q-carousel-control
-          position="bottom-right"
-          :offset="[18, 18]"
-        >
+        <q-carousel-control position="bottom-right" :offset="[18, 18]" >
           <q-btn
             push round dense color="white" text-color="primary"
             :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
@@ -32,7 +29,14 @@
       </span>
       <q-space/>
       <br>
-      <div class="text-subtitle1 text-right"><small class = "text-grey">est: </small>${{ item.amount }}</div>
+      <div class="text-subtitle1 text-right">
+        <q-btn round flat size = "md" color = "info" icon = "update" class = "margin-sm" @click = "openAttachmentView">
+          <q-tooltip>
+            Attach an update
+          </q-tooltip>
+        </q-btn>
+        <small class = "text-grey">est: </small>${{ item.amount }}
+      </div>
       <div style= "padding:10px">
         <p > {{item.remarks}} </p>
       </div>
@@ -55,6 +59,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['active', 'streamSupplier']),
     watchItem () {
       return this.item;
     }
@@ -66,8 +71,12 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['_modals']),
     photoUrl(photo) {
       return storage + photo;
+    },
+    openAttachmentView () {
+      this._modals({attachmentView: {open : true, data: {type: "App\\Models\\JobOrderItem", id: this.item.id, _active: this.item }, subject: this.streamSupplier}});
     }
   }
 }

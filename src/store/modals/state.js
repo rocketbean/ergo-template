@@ -17,6 +17,11 @@ export default {
       open: false,
       data: {}
     },
+    attachmentView: {
+      open: false,
+      data: {},
+      subject: {}
+    },
     publishJo: {
       open: false,
       data: {},

@@ -6,7 +6,6 @@ function prereq (payload) {
   let _route = {
     jobrequest: route.jobrequests.get,
     joborder : route.joborders.get,
-
   }
   return _route[payload];
 }
