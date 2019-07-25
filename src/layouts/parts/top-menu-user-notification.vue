@@ -71,7 +71,6 @@ import { _glob } from 'src/statics/global'
       },
       actions (notification) {
         if(notification.data._modals) {
-          console.log(notification.data._modals);
           this._modals(notification.data._modals)
         }
       },

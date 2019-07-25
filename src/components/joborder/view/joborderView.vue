@@ -33,12 +33,17 @@
         </q-card-section>
 
         <q-card-section class = "bg-blue-grey-8">
-          <div v-if ="jobrequest.job_order_id === null || jobrequest.job_order_id === joborder.id">
+          <div v-if ="jobrequest.job_order_id === null || jobrequest.job_order_id === joborder.id"> <!-- // -->
             <div class=  "flex" style = "justify-content:flex-end">
               <div style = "margin-right:auto !important;">
                 <q-btn round flat color="positive" icon = "update" size="md" @click = "openAttachmentView">
                   <q-tooltip>
                     request attachments
+                  </q-tooltip>
+                </q-btn>
+                <q-btn round flat color="info" icon = "location_on" size="md" @click = "openDirection">
+                  <q-tooltip>
+                    supplier's location
                   </q-tooltip>
                 </q-btn>
               </div>
@@ -115,6 +120,20 @@ import { _glob } from 'src/statics/global'
 
 export default {
   props: ['joborder', 'item'],
+  watch: {
+    joborder: {
+      handler (value) {
+        console.log('@jo',value)
+      },
+      deep: true
+    },
+    jobrequest: {
+      handler (value) {
+        console.log('@jr',value)
+      },
+      deep: true
+    }
+  },
   computed: {
     ...mapGetters(['active']),
     jobrequest () {
@@ -160,9 +179,13 @@ export default {
     },
     openAttachmentView () {
       this._modals({attachmentView: {open : true, data: {type: "App\\Models\\JobOrderItem", id: this.item.id, _active: this.item }, subject: ""}});
+    },
+    openDirection () {
+      this._modals({'direction': {open: true, data: { 'jobrequest': this.jobrequest.id }}})
     }
   },
   mounted () {
+    console.log(this.jobrequest.job_order_id, this.joborder.id)
 
   }
 }

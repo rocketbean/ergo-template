@@ -115,7 +115,7 @@ export default {
       this.keyitem = ind
       this.jritem = item
       this.joitem = this.joborder.items[ind]
-    }
+    },
   },
   mounted () {
   }
