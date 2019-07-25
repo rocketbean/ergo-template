@@ -117,7 +117,7 @@ export default {
 
     },
     openDirection () {
-      this._modals({'direction': {open: true}})
+      this._modals({'direction': {open: true, data: { 'jobrequest': this.jobrequest.id }}})
     }
   },
   mounted () {

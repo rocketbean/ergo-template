@@ -24,6 +24,7 @@ export default {
     },
     direction: {
       open: false,
+      data: {}
     },
     publishJo: {
       open: false,

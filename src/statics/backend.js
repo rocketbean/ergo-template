@@ -70,6 +70,9 @@ export const route = {
     get: apiroute + 'attachments',
     store: apiroute + 'attachments/store'
   },
+  directions: {
+    get: jobrequest => apiroute + 'directions/jobrequest/' + jobrequest,
+  },
   stream: {
     attempt: supplier => serviceRoute + 'attempt/' + supplier,
     fetch: supplier => serviceRoute + supplier + '/fetch',
