@@ -32,7 +32,6 @@ export function _FetchActivate ({commit}, payload) {
         if(resolver(_resolver, payload)) {
           resolve('test')
         }
-        console.log(p)
         return commit('activate_', {[p]: r.data})
       }).catch(e => {
         _resolver.push(p);

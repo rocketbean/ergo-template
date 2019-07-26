@@ -5,8 +5,8 @@
         <q-avatar round color="teal" text-color="white" icon="directions" />
       </q-avatar>
     </q-item-section>
-    <q-item-section>
-      <q-item-label class = " full-width" @click="viewJobRequest">
+    <q-item-section @click="viewJobRequest">
+      <q-item-label class = " full-width" >
         {{jobrequest.name}}
         {{jobrequest.status_id}}
         <statusIcon :status_id = "jobrequest.status_id" />
@@ -40,7 +40,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { _purl } from 'src/statics/purl'
 import { route } from 'src/statics/backend'
-export default {
+export default {  
   props: ['jobrequest', 'serve'],
   computed: {
     ...mapGetters(['active']),
@@ -61,7 +61,13 @@ export default {
       this._modals({'addJrItem': {open: true}})
     },
     viewJobRequest () {
-      this._modals({'jobrequestView': {open: true, data: {jobrequest: this.jobrequest.id}}})
+      if(this.jobrequest.job_order_id !== null) {
+        this._modals({'joborderModal': {open: true, data: {
+          jobrequest : this.jobrequest.id,
+          joborder   : this.jobrequest.job_order_id
+        }}})
+        // this._modals({'jobrequestView': {open: true, data: {jobrequest: this.jobrequest.id}}})
+      }
     },
     activatePublishList () {
       this._activate({jobrequest: this.jobrequest})

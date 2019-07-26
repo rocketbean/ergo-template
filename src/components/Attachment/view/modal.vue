@@ -10,7 +10,7 @@
         <div style="height:100%; " >
           <div style = "display: flex; align-items:center;justify-content:space-around">
             <q-avatar avatar class=" shadow-3" size="50px" v-if = "subject">
-              <q-img  round :src="getPrime(subject.primary.thumb)"  /> 
+              <q-img  round :src="getPrime(subject.primary.thumb)" v-if = "subject.primary" /> 
             </q-avatar>
             <div class = "rounded-borders" style = "display: flex;flex-direction: column;padding-left: 4px; width: 100%">
               <div style = "display: flex;width: 100% ">

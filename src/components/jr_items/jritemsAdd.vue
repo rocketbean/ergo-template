@@ -7,7 +7,7 @@
         <q-bar class ="bg-blue-grey-8 shadow-1">
           <q-icon name="fas fa-house-damage" />
           <q-space/>
-          <q-linear-progress indeterminate v-if ="modalLoader"   color="blue-grey-8" dark stripe rounded style="height: 10px"  class="q-mt-sm" />
+          <!-- <q-linear-progress indeterminate v-if ="modalLoader"   color="blue-grey-8" dark stripe rounded style="height: 10px"  class="q-mt-sm" /> -->
           <q-btn dense flat icon="minimize" @click="maximizedToggle = false" :disable="!maximizedToggle">
             <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
           </q-btn>
