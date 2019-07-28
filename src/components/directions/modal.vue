@@ -111,7 +111,6 @@ export default {
          }, function (response, status) {
           resp.distance = response.routes[0].legs[0].distance
           resp.duration = response.routes[0].legs[0].duration
-         console.log(this.response)
            if (status === 'OK') {
             vm.directionsDisplay.setDirections(response)
            } else {

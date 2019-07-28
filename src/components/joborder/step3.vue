@@ -10,7 +10,7 @@
         <q-card-section>
           <div class="q-pa-md">
             <div class="q-gutter-y-md column" style="min-width: 300px">
-              <joItems :jr = "modal.jr" :publishModal = "publishModal" :items="modal.items" :unlisted="false"/>
+              <joItems :jr = "modal.jr" :publishModal = "publishModal" :items="modal.items" :unlisted="false" />
             </div>
           </div>
         </q-card-section>
@@ -56,11 +56,9 @@ export default{
   },
   methods: {
     publish () {
-      console.log()
     }
   },
   mounted () {
-      console.log(this.jrItemTree)
   }
 }
 </script>

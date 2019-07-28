@@ -145,7 +145,6 @@ export default {
       this.form.files.push(file.file)
     },
     abortFilterFn () {
-      console.log('delayed filter aborted')
     },
   },
   mounted (){

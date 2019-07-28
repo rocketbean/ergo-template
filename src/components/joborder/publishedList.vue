@@ -9,13 +9,13 @@
 
 	    <q-card-section style="max-height: 50vh" class="scroll">
         <q-list dark separator >
-          <joListModal-items v-for = "joborder in jobrequest.joborders" :jo = "joborder"/>
+          <joListModal-items v-for = "joborder in jobrequest.joborders" :jo = "joborder" :jr = "jobrequest"/>
         </q-list>
 	    </q-card-section>
 
 	    <q-separator />
 
-	    <q-card-actions align="right" class = "bg-blue-grey-8 ">
+	    <q-card-actions align="right" class = "bg-blue-grey-8 " >
 	      <q-btn flat label="Decline" color="primary" v-close-popup />
 	      <q-btn flat label="Accept" color="primary" v-close-popup />
 	    </q-card-actions>

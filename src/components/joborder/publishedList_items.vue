@@ -17,7 +17,7 @@
     </q-item-section>
 
     <q-item-section center side>
-      <div class="q-gutter-xs">
+      <div class="q-gutter-xs" v-if = "jr.status_id <= 2">
         <q-btn class="gt-xs" size="12px" flat dense round icon="close" />
         <q-btn class="gt-xs" size="12px" flat dense round icon="done" />
         <q-btn size="12px" flat dense round icon="more_vert" />
@@ -32,7 +32,7 @@ import { _glob } from 'src/statics/global'
 import { route, storage } from 'src/statics/backend'
 
 export default {
-  props: ['jo'],
+  props: ['jo', 'jr'],
   computed: {
     ...mapGetters([]),
 

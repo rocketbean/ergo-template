@@ -58,7 +58,6 @@ export default {
       _purl.post(route.joborders.jobrequests.approve(this.jo, this.jr)).then(r => {
         this.jo = r.data.joborder
         this.jr = r.data.jobrequest
-        console.log(r)
       })
     }
   },

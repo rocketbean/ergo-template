@@ -23,13 +23,16 @@
 
       <q-card-section>
         <div class="q-pa-md">
+          
           <div class="q-gutter-y-md column" style="min-width: 300px">
             <q-input filled dark v-model="jr.name" label="Name" stack-label  />
             <q-input type="textarea" filled dark v-model="jr.description" label="tell us about your problem..." stack-label  autogrow />
           </div>
+
           <div class = "q-gutter-y-md flex" style = "padding:5px; justify-content:flex-end">
             <q-btn flat icon-right = "fas fa-save" @click = "save" />
           </div>
+
         </div>
       </q-card-section>
     </q-card>
@@ -63,7 +66,6 @@ export default {
         name: this.jr.name,
         description: this.jr.description,
       }).then(r => {
-        console.log(r)
       })
     }
   }

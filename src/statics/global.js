@@ -3,11 +3,15 @@ import store from 'src/store'
 
 export const _glob = {
   loopErrors (obj) {
-    Object.keys(obj).forEach(function(key) {
-      obj[key].map(error => {
-        _glob.notify(error, 'negative')
-      })
-    });
+    if(typeof obj === 'object') {
+      Object.keys(obj).forEach(function(key) {
+        obj[key].map(error => {
+          _glob.notify(error, 'negative')
+        })
+      });
+    } else {
+     _glob.notify(obj, 'negative')
+    }
   },
   notify (message, status, to) {
     let timeout = 3000;
@@ -477,7 +481,7 @@ export const _glob = {
 
   calculateItems(items, tax = false) {
     let _t = Number(0);
-    items.map(item => _t += Number(item.amount))
+    items.map(item => _t += isNaN(Number(item.amount)) ? 0 : Number(item.amount))
     return {
       total: _t,
       tax

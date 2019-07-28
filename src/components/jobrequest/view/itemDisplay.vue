@@ -8,8 +8,7 @@
       autoplay
       infinite
       arrows
-      :fullscreen.sync="fullscreen"
-    >
+      :fullscreen.sync="fullscreen" >
       <q-carousel-slide v-for = "(photo, index) in item.photos" :key= "index" :name="index + 1" :img-src="photoUrl(photo.path)" />
       <template v-slot:control>
         <q-carousel-control position="bottom-right" :offset="[18, 18]" >

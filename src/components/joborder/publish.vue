@@ -11,7 +11,7 @@
               <q-card-section>
                 <div class="q-pa-md">
                   <div class="q-gutter-y-md column" style="min-width: 300px">
-                    <joItems :jr = "jr" :publishModal = "publishModal" :unlisted="false" :items="joborderitems"/>
+                    <joItems :jr = "jr" :publishModal = "publishModal" :unlisted="false" :items="joborderitems" :data = "publish"/>
                   </div>
                 </div>
               </q-card-section>

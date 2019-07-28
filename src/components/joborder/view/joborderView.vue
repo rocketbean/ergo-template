@@ -123,13 +123,11 @@ export default {
   watch: {
     joborder: {
       handler (value) {
-        console.log('@jo',value)
       },
       deep: true
     },
     jobrequest: {
       handler (value) {
-        console.log('@jr',value)
       },
       deep: true
     }
@@ -185,7 +183,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.jobrequest.job_order_id, this.joborder.id)
 
   }
 }

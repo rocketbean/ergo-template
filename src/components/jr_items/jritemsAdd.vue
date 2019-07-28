@@ -62,7 +62,7 @@
               </q-select>
               <q-input filled dark v-model="itemForm.name" label="Name" stack-label  />
               <q-input type="textarea" filled dark v-model="itemForm.description" label="tell us about your problem..." stack-label  autogrow /> 
-              <q-uploader multiple class="full-width shadow-0" :url="beroute" dark @uploaded = "getFile" :field-name="(file) => 'file'"/>
+              <q-uploader multiple ref="imageUploader" class="full-width shadow-0" :url="beroute" dark @uploaded = "getFile" :field-name="(file) => 'file'"/>
             </div>
             <div class = "q-gutter-y-md flex" style = "padding:5px; justify-content:flex-end">
               <q-btn flat round icon = "fas fa-pen-square" @click = "updateItem" v-if = "itemForm.id !== 0">
@@ -70,6 +70,9 @@
               </q-btn>
               <q-btn flat round icon = "fas fa-plus-circle" @click = "save" >
                 <q-tooltip> save a new item </q-tooltip>
+              </q-btn>
+              <q-btn flat round icon = "collections_bookmark" @click = "publish" >
+                <q-tooltip> publish this jobrequest </q-tooltip>
               </q-btn>
             </div>
           </div>
@@ -96,6 +99,7 @@ import { mapGetters, mapActions } from 'vuex'
 import {route} from 'src/statics/backend'
 import {_token} from 'src/statics/token'
 import {_purl} from 'src/statics/purl'
+import {_glob} from 'src/statics/global'
 
 export default {
   watch: {
@@ -120,7 +124,7 @@ export default {
     },
     'jri': {
       handler (value) {
-        if (value.open) {
+        if (value.open && value.data !== undefined && value.data !== null) {
           this._FetchActivate(value.data)
         }
       },
@@ -156,7 +160,8 @@ export default {
         files: [],
         photos: [],
         videos: [],
-        tags: []
+        tags: [],
+        uploaderData: []
       },
       drawer: true,
       showFooter: false,
@@ -177,6 +182,12 @@ export default {
     updateItem () {
       console.log('update item')
     },
+    publish() {
+      _purl.post(route.properties.property.jobrequest.publish(this.jr.property, this.jr)).then(r => {
+      }).catch(e => {
+        _glob.loopErrors(e.response.data);
+      })
+    },
     resetItemForm (item) {
       this.itemForm = {
         id: 0,
@@ -186,13 +197,16 @@ export default {
         photos: [],
         videos: [],
         tags: [],
+        uploaderData: []
       }
+      // this.$refs.imageUploader.reset();
     },
     getFile (data) {
       let file = JSON.parse(data.xhr.response)
       this.itemForm.photos.push(file.photo)
       this.itemForm.videos.push(file.video)
       this.itemForm.files.push(file.file)
+      this.itemForm.uploaderData = this.$refs.imageUploader.files;
     },
     filterFn (val, update, abort) {
       update (() => {
@@ -217,7 +231,8 @@ export default {
         videos: this.itemForm.videos,
         files: this.itemForm.files,
         photos: this.itemForm.photos,
-        tags: this.itemForm.tags
+        tags: this.itemForm.tags,
+        uploaderData: this.itemForm.uploaderData
       }).then(r => {
         this.resetItemForm()
         this._activate({jobrequest: r.data})
