@@ -38,11 +38,13 @@ import jobrequestView from 'src/components/jobrequest/view/modal'
 import jobrequestViewSide from 'src/components/jobrequest/view/side-right'
 import jobrequestViewItemDisplay from 'src/components/jobrequest/view/itemDisplay'
 import fileloader from 'src/components/loader/fileLoader'
-import propertyPhotos from 'src/pages/properties/parts/photos'
+import propertyPhotos from 'src/pages/properties/parts/property-photos'
+import propertyUsers from 'src/pages/properties/parts/property-users'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
 
-  Vue.component('propertyPhotos',propertyPhotos)
+  Vue.component('property-photos',propertyPhotos)
+  Vue.component('property-users',propertyUsers)
 
   //directions
   Vue.component('directions', directions)

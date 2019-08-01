@@ -119,6 +119,9 @@ export const route = {
       photos: {
         get: property => apiroute + 'properties/' + property + '/photos',
       }, 
+      users: {
+        get: property => apiroute + 'properties/' + property + '/users',
+      }, 
       location: {
         store: property => apiroute + 'properties/' + property + '/locations/store'
       },

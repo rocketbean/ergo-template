@@ -42,7 +42,7 @@
           <q-toolbar color="primary">
             <q-tabs v-model="tab" shrink>
               <q-tab name="jobrequests" icon="fas fa-house-damage"  />
-              <q-tab name="suppliers" icon="fas fa-users"  />
+              <q-tab name="users" icon="fas fa-users"  />
               <q-tab name="photos" icon="photo_library"  />
               <q-tab name="settings" icon="fas fa-cogs"  />
             </q-tabs>
@@ -88,15 +88,29 @@
               </q-list>
             </div>
           </q-tab-panel>
-          <q-tab-panel name="suppliers" style = "padding:30px;">
-            <div class="text-h4 q-mb-md">Alarms</div>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>
+          <q-tab-panel name="users" style = "padding:30px;">
+            <div class="row no-wrap ">
+              <q-toolbar class=" rounded-borders">
+                <q-input borderless v-model="text" >
+                  <template v-slot:prepend>
+                    <q-icon v-if="text === ''" name="search" />
+                    <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
+                  </template>
+                </q-input>
+                <q-space/>
+                <q-btn icon = "person_add" round color= "deep-orange" @click="">
+                  <q-tooltip>
+                    invite user
+                  </q-tooltip>
+                </q-btn>
+              </q-toolbar>
+            </div>
+            <property-users/>
           </q-tab-panel>
 
           <q-tab-panel name="photos">
             <div class="text-h4 q-mb-md">Photos</div>
-            <propertyPhotos :property="property"/>
+            <property-photos :property="property"/>
           </q-tab-panel>
           <q-tab-panel name="settings">
             <div class="text-h4 q-mb-md">Movies</div>
