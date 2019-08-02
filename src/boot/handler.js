@@ -40,9 +40,11 @@ import jobrequestViewItemDisplay from 'src/components/jobrequest/view/itemDispla
 import fileloader from 'src/components/loader/fileLoader'
 import propertyPhotos from 'src/pages/properties/parts/property-photos'
 import propertyUsers from 'src/pages/properties/parts/property-users'
+import invitePropertyUser from 'src/components/user/invite/modal'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
 
+  Vue.component('invitePropertyUser',invitePropertyUser)
   Vue.component('property-photos',propertyPhotos)
   Vue.component('property-users',propertyUsers)
 

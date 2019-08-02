@@ -26,6 +26,9 @@ export default {
       open: false,
       data: {}
     },
+    invitePropertyUser: {
+      open: false,
+    },
     publishJo: {
       open: false,
       data: {},

@@ -61,6 +61,9 @@ export const route = {
   register: apiroute + 'register',
   attempt: apiroute + 'attempt',
   alerts: apiroute + 'alerts',
+  roles: {
+    get: apiroute + 'roles',
+  },
   ergo: {
     countries: apiroute + 'ergo/countries',
     tags: apiroute + 'ergo/tags',
@@ -121,6 +124,7 @@ export const route = {
       }, 
       users: {
         get: property => apiroute + 'properties/' + property + '/users',
+        invite: property => apiroute + 'properties/' + property + '/users/invite',
       }, 
       location: {
         store: property => apiroute + 'properties/' + property + '/locations/store'

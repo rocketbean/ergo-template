@@ -10,6 +10,7 @@ export default {
         path: ''
       }
     },
+    roles: [],
     jobrequest: {name: ''},
     joborder: {remarks: ''},
     jritem: {},

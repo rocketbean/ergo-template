@@ -98,7 +98,7 @@
                   </template>
                 </q-input>
                 <q-space/>
-                <q-btn icon = "person_add" round color= "deep-orange" @click="">
+                <q-btn icon = "person_add" round color= "deep-orange" @click="_modals({'invitePropertyUser': {open: true}})">
                   <q-tooltip>
                     invite user
                   </q-tooltip>

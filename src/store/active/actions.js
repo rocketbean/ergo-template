@@ -6,6 +6,7 @@ function prereq (payload) {
   let _route = {
     jobrequest: route.jobrequests.get,
     joborder : route.joborders.get,
+    roles: route.roles.get
   }
   return _route[payload];
 }
@@ -27,7 +28,7 @@ export function _FetchActivate ({commit}, payload) {
     Object.keys(payload).map(p => {
       let _r = prereq(p)
       axios.defaults.headers.common['Authorization'] = _token.getRawToken()
-      _purl.post(_r(payload[p])).then(r => {
+      _purl.post(typeof _r === "function" ? _r(payload[p]) : _r).then(r => {
         _resolver.push(p);
         if(resolver(_resolver, payload)) {
           resolve('test')
@@ -41,12 +42,5 @@ export function _FetchActivate ({commit}, payload) {
       })
     })
   })
-  // console.log(payload)
-  // payload.map(p => {
-  //   console.log(p)
-  //   // commit('activate_', payload[key])
-  // })
-
-  // return commit('activate_', payload)
 }
 
