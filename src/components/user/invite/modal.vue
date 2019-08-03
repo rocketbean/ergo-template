@@ -25,7 +25,7 @@
         <div class="q-pa-md">
           
           <div class="q-gutter-y-md column" style="min-width: 300px">
-            <q-input filled dark standout="bg-blue-grey-8 text-white" v-model="form.email" label="email" stack-label   />
+            <q-input type = 'email' filled dark standout="bg-blue-grey-8 text-white" v-model="form.email" label="email" stack-label   />
             <q-select
               dark
               standout="bg-blue-grey-8 text-white" 
