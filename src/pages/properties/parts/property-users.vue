@@ -19,14 +19,14 @@
                     {{ user.property_users.role.name }}
                   </small>
                 </q-chip>
-                <q-chip color ="positive" dense class = "shadow-1"  v-if="Number(user.property_users.status) === 2">
+                <q-chip color ="positive" dense class = "shadow-1"  v-if="user.property_users.status === 2">
                   <small class = "text-white">
                     pending
                   </small>
                 </q-chip>
                 <q-chip color="info" dense class = "shadow-1" v-else>
                   <small class = "text-white">
-                    active
+                    active 
                   </small>
                 </q-chip>
               </span>
@@ -62,6 +62,7 @@ export default {
   data () {
     return { 
       users: [],
+      permissions: [],
     }
   },
   methods: {
@@ -69,6 +70,12 @@ export default {
     getUsers() {
       _purl.get(route.properties.property.users.get(this.property.id)).then(r => {
         this.users = r.data
+      })
+    },
+    getPermissions() {
+      _purl.get(route.properties.property.permissions.get(this.property.id)).then(r => {
+        console.log(r.data)
+        this.permissions = r.data
       })
     },
     getPrime(user) {
@@ -81,6 +88,7 @@ export default {
   },
   mounted (){
     this.getUsers()
+    this.getPermissions()
   }
 }
 </script>
