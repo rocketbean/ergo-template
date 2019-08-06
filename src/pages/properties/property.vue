@@ -42,7 +42,7 @@
           <q-toolbar color="primary">
             <q-tabs v-model="tab" shrink>
               <q-tab name="jobrequests" icon="fas fa-house-damage"  />
-              <q-tab name="users" icon="fas fa-users"  />
+              <q-tab name="users" icon="fas fa-users"  v-if="property.users"/>
               <q-tab name="photos" icon="photo_library"  />
               <q-tab name="settings" icon="fas fa-cogs"  />
             </q-tabs>
@@ -88,7 +88,7 @@
               </q-list>
             </div>
           </q-tab-panel>
-          <q-tab-panel name="users" style = "padding:30px;">
+          <q-tab-panel name="users" style = "padding:30px;" v-if="property.users">
             <div class="row no-wrap ">
               <q-toolbar class=" rounded-borders">
                 <q-input borderless v-model="text" >
@@ -196,9 +196,9 @@ export default {
     },
     serve () {
       _purl.post(route.properties.property.get(this.$route.params.property)).then(r => {
-        this.property = r.data
+        this.property = r.data.data
         this._activate({
-          'property': r.data
+          'property': r.data.data
         })
       })
     },
