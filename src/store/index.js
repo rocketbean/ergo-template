@@ -12,6 +12,7 @@ import active from './active'
 import stream from './stream'
 import status from './status'
 import notifications from './notifications'
+import access from './access'
 
 /*
  * If not building with SSR mode, you can
@@ -29,7 +30,8 @@ export default function (/* { ssrContext } */) {
       active,
       stream,
       notifications,
-      status
+      status,
+      access
       // example
     },
 

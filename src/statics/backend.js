@@ -67,7 +67,8 @@ export const route = {
   ergo: {
     countries: apiroute + 'ergo/countries',
     tags: apiroute + 'ergo/tags',
-    upload: apiroute + 'uploads/files/store?token='
+    upload: apiroute + 'uploads/files/store?token=',
+    permissions: apiroute + 'ergo/permissions',
   },
   attachments: {
     get: apiroute + 'attachments',

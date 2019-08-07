@@ -155,6 +155,14 @@ export default {
     getPrime() {
       return storage + this.active.property.primary.path;
     },
+    gatepass (rule) {
+      return {
+        accessing : 'property',
+        rule : rule,
+        data : this.active.property,
+        permission : btoa(JSON.stringify(this.active.property.roles))
+      }
+    },
     saveLocationUrl () {
       return route.properties.property.location.store(this.active.property.id);
     }
@@ -178,7 +186,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['_modals', '_activate']),
+    ...mapActions(['_modals', '_activate', 'hasAccess', 'guards']),
     getPosition(location) {
       return {
         lat: parseFloat(location.lat),
@@ -206,13 +214,14 @@ export default {
       _purl.post(route.notify).then(r=> {
         r.data.map(data => {
           let _d = JSON.parse(data.data)
-          console.log(data)
           this.$store[data.action](data.subject, _d)
         })
       })
     }
   },
   mounted () {
+    this.guards('property');
+    this.canAccessProperty(this.gatepass('publish_jobrequest'))
     this.serve()
     // this.testLocate()
   },
