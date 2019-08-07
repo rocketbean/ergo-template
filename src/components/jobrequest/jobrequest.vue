@@ -15,7 +15,7 @@
 
     <q-item-section side center>
       <div class = "flex" style ="flex-direction:row">
-        <q-btn round flat icon="close" @click="destroyJr(jobrequest)" v-if="jobrequest.status_id < 3"/>
+        <q-btn round flat icon="close" @click="destroyJr(jobrequest)" v-if="this.jobrequest.status_id && this.canAccess(this.gatepass, 'delete_jobrequest')" />
         <q-btn round flat icon="chevron_right" @click="activateJr()"  v-if="jobrequest.status_id < 2"/>
         <q-btn round flat icon="list_alt" v-if="jobrequest.joborders.length > 0" @click = "activatePublishList()">
           <q-badge floating color="red" v-if = "unseen > 0">{{ unseen }}</q-badge>
@@ -39,7 +39,10 @@
 import { mapGetters, mapActions } from 'vuex'
 import { _purl } from 'src/statics/purl'
 import { route } from 'src/statics/backend'
+import {GateMixin} from 'src/mixins/GateMixin'
+
 export default {  
+  mixins: [GateMixin],
   props: ['jobrequest', 'serve'],
   computed: {
     ...mapGetters(['active']),

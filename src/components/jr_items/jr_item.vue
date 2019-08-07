@@ -19,10 +19,13 @@
 import { mapGetters, mapActions } from 'vuex'
 import { route } from 'src/statics/backend'
 import { _purl } from 'src/statics/purl'
+import {GateMixin} from 'src/mixins/GateMixin'
+
 export default {
+  mixins:[GateMixin],
   props: ['item', 'jractive', 'index'],
   computed: {
-    ...mapGetters(['active'])
+    ...mapGetters(['active']),
   },
   methods: {
     ...mapActions(['_modals', '_activate']),
@@ -43,10 +46,11 @@ export default {
     destroyJrItem(item) {
       _purl.post(route.properties.property.jobrequest.item.destroy(this.active.jobrequest, item)).then(r => {
         this._activate({jobrequest: r.data})
-        console.log(r)
       })
     }
 
+  },
+  mounted () {
   }
 }
 </script>

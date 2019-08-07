@@ -42,7 +42,7 @@
           <q-toolbar color="primary">
             <q-tabs v-model="tab" shrink>
               <q-tab name="jobrequests" icon="fas fa-house-damage"  />
-              <q-tab name="users" icon="fas fa-users"  v-if="property.users"/>
+              <q-tab name="users" icon="fas fa-users"  v-if="property.users && canAccess(gatepass, 'read_user')"/>
               <q-tab name="photos" icon="photo_library"  />
               <q-tab name="settings" icon="fas fa-cogs"  />
             </q-tabs>
@@ -88,7 +88,7 @@
               </q-list>
             </div>
           </q-tab-panel>
-          <q-tab-panel name="users" style = "padding:30px;" v-if="property.users">
+          <q-tab-panel name="users" style = "padding:30px;" v-if="property.users && canAccess(gatepass, 'read_user')">
             <div class="row no-wrap ">
               <q-toolbar class=" rounded-borders">
                 <q-input borderless v-model="text" >
@@ -98,7 +98,7 @@
                   </template>
                 </q-input>
                 <q-space/>
-                <q-btn icon = "person_add" round color= "deep-orange" @click="_modals({'invitePropertyUser': {open: true}})">
+                <q-btn icon = "person_add" round color= "deep-orange" @click="_modals({'invitePropertyUser': {open: true}})" v-if="canAccess(gatepass, 'invite_user')">
                   <q-tooltip>
                     invite user
                   </q-tooltip>
@@ -108,7 +108,7 @@
             <property-users/>
           </q-tab-panel>
 
-          <q-tab-panel name="photos">
+          <q-tab-panel name="photos" >
             <div class="text-h4 q-mb-md">Photos</div>
             <property-photos :property="property"/>
           </q-tab-panel>
@@ -132,7 +132,10 @@ import { mapGetters, mapActions } from 'vuex'
 import {_purl} from 'src/statics/purl'
 import {route, storage} from 'src/statics/backend'
 import {_glob} from 'src/statics/global'
+import {GateMixin} from 'src/mixins/GateMixin'
+
 export default {
+  mixins: [GateMixin],
   watch: {
     'property': {
       handler(value) {
@@ -154,14 +157,6 @@ export default {
     ...mapGetters(['active']),
     getPrime() {
       return storage + this.active.property.primary.path;
-    },
-    gatepass (rule) {
-      return {
-        accessing : 'property',
-        rule : rule,
-        data : this.active.property,
-        permission : btoa(JSON.stringify(this.active.property.roles))
-      }
     },
     saveLocationUrl () {
       return route.properties.property.location.store(this.active.property.id);
@@ -186,7 +181,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['_modals', '_activate', 'hasAccess', 'guards']),
+    ...mapActions(['_modals', '_activate', 'guards']),
     getPosition(location) {
       return {
         lat: parseFloat(location.lat),
@@ -221,7 +216,6 @@ export default {
   },
   mounted () {
     this.guards('property');
-    this.canAccessProperty(this.gatepass('publish_jobrequest'))
     this.serve()
     // this.testLocate()
   },

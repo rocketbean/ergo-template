@@ -71,7 +71,7 @@
               <q-btn flat round icon = "fas fa-plus-circle" @click = "save" >
                 <q-tooltip> save a new item </q-tooltip>
               </q-btn>
-              <q-btn flat round icon = "collections_bookmark" @click = "publish" >
+              <q-btn flat round icon = "collections_bookmark" @click = "publish" v-if="canAccess(gatepass, 'publish_jobrequest')">
                 <q-tooltip> publish this jobrequest </q-tooltip>
               </q-btn>
             </div>
@@ -99,9 +99,11 @@ import { mapGetters, mapActions } from 'vuex'
 import {route} from 'src/statics/backend'
 import {_token} from 'src/statics/token'
 import {_purl} from 'src/statics/purl'
+import {GateMixin} from 'src/mixins/GateMixin'
 import {_glob} from 'src/statics/global'
 
 export default {
+  mixins:[GateMixin],
   watch: {
     'items': {
       handler (value) {
@@ -168,7 +170,6 @@ export default {
       drawerR: true,
       maximizedToggle: false,
       filter: '',
-
     }
   },
   methods: {
@@ -240,7 +241,7 @@ export default {
     }
   },
   mounted () {
-
+    console.log(this.active.property)
   }
 }
 </script>

@@ -1,6 +1,7 @@
 export default {
   active: {
     property: {
+      role:{ role: { permissions: []}},
       primary: {
         path: ''
       }

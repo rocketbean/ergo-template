@@ -4,7 +4,7 @@ import axios from 'axios'
 import {_token} from 'src/statics/token'
 
 export function canAccess ({commit, state}, payload) {
-	console.log(payload)
+  // return payload.gatepass.data.role.role.permissions.some(permission =>  permission.slug === payload.rule).then(r => r);
 	// state.access.property.includes()
 }
 
