@@ -1,10 +1,15 @@
 export default {
   status: [
-  	{
-  		id		  :  1,
-  		icon	  : 'fas fa-hourglass-half',
-  		message	: 'pending',
-  	},
+    {
+      id      :  0,
+      icon    : 'fas fa-hourglass',
+      message : 'unreleased',
+    },
+    {
+      id      :  1,
+      icon    : 'fas fa-hourglass-start',
+      message : 'pending',
+    },
   	{
   		id	  	:  2,
   		icon	  : 'fas fa-check',

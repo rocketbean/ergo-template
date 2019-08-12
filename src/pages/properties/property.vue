@@ -44,10 +44,10 @@
               <q-tab name="jobrequests" icon="fas fa-house-damage"  />
               <q-tab name="users" icon="fas fa-users"  v-if="property.users && canAccess(gatepass, 'read_user')"/>
               <q-tab name="photos" icon="photo_library"  />
-              <q-tab name="settings" icon="fas fa-cogs"  />
+              <q-tab name="settings" icon="fas fa-cogs" v-if="canAccess(gatepass, 'update_settings')" />
             </q-tabs>
             <q-space />
-            <q-btn flat round icon="location_on" @click="_modals({'attachLocation': {'open': true, 'locationUrl': saveLocationUrl}})" />
+            <q-btn flat round icon="location_on" @click="_modals({'attachLocation': {'open': true, 'locationUrl': saveLocationUrl}})" v-if="canAccess(gatepass, 'update_settings')" />
           </q-toolbar>
         </div>
       </div>
@@ -112,7 +112,7 @@
             <div class="text-h4 q-mb-md">Photos</div>
             <property-photos :property="property"/>
           </q-tab-panel>
-          <q-tab-panel name="settings">
+          <q-tab-panel name="settings" v-if="canAccess(gatepass, 'update_settings')">
             <div class="text-h4 q-mb-md">Movies</div>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>
             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis praesentium cumque magnam odio iure quidem, quod illum numquam possimus obcaecati commodi minima assumenda consectetur culpa fuga nulla ullam. In, libero.</p>

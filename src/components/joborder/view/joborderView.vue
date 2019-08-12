@@ -48,7 +48,7 @@
                 </q-btn>
               </div>
 
-              <div  v-if = "jobrequest.status_id === 2">
+              <div  v-if = "jobrequest.status_id === 2 && canAccess(gatepass, 'update_jobrequests')">
                 <q-btn round flat color="positive" icon = "check" size="sm" @click = "openApproveJo">
                   <q-tooltip>
                     approve this quotation
@@ -117,8 +117,10 @@ import { mapGetters, mapActions } from 'vuex'
 import { route, storage } from 'src/statics/backend'
 import { _token, _user } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
+import {GateMixin} from 'src/mixins/GateMixin'
 
 export default {
+  mixins: [GateMixin],
   props: ['joborder', 'item'],
   watch: {
     joborder: {
