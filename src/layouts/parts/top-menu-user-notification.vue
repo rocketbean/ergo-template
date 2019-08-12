@@ -44,9 +44,10 @@
 <script>
 import notification from 'src/statics/notification';
 import { mapGetters, mapActions } from 'vuex';
-import { route, storage } from 'src/statics/backend'
+import { route, storage, DEFIMAGE } from 'src/statics/backend'
 import { _purl } from 'src/statics/purl'
 import { _glob } from 'src/statics/global'
+
   export default {
     watch: {
       menu (value) {
@@ -68,7 +69,11 @@ import { _glob } from 'src/statics/global'
     methods: {
        ...mapActions(['_notification', '_modals', '_active']),
       getPrime(_a) {
-        return storage + _a.data.subject.primary.thumb;
+        if(_a.data.subject.primary !== null) {
+          return storage + _a.data.subject.primary.thumb;
+        } else {
+          return DEFIMAGE;
+        }
       },
       actions (notification) {
         if(notification.data._modals) {

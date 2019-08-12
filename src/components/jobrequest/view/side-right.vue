@@ -114,7 +114,10 @@ export default {
       return _glob.setTextLimiter(str, 150)
     },
     completeJo () {
-
+      _purl.post(route.joborders.jobrequests.complete(this.joborder, this.jobrequest)).then(r => {
+        this._activate({'joborder': r.data.joborder});
+        this._activate({'jobrequest': r.data.jobrequest});
+      })
     },
     openDirection () {
       this._modals({'direction': {open: true, data: { 'jobrequest': this.jobrequest.id }}})
