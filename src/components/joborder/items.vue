@@ -1,9 +1,10 @@
 <template>
   <div>
     <q-list dark  separator >
-      <q-item clickable v-ripple v-for="(item, index) in items">
+      <q-item clickable v-ripple v-for="(item, index) in items" @click = "selectItem(item, index)">
         <q-item-section  side>
-          <q-btn icon = "close" size = "sm" round flat color=  "red" @click = "deleteItem(index)"/>
+          <q-checkbox v-model="item._selected" :value="item._selected" color="deep-orange"/>
+          <!-- <q-btn icon = "close" size = "sm" round flat color=  "red" @click = "deleteItem(index)"/> -->
         </q-item-section >
         <q-item-section>
           <q-item-label>{{ setTextLimiter(item.jobrequestitem.name) }}</q-item-label>
@@ -32,20 +33,35 @@ export default {
   watch: {
     publishModal: {
       handler (value) {
+        this.items.map(item => {
+          item._selected = true
+        })
         this.getTotal()
       },
       deep: true
+    },
+    items: {
+      handler(value) {
+        console.log(value)
+      },
+      deep:true
     }
   },
   computed: {
     ...mapGetters(['joborderitems']),
-    itms () {
-      return this.joborderitems
+    itms: {
+      get () {
+        return this.items
+      },
+      set (value) {
+        this.items = value
+      }
     },
   },
   data () {
     return {
       bordered: false,
+      models: {},
       total: {
         amount: 0,
         taxed: false
@@ -56,17 +72,26 @@ export default {
     setTextLimiter (val) {
       return _glob.setTextLimiter(val, 35)
     },
+    selectors (item) {
+      return item._selected
+    },
+    selectItem(item, index) {
+      item._selected = item._selected ? false : true;
+      this.itms[index] = item
+    },
     getTotal () {
-      let _t = _glob.calculateItems(this.items);
+      // let _i = this.items.filter(item => item._selected)
+      let _i = this.items
+      let _t = _glob.calculateItems(_i);
       this.total.amount = _t.total 
       this.total.taxed = _t.tax 
     },
-    deleteItem (index) {
-      // console.log(this.data, this.items)
-      this.items[index].jobrequestitem.selector = false
-      this.items.splice(index, 1)
-      // console.log(item)
-    }
+    // deleteItem (index) {
+    //   // console.log(this.data, this.items)
+    //   this.items[index].jobrequestitem.selector = false
+    //   this.items.splice(index, 1)
+    //   // console.log(item)
+    // }
   },
   mounted () {
     this.getTotal()

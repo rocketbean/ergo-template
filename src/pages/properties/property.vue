@@ -3,7 +3,7 @@
     <attachLocation/>
     <addJobRequest/>
     <addJrItem/>
-    <joListModal/>
+    <quoteList/>
     <changePrimary/>
     <joborderModal/>
     <approveJoborderModal/>

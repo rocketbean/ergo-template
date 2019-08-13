@@ -28,8 +28,8 @@ import joItems from 'src/components/joborder/items'
 import step2 from 'src/components/joborder/step2'
 import step3 from 'src/components/joborder/step3'
 import unlisted from 'src/components/joborder/unlisted'
-import joListModal from 'src/components/joborder/publishedList'
-import joListModal_items from 'src/components/joborder/publishedList_items'
+import quoteList from 'src/components/joborder/quoteList'
+import quoteList_items from 'src/components/joborder/quoteList_items'
 import joborderModal from 'src/components/joborder/view/joborderModal'
 import joborderModalView from 'src/components/joborder/view/joborderView'
 import joborderModalCarousel from 'src/components/joborder/view/joborderCarousel'
@@ -76,8 +76,8 @@ export default async ({ app, router, Vue }) => {
   Vue.component('joborderModalView', joborderModalView)
   Vue.component('joborderModalCarousel', joborderModalCarousel)
   
-  Vue.component('joListModal-items', joListModal_items)
-  Vue.component('joListModal', joListModal)
+  Vue.component('quoteList-items', quoteList_items)
+  Vue.component('quoteList', quoteList)
   Vue.component('joItems', joItems)
   Vue.component('jo_step2', step2)
   Vue.component('jo_step3', step3)

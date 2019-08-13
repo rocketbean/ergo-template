@@ -2,7 +2,7 @@
   <q-btn color="white" icon="notifications" round flat>    
     <jobrequestView/>
     <joborderModal/>
-    <joListModal/>
+    <quoteList/>
     <approveJoborderModal/>
     <addJobRequest/>
     <addJrItem/>

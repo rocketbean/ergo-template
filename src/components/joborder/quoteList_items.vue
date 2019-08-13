@@ -2,16 +2,16 @@
   <q-item clickable v-ripple @click.native = "activateJo" v-close-popup>
     <q-item-section  thumbnail top>
       <q-avatar rounded>
-        <img :src="getPrime( jo.supplier.primary.thumb )" >
+        <img :src="getPrime( quote.supplier.primary.thumb )" >
       </q-avatar>
     </q-item-section>
 
     <q-item-section top>
       <q-item-label lines="1">
-        <span class="text-weight-light">{{ jo.supplier.name }}</span>
+        <span class="text-weight-light">{{ quote.supplier.name }}</span>
       </q-item-label>
       <q-item-label caption lines="2">
-        <span class="text-weight-thin"> {{jo.remarks}} </span>
+        <span class="text-weight-thin"> {{quote.remarks}} </span>
       </q-item-label>
 
     </q-item-section>
@@ -32,7 +32,7 @@ import { _glob } from 'src/statics/global'
 import { route, storage } from 'src/statics/backend'
 
 export default {
-  props: ['jo', 'jr'],
+  props: ['quote', 'jr'],
   computed: {
     ...mapGetters([]),
 
@@ -48,18 +48,18 @@ export default {
       return storage + path;
     },
     activateJo () {
-      this._activate({joborder: this.jo})
+      this._activate({joborder: this.quote})
       this._modals({'joborderModal': {open: true, data: {
-        jobrequest : this.jo.job_request_id,
-        joborder   : this.jo.id
+        jobrequest : this.quote.job_request_id,
+        joborder   : this.quote.id
       }}})
-      this.setAsViewed(this.jo)
+      this.setAsViewed(this.quote)
 
     },
-    setAsViewed(joborder) {
-      if(joborder.view > 1) {
-        _purl.post(route.joborders.viewed(joborder)).then( r => {
-          joborder.view = 1
+    setAsViewed(quote) {
+      if(quote.view > 1) {
+        _purl.post(route.joborders.viewed(quote)).then( r => {
+          quote.view = 1
         })
       }
     },

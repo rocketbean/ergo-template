@@ -17,7 +17,7 @@
       <div class = "flex" style ="flex-direction:row">
         <q-btn round flat icon="close" @click="destroyJr(jobrequest)" v-if="this.jobrequest.status_id && this.canAccess(this.gatepass, 'delete_jobrequest')" />
         <q-btn round flat icon="chevron_right" @click="activateJr()"  v-if="jobrequest.status_id < 2"/>
-        <q-btn round flat icon="list_alt" v-if="jobrequest.joborders.length > 0" @click = "activatePublishList()">
+        <q-btn round flat icon="list_alt" v-if="jobrequest.quotes.length > 0" @click = "activateQuoteList()">
           <q-badge floating color="red" v-if = "unseen > 0">{{ unseen }}</q-badge>
         </q-btn>
 <!--         <q-btn round flat v-if="jobrequest.status_id > 2" icon="fas fa-exclamation-circle" >
@@ -48,7 +48,7 @@ export default {
     ...mapGetters(['active']),
     unseen () {
       let val = 0;
-      this.jobrequest.joborders.map(jo => {
+      this.jobrequest.quotes.map(jo => {
         if(jo.view === 2) {
           val = val + 1
         }
@@ -71,9 +71,9 @@ export default {
         // this._modals({'jobrequestView': {open: true, data: {jobrequest: this.jobrequest.id}}})
       }
     },
-    activatePublishList () {
+    activateQuoteList () {
       this._activate({jobrequest: this.jobrequest})
-      this._modals({'publishList': {open: true}})
+      this._modals({'quoteList': {open: true}})
     },
     destroyJr(jobrequest) {
       _purl.post(route.properties.property.jobrequest.destroy(jobrequest)).then(r => {

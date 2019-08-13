@@ -9,7 +9,7 @@
 
 	    <q-card-section style="max-height: 50vh" class="scroll">
         <q-list dark separator >
-          <joListModal-items v-for = "joborder in jobrequest.joborders" :jo = "joborder" :jr = "jobrequest"/>
+          <quoteList-items v-for = "quote in jobrequest.quotes" :quote = "quote" :jr = "jobrequest"/>
         </q-list>
 	    </q-card-section>
 
@@ -32,7 +32,7 @@ export default {
   computed: {
     ...mapGetters(['active', 'modals']),
     modal () {
-      return this.modals.publishList;
+      return this.modals.quoteList;
     },
     jobrequest () {
       return this.active.jobrequest

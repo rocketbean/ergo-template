@@ -45,7 +45,7 @@ export default {
     },
     jo () {
       return this.active.joborder
-    }
+    },
   },
   data () {
     return {
@@ -55,10 +55,11 @@ export default {
   methods: {
     ...mapActions([]),
     approve() {
-      _purl.post(route.joborders.jobrequests.approve(this.jo, this.jr)).then(r => {
-        this.jo = r.data.joborder
-        this.jr = r.data.jobrequest
-      })
+      console.log(this.jo)
+      // _purl.post(route.joborders.jobrequests.approve(this.jo, this.jr)).then(r => {
+      //   this.jo = r.data.joborder
+      //   this.jr = r.data.jobrequest
+      // })
     }
   },
   mounted () {

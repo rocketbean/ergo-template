@@ -40,7 +40,7 @@ export default {
       },
       items: []
     },
-    publishList: {
+    quoteList: {
       open: false,
     },
     changePrimary: {
