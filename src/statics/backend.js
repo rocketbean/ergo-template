@@ -100,6 +100,9 @@ export const route = {
     get: apiroute + 'suppliers',
     supplier: {
       get: supplier => apiroute + 'suppliers/' + supplier + '/show',
+      photos: {
+        get: supplier => apiroute + 'suppliers/' + supplier + '/photos',
+      }, 
       location: {
         store: supplier => apiroute + 'suppliers/' + supplier + '/locations/store'
       },

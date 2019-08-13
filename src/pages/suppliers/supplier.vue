@@ -38,9 +38,9 @@
           <q-btn flat :label="supplier.name" />
           <q-toolbar color="primary">
             <q-tabs v-model="tab" shrink>
-              <q-tab name="jobrequests" icon="fas fa-house-damage"  />
-              <q-tab name="suppliers" icon="build"  />
+              <q-tab name="joborders" icon="fas fa-house-damage"  />
               <q-tab name="photos" icon="photo_library"  />
+              <q-tab name="users" icon="build"  />
               <q-tab name="settings" icon="fas fa-cogs"  />
             </q-tabs>
             <q-space />
@@ -49,7 +49,33 @@
         </div>
       </div>
     </div>
-    <h1>profile</h1>
+    <div class = "row">
+      <div class="col-sm-9">
+        <q-tab-panels v-model="tab" animated transition-prev="slide-right" transition-next="slide-left" >
+          <q-tab-panel name="joborders">
+            <q-list >
+              <SupplierJoborderList  v-for= "(joborder, index) in supplier.joborders" :key="index" :joborder="joborder"/>
+            </q-list>
+          </q-tab-panel>
+          <q-tab-panel name="photos" style = "padding:30px;" >
+            <supplier-photos :supplier="supplier"/> 
+
+          </q-tab-panel>
+
+          <q-tab-panel name="users" >
+            <h1>users</h1>
+
+          </q-tab-panel>
+          <q-tab-panel name="settings" >
+            <h1>settings</h1>
+          </q-tab-panel>
+        </q-tab-panels>
+      </div>
+      <div class = "col-sm-3 " style="padding:20px" >
+        <div class = "bg-grey-4 shadow-2 " style = "border-radius:3px; min-height:300px;margin:20px"></div>
+        <div class = "bg-grey-4 shadow-2 " style = "border-radius:3px; min-height:200px;margin:20px"></div>
+      </div>
+    </div>
   </q-page>
 </template>
 <script>
@@ -100,7 +126,7 @@ export default {
         lat: 10,
         lng: 10
       },
-      tab: 'jobrequests',
+      tab: 'joborders',
       loadMap: false
     }
   },

@@ -18,6 +18,8 @@ import jrItemDisplay from 'src/components/jr_items/jrItemDisplay'
 import mapPointer from 'src/components/location/mapPointer'
 import changePrimary from 'src/components/primary/change'
 import addSupplier from 'src/components/supplier/add'
+import SupplierJoborderList from 'src/pages/suppliers/parts/joborders/list'
+import supplierPhotos from 'src/pages/suppliers/parts/supplier-photos'
 import entry from 'src/components/stream/entry'
 import addJobOrder from 'src/components/stream/jo_add'
 import jrview from 'src/components/stream/jrview'
@@ -98,6 +100,11 @@ export default async ({ app, router, Vue }) => {
 
   Vue.component('topMenuGeneral', topMenuGeneral)
   Vue.component('topMenuUserNotification', topMenuUserNotification)
+
+  //supplier
+  Vue.component('SupplierJoborderList', SupplierJoborderList)
+  Vue.component('supplier-photos', supplierPhotos)
+
 
   app.watch = {
     '$route': function (from, to) {
