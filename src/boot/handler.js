@@ -25,12 +25,15 @@ import addJobOrder from 'src/components/stream/jo_add'
 import jrview from 'src/components/stream/jrview'
 import joPublish from 'src/components/joborder/publish'
 import joItems from 'src/components/joborder/items'
+import ApproveItems from 'src/components/joborder/ApproveItems'
 import step2 from 'src/components/joborder/step2'
 import step3 from 'src/components/joborder/step3'
 import unlisted from 'src/components/joborder/unlisted'
 import quoteList from 'src/components/joborder/quoteList'
 import quoteList_items from 'src/components/joborder/quoteList_items'
 import joborderModal from 'src/components/joborder/view/joborderModal'
+import JobOrderItem from 'src/components/joborder/view/JobOrderItem'
+import JobRequestItem from 'src/components/joborder/view/JobRequestItem'
 import joborderModalView from 'src/components/joborder/view/joborderView'
 import joborderModalCarousel from 'src/components/joborder/view/joborderCarousel'
 import approveJoborderModal from 'src/components/joborder/approve'
@@ -70,11 +73,18 @@ export default async ({ app, router, Vue }) => {
   //statuses
   Vue.component('statusIcon', statusIcon)
 
+  // approve joborder modal
   Vue.component('approveJoborderModal', approveJoborderModal)
-
+  Vue.component('approve-item', ApproveItems)
+  
+  //view joborder modal
   Vue.component('joborderModal', joborderModal)
   Vue.component('joborderModalView', joborderModalView)
   Vue.component('joborderModalCarousel', joborderModalCarousel)
+  Vue.component('joborderModal-joborder-item', JobOrderItem)
+  Vue.component('joborderModal-jobrequest-item', JobRequestItem)
+
+
   
   Vue.component('quoteList-items', quoteList_items)
   Vue.component('quoteList', quoteList)

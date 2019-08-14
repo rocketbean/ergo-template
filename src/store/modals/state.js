@@ -9,6 +9,7 @@ export default {
     },
     joborderModal: {
       open: false,
+      display: 'jobrequest',
     },
     approveJobOrder: {
       open: false

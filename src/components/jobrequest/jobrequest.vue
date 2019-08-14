@@ -64,10 +64,15 @@ export default {
     },
     viewJobRequest () {
       if(this.jobrequest.job_order_id !== null) {
-        this._modals({'joborderModal': {open: true, data: {
-          jobrequest : this.jobrequest.id,
-          joborder   : this.jobrequest.job_order_id
-        }}})
+        this._modals({'joborderModal': {
+          open: true,
+          display: 'jobrequest',
+          data: {
+            jobrequest : this.jobrequest.id,
+            joborder   : this.jobrequest.job_order_id
+          },
+
+        }})
         // this._modals({'jobrequestView': {open: true, data: {jobrequest: this.jobrequest.id}}})
       }
     },

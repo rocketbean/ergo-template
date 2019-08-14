@@ -13,7 +13,10 @@ export default {
     },
     roles: [],
     jobrequest: {name: ''},
-    joborder: {remarks: ''},
+    joborder: {
+      remarks: '',
+      items: []
+    },
     jritem: {},
     location: {}
   }

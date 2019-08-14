@@ -22,6 +22,11 @@ export function _activate ({commit}, payload) {
   return commit('activate_', payload)
 }
 
+
+export function _JobOrderitemLooper ({commit}, payload) {
+  return commit('JobOrderitemLooper_', payload)
+}
+
 export function _FetchActivate ({commit}, payload) {
   return new Promise ((resolve, reject) => {
     let _resolver = [];

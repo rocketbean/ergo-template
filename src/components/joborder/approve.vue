@@ -10,7 +10,9 @@
             <q-card-section>
               <div class="q-pa-md">
                 <div class="q-gutter-y-md column" style="min-width: 300px">
-                  <joItems :jr = "jr" :publishModal = "approveJobOrder.open" :items = "jo.items" :unlisted="false"/>
+                  <q-list dark  separator >
+                    <approve-item :jr = "jr" :publishModal = "approveJobOrder.open" :item="item" :index = "index" v-for = "(item, index) in items"/>
+                  </q-list>
                 </div>
               </div>
             </q-card-section>
@@ -35,6 +37,13 @@ import { _token, _user } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 
 export default {
+  watch: {
+    items : {
+      handler (value) {
+      },
+      deep:true
+    }
+  },
   computed: {
     ...mapGetters(['active', 'modals']),
     approveJobOrder () {
@@ -46,6 +55,9 @@ export default {
     jo () {
       return this.active.joborder
     },
+    items () {
+      return this.active.joborder.items
+    }
   },
   data () {
     return {
@@ -53,13 +65,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions([]),
+    ...mapActions(['']),
     approve() {
-      console.log(this.jo)
-      // _purl.post(route.joborders.jobrequests.approve(this.jo, this.jr)).then(r => {
-      //   this.jo = r.data.joborder
-      //   this.jr = r.data.jobrequest
-      // })
+      _purl.post(route.joborders.jobrequests.approve(this.jo, this.jr), {
+        items: this.items
+      }).then(r => {
+        this.jo = r.data.joborder
+        this.jr = r.data.jobrequest
+      })
     }
   },
   mounted () {

@@ -19,8 +19,11 @@
 
       <q-footer :style = "showFooter ? 'max-height:20vh;overflow:auto' : ''" class = "bg-blue-grey-8 " >
         <q-scroll-area style="height: 20vh; " v-if="showFooter">
-          <q-list >
-            <jrItemView v-for = "(item, index) in joborder.items" :index="index" :item="item.jobrequestitem" :jo="item" :jractive = "activateItem" />
+          <q-list v-if = "jobModal.display === 'supplier'">
+            <joborderModal-joborder-item v-for = "(item, index) in joborder.items" :index="index" :item="item.jobrequestitem" :jo="item" :jractive = "activateItem"  />
+          </q-list>
+          <q-list v-else >
+            <joborderModal-jobrequest-item v-for = "(item, index) in jobrequest.items" :index="index" :item="item" :jo="item" :jractive = "activateItem" />
           </q-list>
         </q-scroll-area>
           <template v-slot:top-left>

@@ -48,7 +48,7 @@
                 </q-btn>
               </div>
 
-              <div  v-if = "jobrequest.status_id === 2 && canAccess(gatepass, 'update_jobrequests')">
+              <div  v-if = "item.status_id === 2 && canAccess(gatepass, 'update_jobrequests')">
                 <q-btn round flat color="positive" icon = "check" size="sm" @click = "openApproveJo">
                   <q-tooltip>
                     approve this quotation
@@ -56,7 +56,7 @@
                 </q-btn>
               </div>
 
-              <div  v-if = "jobrequest.status_id === 3">
+              <div  v-if = "item.status_id === 3">
                 <q-banner rounded inline-actions class="text-white bg-blue shadow-1" >
                   <div style = "display:flex;flex-direction:row;align-items:center" >
                     <q-icon name = "info"  color = "white" style = "font-size:190%;padding-right:15px"/>
@@ -65,7 +65,7 @@
                 </q-banner>
               </div>
 
-              <div  v-if = "jobrequest.status_id === 4">
+              <div  v-if = "item.status_id === 4">
                 <q-banner rounded inline-actions class="text-white bg-indigo shadow-1" style = "margin:5px" >
                   <div style = "display:flex;flex-direction:row;align-items:center" >
                     <q-icon name = "info"  color = "white" style = "font-size:190%;padding-right:15px"/>
@@ -74,7 +74,7 @@
                 </q-banner>
               </div>
 
-              <div v-if = "jobrequest.status_id === 5">
+              <div v-if = "item.status_id === 5">
                 <q-btn-group  outline>
                   <q-btn  flat color="warning" icon="replay" size="sm" @click= "completeJo">
                     <q-tooltip>
@@ -95,7 +95,7 @@
                 <span style ="color:gray">total est: </span> ${{ generalTotal.total }}
               </q-chip>
 
-              <statusIcon :status_id = "jobrequest.status_id" outlineColor="blue"/>
+              <statusIcon :status_id = "item.status_id" outlineColor="blue"/>
 
             </div>
           </div>

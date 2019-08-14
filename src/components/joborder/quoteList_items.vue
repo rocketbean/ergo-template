@@ -49,10 +49,15 @@ export default {
     },
     activateJo () {
       this._activate({joborder: this.quote})
-      this._modals({'joborderModal': {open: true, data: {
-        jobrequest : this.quote.job_request_id,
-        joborder   : this.quote.id
-      }}})
+      this._modals({'joborderModal': 
+        {
+          open: true, 
+          data: {
+            jobrequest : this.quote.job_request_id,
+            joborder   : this.quote.id
+          },
+          display: 'supplier'
+        }})
       this.setAsViewed(this.quote)
 
     },
