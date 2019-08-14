@@ -6,7 +6,7 @@
     </q-banner>
       <div style="display:flex;flex-direction:row;justify-content:space-evenly">
         <div style = "order:1;flex-grow:1">
-          <q-input type = "number"  filled dark v-model="itemForm.timetable" label="Estimation" stack-label style = " width:99%" />
+          <q-input type = "number"  filled dark v-model="itemForm.timetable" label="Timetable" stack-label style = " width:99%" />
         </div>
         <div style = "order:2;flex-grow:3!important">
           <q-select filled dark v-model="itemForm.timetable_type" :options="timetypes" label="Type" class="bg-blue-grey-8" style = " width:104%"/>
@@ -65,7 +65,7 @@ export default {
         id: 0,
         name: '',
         timetable: 0,
-        timetable_type: 0,
+        timetable_type: 'Days',
         description: '',
         files: [],
         photos: [],
