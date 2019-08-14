@@ -4,6 +4,14 @@
     <q-banner class="bg-primary text-white shadow-2" style = "border-radius:10px">
       <small> {{ item.name }} </small>
     </q-banner>
+      <div style="display:flex;flex-direction:row;justify-content:space-evenly">
+        <div style = "order:1;flex-grow:1">
+          <q-input type = "number"  filled dark v-model="itemForm.timetable" label="Estimation" stack-label style = " width:99%" />
+        </div>
+        <div style = "order:2;flex-grow:3!important">
+          <q-select filled dark v-model="itemForm.timetable_type" :options="timetypes" label="Type" class="bg-blue-grey-8" style = " width:104%"/>
+        </div>
+      </div>
       <q-input type = "number" filled dark v-model="itemForm.amount" label="Estimation" stack-label prefix="$"  />
       <q-input type="textarea" filled dark v-model="itemForm.description" label="remarks" stack-label  autogrow /> 
       <q-uploader multiple class="full-width shadow-0" :url="beroute" dark @uploaded = "getFile" :field-name="(file) => 'file'"/>
@@ -32,10 +40,15 @@ export default {
   },
   data () {
     return {
+      timetypes: [
+        'Years', 'Months', 'Weeks', 'Days', 'Hours'
+      ],
       itemForm: {
         jr: 0,
         id: 0,
         amount: 0,
+        timetable: 0,
+        timetable_type: 'Days',
         description: '',
         files: [],
         photos: [],
@@ -51,6 +64,8 @@ export default {
         jr: {},
         id: 0,
         name: '',
+        timetable: 0,
+        timetable_type: 0,
         description: '',
         files: [],
         photos: [],
