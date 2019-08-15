@@ -1,10 +1,13 @@
 <template>
   <q-dialog v-model = "jrv.open" transition-show="fadeIn" transition-hide="fadeOut" :maximized="maximizedToggle" persistent>
-    <q-layout view="hHh lpR ffR"  container class="bg-primary" style="width: 80vw; max-width: 100vw; height:90vh;" >
+    <q-layout view="hHh lpR ffR"  container class="bg-primary" style="width: 80vw; max-width: 100vw; height:90vh; max-height:100vh" >
       <q-header >
         <q-bar class ="bg-blue-grey-8 shadow-1">
           <q-icon name="fas fa-house-damage" />
           <q-space />
+          <q-btn dense flat :icon="drawerR ? 'chevron_right' : 'chevron_left'" @click = "drawerR = drawerR ? false: true;">
+            <q-tooltip content-class="bg-white text-primary">side</q-tooltip>
+          </q-btn>
           <q-btn dense flat icon="minimize" @click="maximizedToggle = false" :disable="!maximizedToggle">
             <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
           </q-btn>
@@ -33,8 +36,8 @@
         </q-table>
       </q-footer>
 
-      <q-drawer side="right"  v-model="drawerR" :width="350" :breakpoint="300" dark content-class="q-pa-sm bg-blue-grey-8 text-white " >
-        <div >
+      <q-drawer side="right"  v-model="drawerR" :width="350" :breakpoint="100" dark content-class="q-pa-sm bg-blue-grey-8 text-white " >
+        <div>
           <div class="q-pa-md">
             <addJobOrder :item = "jritem" :loadItem="loadItem" :orderCallback = "orderCallback"/>
           </div>
@@ -72,6 +75,9 @@ export default {
         console.log(value)
       },
       deep:true
+    },
+    drawerR(value) {
+      console.log(value)
     },
     'active': {
       handler (value) {
@@ -123,7 +129,7 @@ export default {
 
   },
   mounted () {
-
+    this.drawerR = true
   }
 
 }

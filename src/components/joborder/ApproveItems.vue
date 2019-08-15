@@ -19,10 +19,11 @@ import { route, storage } from 'src/statics/backend'
 import { _glob } from 'src/statics/global'
 
 export default {
-  props: ['jr','jo', 'item', 'index'],
+  props: ['jr','jo', 'item', 'index', 'computeAmount'],
   watch: {
     model (value) {
       this.item._selected = value
+      this.computeAmount()
       this._JobOrderitemLooper(this.item)
     }
   },
@@ -57,6 +58,7 @@ export default {
     }
   },
   mounted (){
+    this.computeAmount()
     this.item._selected = true
     this._JobOrderitemLooper(this.item)
   }

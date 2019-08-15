@@ -48,7 +48,7 @@
                 </q-btn>
               </div>
 
-              <div  v-if = "item.status_id === 2 && canAccess(gatepass, 'update_jobrequests')">
+              <div  v-if = "item.status_id === 1 && canAccess(gatepass, 'update_jobrequests')">
                 <q-btn round flat color="positive" icon = "check" size="sm" @click = "openApproveJo">
                   <q-tooltip>
                     approve this quotation
@@ -185,7 +185,6 @@ export default {
     }
   },
   mounted () {
-
   }
 }
 </script>

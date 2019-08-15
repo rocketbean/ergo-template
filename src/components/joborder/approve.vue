@@ -11,7 +11,12 @@
               <div class="q-pa-md">
                 <div class="q-gutter-y-md column" style="min-width: 300px">
                   <q-list dark  separator >
-                    <approve-item :jr = "jr" :publishModal = "approveJobOrder.open" :item="item" :index = "index" v-for = "(item, index) in items"/>
+                    <approve-item :jr = "jr" :publishModal = "approveJobOrder.open" :item="item" :index = "index" v-for = "(item, index) in items" :computeAmount = "getTotal"/>
+                    <q-item>
+                      <q-item-section  side>
+                        <q-item-label >$ {{ total.amount }} </q-item-label>
+                      </q-item-section >
+                    </q-item>
                   </q-list>
                 </div>
               </div>
@@ -40,6 +45,8 @@ export default {
   watch: {
     items : {
       handler (value) {
+        console.log(value)
+        this.getTotal()
       },
       deep:true
     }
@@ -62,10 +69,20 @@ export default {
   data () {
     return {
       maximizedToggle: false,
+      total: {
+        amount: 0,
+        taxed: true
+      }
     }
   },
   methods: {
     ...mapActions(['']),
+    getTotal () {
+      let _i = this.items.filter(item => item._selected)
+      let _t = _glob.calculateItems(_i);
+      this.total.amount = _t.total 
+      this.total.taxed = _t.tax 
+    },
     approve() {
       _purl.post(route.joborders.jobrequests.approve(this.jo, this.jr), {
         items: this.items

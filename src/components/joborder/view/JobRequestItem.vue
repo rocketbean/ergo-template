@@ -1,7 +1,7 @@
 <template>
   <q-item clickable>
     <q-item-section avatar >
-        <q-chip square dense style = "min-width: 70px"  v-if="item.job_order_item_id">
+        <q-chip square dense style = "min-width: 70px"  v-if="item.status_id > 2">
           <q-avatar color="blue-grey-9" text-color="white">$</q-avatar>
           {{ item.joborderitem.amount }}
         </q-chip>
@@ -27,14 +27,14 @@ import { mapGetters, mapActions } from 'vuex'
 import { route } from 'src/statics/backend'
 import { _purl } from 'src/statics/purl'
 export default {
-  props: ['item', 'jractive', 'index', 'jo'],
+  props: ['item', 'jractive', 'index'],
   computed: {
     ...mapGetters(['active'])
   },
   methods: {
     ...mapActions(['_modals', '_activate']),
     activateJr() {
-      this.jractive(this.item, this.index);
+      this.jractive(this.item, this.item.joborderitem);
     },
     setTextLimiter (val) {
       if(val !== null) {
@@ -53,7 +53,6 @@ export default {
 
   },
   mounted () {
-    console.log(this.jo)
   }
 }
 </script>

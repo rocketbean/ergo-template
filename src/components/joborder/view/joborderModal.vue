@@ -23,7 +23,7 @@
             <joborderModal-joborder-item v-for = "(item, index) in joborder.items" :index="index" :item="item.jobrequestitem" :jo="item" :jractive = "activateItem"  />
           </q-list>
           <q-list v-else >
-            <joborderModal-jobrequest-item v-for = "(item, index) in jobrequest.items" :index="index" :item="item" :jo="item" :jractive = "activateItem" />
+            <joborderModal-jobrequest-item v-for = "(item, index) in jobrequest.items" :index="index" :item="item" :jractive = "activateItem" />
           </q-list>
         </q-scroll-area>
           <template v-slot:top-left>
@@ -75,7 +75,7 @@ export default {
     jobModal: {
       handler (value) {
         if (value.open) {
-          this._FetchActivate(value.data).then(r => this.activateItem(this.jobrequest.items[0],0) )
+          this._FetchActivate(value.data).then(r => this.activateItem(this.jobrequest.items[0]) )
         }
       },
       deep:true
@@ -114,10 +114,13 @@ export default {
     isEmpty (obj) {
       return _glob.isEmpty(obj)
     },
-    activateItem(item, ind) {
-      this.keyitem = ind
-      this.jritem = item
-      this.joitem = this.joborder.items[ind]
+    activateItem(item) {
+      if(this.jobModal.display === 'supplier') {
+        console.log(item)
+      } else {
+        this.jritem = item
+        this.joitem = item.joborderitem
+      }
     },
   },
   mounted () {
