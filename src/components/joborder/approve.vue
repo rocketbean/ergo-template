@@ -45,7 +45,6 @@ export default {
   watch: {
     items : {
       handler (value) {
-        console.log(value)
         this.getTotal()
       },
       deep:true

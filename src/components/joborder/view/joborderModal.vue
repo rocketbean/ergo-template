@@ -20,10 +20,10 @@
       <q-footer :style = "showFooter ? 'max-height:20vh;overflow:auto' : ''" class = "bg-blue-grey-8 " >
         <q-scroll-area style="height: 20vh; " v-if="showFooter">
           <q-list v-if = "jobModal.display === 'supplier'">
-            <joborderModal-joborder-item v-for = "(item, index) in joborder.items" :index="index" :item="item.jobrequestitem" :jo="item" :jractive = "activateItem"  />
+            <joborderModal-joborder-item v-for = "(item, index) in joborder.items" :index="index" :item="getJobOrderRequest(item)" :jo="item" :jractive = "activateItem"  />
           </q-list>
           <q-list v-else >
-            <joborderModal-jobrequest-item v-for = "(item, index) in jobrequest.items" :index="index" :item="item" :jractive = "activateItem" />
+            <joborderModal-jobrequest-item v-for = "(item, index) in jobrequest.items" :index="index" :item="item" :jr= "jobrequest" :jractive = "activateItem" />
           </q-list>
         </q-scroll-area>
           <template v-slot:top-left>
@@ -37,10 +37,16 @@
       </q-footer>
 
       <q-drawer side="right"  v-model="drawerR" :width="350" :breakpoint="300" dark content-class="q-pa-sm bg-blue-grey-8 text-white " >
-        <div >
-          <div class="q-pa-md">
+        <div style = "height:inherit">
+          <div class="q-pa-md" style = "height:inherit">
             <!-- <addJobOrder :item = "jritem" :loadItem="loadItem" :orderCallback = "orderCallback"/> -->
-            <joborderModalView :joborder= "joborder" :item="joitem" v-if="!isEmpty(joitem)"/>
+            <joborderModalView :joborder= "joborder" :item="jritem" :joitem= "joitem"  v-if="!isEmpty(joitem)"/>
+            <div style = "width:100%;height:inherit; display:flex;align-items:center" v-else>
+              <h5 class = "text-center text-grey">
+                <q-icon name = "not_interested" class = "text-white" style = "font-size:150%; margin-bottom: 30px"/> <br>
+                no joborder has been approved yet
+              </h5>
+            </div>
           </div>
         </div>
       </q-drawer>
@@ -53,7 +59,7 @@
               <span style = "font-size:250%;font-weight:300" class=" text-grey-3 text-center"> Please add an item to your request <q-avatar icon = "fas fa-chevron-circle-right" style = "font-size:250%"/> </span>
             </div>
             <div v-else>
-              <jrItemDisplay :item="jritem" :updateCallback= "loadItem"/>
+              <jrItemDisplay :item="jritem" v-if ="loadSideDisplay" />
             </div>
           </q-card-section>
         <q-card-section>
@@ -74,11 +80,26 @@ export default {
   watch: {
     jobModal: {
       handler (value) {
+
         if (value.open) {
-          this._FetchActivate(value.data).then(r => this.activateItem(this.jobrequest.items[0]) )
+          if(this.jobModal.display === 'supplier'){
+            this._FetchActivate(value.data).then(r => {
+              this.activateItem({item: this.getJobOrderRequest(this.joborder.items[0]), jo: this.joborder.items[0]})
+            })
+          } else {
+            this._FetchActivate(value.data).then(r => this.activateItem(this.jobrequest.items[0]) )
+          }
         }
       },
       deep:true
+    },
+    jritem: {
+      handler (value) {
+        if (value !== undefined) {
+          this.loadSideDisplay = true
+        }
+      },
+      deep: true
     }
   },
   computed: {
@@ -103,20 +124,27 @@ export default {
       joitem: {},
       showFooter: true,
       drawerR: true,
+      loadSideDisplay: false,
       maximizedToggle: false
     }
   },
   methods: {
     ...mapActions(['_FetchActivate']),
-    loadItem () {
-
+    getJobOrderRequest (item) {
+      let ii = this.jobrequest.items.filter(i => {
+        if (item.job_request_item_id === i.id)  {
+          return item
+        }
+      });
+      return ii[0]
     },
     isEmpty (obj) {
       return _glob.isEmpty(obj)
     },
     activateItem(item) {
       if(this.jobModal.display === 'supplier') {
-        console.log(item)
+        this.jritem = item.item
+        this.joitem = item.jo
       } else {
         this.jritem = item
         this.joitem = item.joborderitem

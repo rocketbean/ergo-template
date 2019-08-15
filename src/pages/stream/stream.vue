@@ -42,7 +42,7 @@ export default {
     stream() {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.auth._t
       _purl.get(route.stream.stream(this.ind)).then (r => {
-        this.registerData(r.data);
+        this.registerData(r.data.data);
         this.visible = false
       }).catch(e => {
         _glob.notify('we encountered a network problem', 'negative');

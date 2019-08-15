@@ -1,5 +1,5 @@
 <template>  
-  <div>
+  <div v-if="item">
     <q-carousel
       swipeable
       animated
@@ -21,8 +21,8 @@
       </template>
     </q-carousel>
     <div style="padding:25px" class = "flex align-center">
-      <span class = "text-h5 text-weight-thin" style = "margin-right:10px">
-        <q-chip dense outline size="xs" text-color="white" :icon="tag.icon"  v-for= "tag in item.jobrequestitem.tags" >
+      <span class = "text-h5 text-weight-thin" style = "margin-right:10px"  v-if="item.tags !== undefined">
+        <q-chip dense outline size="xs" text-color="white" :icon="tag.icon"  v-for= "tag in item.jobrequestitem.tags">
           {{tag.label}}
         </q-chip>
       </span>

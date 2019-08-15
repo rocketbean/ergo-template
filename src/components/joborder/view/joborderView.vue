@@ -2,7 +2,7 @@
   <div class=" q-gutter-sm">
       <q-card square class = "shadow-0">
         <!-- <q-img src="https://media-cdn.tripadvisor.com/media/photo-s/0a/47/a8/91/chicken-salad-sandwich.jpg" /> -->
-      <q-tabs
+   <!--    <q-tabs
         dense
         outlined
         v-model="tab"
@@ -11,14 +11,14 @@
       >
         <q-tab name="info" icon="info"/>
         <q-tab name="comments" icon="comments" />
-      </q-tabs>
+      </q-tabs> -->
         <joborderModalCarousel :item="item" v-if="item.photos.length > 0"/>
         <q-card-section class = "bg-blue-grey-8">
           <div :style = "item.photos.length > 0 ? 'margin-top:-12px' : 'display:flex;align-items:center'">
               <div class = "full-width" :style="primaryStyle">
                 <div class="text-weight-medium text-capitalize ellipsis" style = " display: flex;align-items: center;padding-bottom: 10px; width: 100%">
                   <q-avatar avatar class=" shadow-3" size="50px">
-                    <q-img  round :src="getPrime(joborder.supplier.primary.thumb)" /> 
+                    <q-img  round :src="getPrime(joborder.supplier.primary.thumb)" style = "height:100%"/> 
                   </q-avatar>
                   <div class = "rounded-borders" style = "display: flex;flex-direction: column;padding-left: 4px; width: 100%">
                     <div style = "display: flex;width: 100% ">
@@ -101,11 +101,11 @@
           </div>
 
           <div style = "display:flex;justify-content:space-between;align-items:center;padding:4px">
-            <span>{{ item.jobrequestitem.name }}</span>
-            <div class="text-subtitle1 text-right"><small class = "text-grey">est: </small>${{ item.amount }}</div>
+            <span>{{ item.name }}</span>
+            <div class="text-subtitle1 text-right"><small class = "text-grey">est: </small>${{ joitem.amount }}</div>
           </div>
           <q-separator color="white"/>
-          <div class="text-subtitle2 text-white text-weight-light" style = "padding:4px"><small>{{ item.remarks }}</small></div>
+          <div class="text-subtitle2 text-white text-weight-light" style = "padding:4px"><small>{{ joitem.remarks }}</small></div>
         </q-card-section>
 
       </q-card>
@@ -121,7 +121,7 @@ import {GateMixin} from 'src/mixins/GateMixin'
 
 export default {
   mixins: [GateMixin],
-  props: ['joborder', 'item'],
+  props: ['joborder', 'item', 'joitem'],
   watch: {
     joborder: {
       handler (value) {
@@ -168,6 +168,9 @@ export default {
     getPrime(path) {
       return storage + path;
     },
+    findJobRequestItem(joborder) {
+
+    },
     openApproveJo () {
       this._modals({'approveJobOrder': {open: true, title: this.joborder.supplier.name}})
     },
@@ -185,6 +188,7 @@ export default {
     }
   },
   mounted () {
+
   }
 }
 </script>

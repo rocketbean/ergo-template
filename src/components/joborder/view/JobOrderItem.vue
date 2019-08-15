@@ -17,13 +17,13 @@
 
       <q-avatar v-else text-color="white" icon="fas fa-tools" />
     </q-item-section>
-    <q-item-section>
+    <q-item-section >
       <q-item-label>{{item.name}}</q-item-label>
       <q-item-label caption class=  "text-grey-3">{{setTextLimiter(item.description)}}</q-item-label>
     </q-item-section>
     <q-item-section side center>
       <div class = "flex" style ="flex-direction:row">
-        <q-btn round flat icon="chevron_right" @click="activateJr(item)" color="white"/>
+        <q-btn round flat icon="chevron_right" @click="activateJr(jo)" color="white"/>
         <q-btn round flat v-if="item.selector" size="sm" icon="border_color" @click="activateJr(item)" color="white"/>
       </div>
     </q-item-section>
@@ -36,12 +36,12 @@ import { _purl } from 'src/statics/purl'
 export default {
   props: ['item', 'jractive', 'index', 'jo'],
   computed: {
-    ...mapGetters(['active'])
+    ...mapGetters(['active']),
   },
   methods: {
     ...mapActions(['_modals', '_activate']),
     activateJr() {
-      this.jractive(this.item, this.jo);
+      this.jractive({item: this.item, jo: this.jo});
     },
     setTextLimiter (val) {
       if(val !== null) {
@@ -60,7 +60,7 @@ export default {
 
   },
   mounted () {
-    console.log(this.jo)
+
   }
 }
 </script>

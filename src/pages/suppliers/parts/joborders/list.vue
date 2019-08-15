@@ -2,12 +2,12 @@
   <q-item clickable @click="openJobOrder">
     <q-item-section avatar>
       <q-avatar round >
-        <q-img class = "shadow-5" :src="getPrime(joborder.jobrequest)"  style = "width:100%;height:100%"/>
+        <q-img class = "shadow-5" :src="getPrime(joborder)"  style = "width:100%;height:100%"/>
       </q-avatar>
     </q-item-section>
     <q-item-section>
       <q-item-label class = " full-width" >
-        <strong>{{joborder.jobrequest.property.name}}</strong> - {{joborder.jobrequest.name}}
+        <strong>{{joborder.property.name}}</strong> - {{joborder.jobrequest.name}}
         <statusIcon :status_id = "joborder.jobrequest.status_id" />
       </q-item-label>
       <q-item-label caption>{{ joborder.remarks }}</q-item-label>
@@ -32,8 +32,8 @@ export default {
   },
   methods: {
   	...mapActions(['_modals']),
-    getPrime(jr) {
-      return storage + jr.property.primary.path;
+    getPrime(joborder) {
+      return storage + joborder.property.primary.path;
     },
     openJobOrder() {
         this._modals({'jobrequestView': {open: true, data: {

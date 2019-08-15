@@ -1,6 +1,6 @@
 <template>
   <div class=" q-gutter-sm">
-      <q-card square class = "shadow-0">
+      <q-card v-if ="supplier" square class = "shadow-0">
         <q-card-section class = "bg-blue-grey-8" style = "padding-bottom:5px;">
           <div style = "margin-top:-12px">
               <div class = "full-width" >
