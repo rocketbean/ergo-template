@@ -13,7 +13,7 @@
                   <q-list dark  separator >
                     <approve-item :jr = "jr" :publishModal = "approveJobOrder.open" :item="item" :index = "index" v-for = "(item, index) in items" :computeAmount = "getTotal"/>
                     <q-item>
-                      <q-item-section  side>
+                      <q-item-section side>
                         <q-item-label >$ {{ total.amount }} </q-item-label>
                       </q-item-section >
                     </q-item>
@@ -75,7 +75,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['']),
     getTotal () {
       let _i = this.items.filter(item => item._selected)
       let _t = _glob.calculateItems(_i);

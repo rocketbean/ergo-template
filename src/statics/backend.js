@@ -87,9 +87,11 @@ export const route = {
     get: joborder => apiroute + 'joborders/' + joborder,
     viewed: joborder => apiroute + 'joborders/' + joborder.id + '/viewed/',
     jobrequests: {
-      approve: (joborder, jobrequest) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/approve/',
-      confirm: (joborder, jobrequest) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/confirm/',
-      complete: (joborder, jobrequest) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/complete/',
+      item: {
+        approve: (joborder, jobrequest, item) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/approve/',
+        confirm: (joborder, jobrequest, item) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id +  '/item/' + item.id +  '/confirm/',
+        complete: (joborder, jobrequest, item) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id +  '/item/' + item.id +  '/complete/',
+      }
     }
   },
   jobrequests: {

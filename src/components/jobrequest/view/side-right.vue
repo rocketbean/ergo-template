@@ -25,7 +25,7 @@
                     </q-tooltip>
                   </q-btn>
                 </div>
-                <div  v-if = "jobrequest.status_id === 3  " >
+                <div  v-if = "jobrequest.status_id === 3" >
                   <q-btn round flat color="positive" icon = "fas fa-clipboard-check" size="sm" @click="confirmQuote">
                     <q-tooltip>
                       confirm this quotation
@@ -33,7 +33,7 @@
                   </q-btn>
                 </div>
 
-                <div v-if = "jobrequest.status_id === 4  " >
+                <div v-if = "jobrequest.status_id === 4" >
                   <q-btn-group rounded outline>
                     <q-btn rounded flat color="positive" icon="playlist_add_check" size="sm" @click= "completeJo">
                       <q-tooltip>
@@ -49,7 +49,7 @@
         <q-card-section class = "bg-blue-grey-8">
           <q-separator color="white"/>
           <q-list dark  separator style="max-width: 318px">
-            <q-item clickable v-ripple v-for ="(item, index) in items" @click = "activateItem(item, index)" >
+            <q-item clickable v-ripple v-for ="(item, index) in items" @click = "activateItem(item, index)" v-if = "item.status_id > 2">
             <q-item-section side top v-if = "keyItem === index" >
               <div style = "display:flex;align-items:center; height:100%">
               <q-icon name = "fas fa-play" />
@@ -74,7 +74,7 @@ import { _token, _user } from 'src/statics/token'
 import { _glob } from 'src/statics/global'
 
 export default {
-  props: ['supplier', 'items', "activateItem", "keyItem"],
+  props: ['supplier', 'items', "activateItem", "keyItem", "joborderitem"],
   computed: {
     ...mapGetters(['active', 'modals']),
     primaryStyle () {
@@ -102,7 +102,7 @@ export default {
   methods: {
     ...mapActions(['_activate', '_modals']),
     confirmQuote () {
-      _purl.post(route.joborders.jobrequests.confirm(this.joborder, this.jobrequest)).then(r => {
+      _purl.post(route.joborders.jobrequests.item.confirm(this.joborder, this.jobrequest, this.joborderitem)).then(r => {
         this._activate({'joborder': r.data.joborder});
         this._activate({'jobrequest': r.data.jobrequest});
       })
@@ -114,7 +114,7 @@ export default {
       return _glob.setTextLimiter(str, 150)
     },
     completeJo () {
-      _purl.post(route.joborders.jobrequests.complete(this.joborder, this.jobrequest)).then(r => {
+      _purl.post(route.joborders.jobrequests.item.complete(this.joborder, this.jobrequest, this.joborderitem)).then(r => {
         this._activate({'joborder': r.data.joborder});
         this._activate({'jobrequest': r.data.jobrequest});
       })

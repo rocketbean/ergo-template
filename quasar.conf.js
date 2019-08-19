@@ -57,9 +57,7 @@ module.exports = function (ctx) {
       // iconSet: 'ionicons-v4'
       // lang: 'de' // Quasar language
     },
-
     supportIE: false,
-
     build: {
       scopeHoisting: true,
       vueRouterMode: 'history',

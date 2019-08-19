@@ -486,5 +486,13 @@ export const _glob = {
       total: _t,
       tax
     }
+  },
+  calculateJobRequestItems(jobrequest, tax =false) {
+    let _t = 0
+    jobrequest.items.map( item => _t += isNaN(Number(item.joborderitem.amount)) ? 0 : Number(item.joborderitem.amount))
+    return {
+      total: _t,
+      tax
+    }
   }
 }

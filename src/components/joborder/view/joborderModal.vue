@@ -40,7 +40,7 @@
         <div style = "height:inherit">
           <div class="q-pa-md" style = "height:inherit">
             <!-- <addJobOrder :item = "jritem" :loadItem="loadItem" :orderCallback = "orderCallback"/> -->
-            <joborderModalView :joborder= "joborder" :item="jritem" :joitem= "joitem"  v-if="!isEmpty(joitem)"/>
+            <joborderModalView :joborder= "joborder" :item="jritem" :joitem= "joitem" :display="jobModal.display" v-if="!isEmpty(joitem)"/>
             <div style = "width:100%;height:inherit; display:flex;align-items:center" v-else>
               <h5 class = "text-center text-grey">
                 <q-icon name = "not_interested" class = "text-white" style = "font-size:150%; margin-bottom: 30px"/> <br>

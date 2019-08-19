@@ -20,7 +20,7 @@
       <q-drawer side="right"  v-model="drawerR" :width="350" :breakpoint="300" dark content-class="q-pa-sm bg-blue-grey-8 text-white " >
         <div style="height:100%">
           <div class="q-pa-md" v-if= "joborder">
-            <jobrequestViewSide :supplier="joborder.supplier" :items="joborder.items" :activateItem="activateItem" :keyItem = "keyitem"/>
+            <jobrequestViewSide :supplier="joborder.supplier" :items="joborder.items" :joborderitem = "joitem" :activateItem="activateItem" :keyItem = "keyitem"/>
           </div>
           <div v-else style = "display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;"> 
             <q-icon class = "text-white" name= "info" style = "font-size:300%;margin-bottom:20px"/>
@@ -52,7 +52,12 @@ export default {
     jrviewOpen (value) {
       if(value) {
           this._FetchActivate(this.jrv.data).then(r => {
-            this.activateItem(this.joborder.items[0],0)
+            this.joborder.items.map((item, index) => {
+              if(item.status_id > 2) {
+                this.activateItem(item,index)
+              }
+            })
+            
           });
       }
     }

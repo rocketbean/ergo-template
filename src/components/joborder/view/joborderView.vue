@@ -12,17 +12,17 @@
         <q-tab name="info" icon="info"/>
         <q-tab name="comments" icon="comments" />
       </q-tabs> -->
-        <joborderModalCarousel :item="item" v-if="item.photos.length > 0"/>
+        <joborderModalCarousel :item="item" v-if="item.photos.length > 0" />
         <q-card-section class = "bg-blue-grey-8">
           <div :style = "item.photos.length > 0 ? 'margin-top:-12px' : 'display:flex;align-items:center'">
               <div class = "full-width" :style="primaryStyle">
                 <div class="text-weight-medium text-capitalize ellipsis" style = " display: flex;align-items: center;padding-bottom: 10px; width: 100%">
                   <q-avatar avatar class=" shadow-3" size="50px">
-                    <q-img  round :src="getPrime(joborder.supplier.primary.thumb)" style = "height:100%"/> 
+                    <q-img  round :src="getPrime(joitem.supplier.primary.thumb)" style = "height:100%"/> 
                   </q-avatar>
                   <div class = "rounded-borders" style = "display: flex;flex-direction: column;padding-left: 4px; width: 100%">
                     <div style = "display: flex;width: 100% ">
-                      {{ joborder.supplier.name }}
+                      {{ joitem.supplier.name }}
                     </div>
                     <q-rating v-model="stars" :max="5" size="16px" />
                   </div>
@@ -33,7 +33,7 @@
         </q-card-section>
 
         <q-card-section class = "bg-blue-grey-8">
-          <div v-if ="jobrequest.job_order_id === null || jobrequest.job_order_id === joborder.id"> <!-- // -->
+          <div > <!-- /v-if ="jobrequest.job_order_id === null || jobrequest.job_order_id === joborder.id"/ -->
             <div class=  "flex" style = "justify-content:flex-end">
               <div style = "margin-right:auto !important;">
                 <q-btn round flat color="positive" icon = "update" size="md" @click = "openAttachmentView">
@@ -121,7 +121,7 @@ import {GateMixin} from 'src/mixins/GateMixin'
 
 export default {
   mixins: [GateMixin],
-  props: ['joborder', 'item', 'joitem'],
+  props: ['joborder', 'item', 'joitem', 'display'],
   watch: {
     joborder: {
       handler (value) {
@@ -175,7 +175,11 @@ export default {
       this._modals({'approveJobOrder': {open: true, title: this.joborder.supplier.name}})
     },
     getTotal () {
-      return _glob.calculateItems(this.joborder.items);
+      if(this.display === 'supplier') {
+       return _glob.calculateItems(this.joborder.items);
+      } else {
+       return _glob.calculateJobRequestItems(this.jobrequest);
+      }
     },
     completeJo () {
 
