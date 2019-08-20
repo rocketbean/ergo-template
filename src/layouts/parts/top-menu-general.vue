@@ -23,7 +23,7 @@
           <q-item-section>Settings</q-item-section>
         </q-item>
         <q-separator dark />
-        <q-item clickable>
+        <q-item clickable @click = "logout">
           <q-item-section>Logout</q-item-section>
         </q-item>
       </q-list>
@@ -32,9 +32,15 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { _token } from 'src/statics/token'
 export default {
   methods: {
-    ...mapActions(['_modals'])
+    ...mapActions(['_modals']),
+    logout () {
+      _token.release().then((resolve) => {
+        this.$router.push(resolve)
+      })
+    }
   }
 }
 </script>

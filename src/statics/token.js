@@ -67,7 +67,10 @@ export const _token = {
    * @var x ;
   */
   release () {
-    localStorage.clear()
+    return new Promise ((resolve, reject) => {
+      localStorage.clear()
+      return resolve('login')
+    })
   },
 
   /**
