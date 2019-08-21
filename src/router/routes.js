@@ -33,6 +33,14 @@ const routes = [
     ]
   },
   {
+    path: '/settings',
+    component: () => import('layouts/origin.vue'),
+    children: [
+      { name: 'user_settings', path: 'user', component: () => import('pages/settings/user.vue') },
+      // { path: ':property', component: () => import('pages/properties/property.vue') },
+    ]
+  },
+  {
     path: '/stream/:supplier',
     component: () => import('layouts/stream.vue'),
     children: [

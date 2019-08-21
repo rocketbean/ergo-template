@@ -2,25 +2,11 @@
   <q-btn color="white" icon="arrow_drop_down_circle" round flat>
     <q-menu content-class="bg-primary text-white shadow-3" auto-close max-height="360px">
       <q-list style="min-width: 300px">
-        <q-item clickable>
-          <q-item-section>New tab</q-item-section>
-        </q-item>
         <q-item clickable @click = "_modals({'addSuppliers': {'open': true}})">
           <q-item-section>Register your Service Company</q-item-section>
         </q-item>
-        <q-separator dark />
-        <q-item clickable>
-          <q-item-section>Recent tabs</q-item-section>
-        </q-item>
-        <q-item clickable>
-          <q-item-section>History</q-item-section>
-        </q-item>
-        <q-item clickable>
-          <q-item-section>Downloads</q-item-section>
-        </q-item>
-        <q-separator dark />
-        <q-item clickable>
-          <q-item-section>Settings</q-item-section>
+        <q-item clickable @click = "pushRoute('user_settings')">
+          <q-item-section>User Settings</q-item-section>
         </q-item>
         <q-separator dark />
         <q-item clickable @click = "logout">
@@ -36,6 +22,9 @@ import { _token } from 'src/statics/token'
 export default {
   methods: {
     ...mapActions(['_modals']),
+    pushRoute(route) {
+      this.$router.push({name:route})
+    },
     logout () {
       _token.release().then((resolve) => {
         this.$router.push(resolve)

@@ -64,6 +64,11 @@ export const route = {
   roles: {
     get: apiroute + 'roles',
   },
+  settings: {
+    user: {
+      get: user => apiroute + 'settings/user/' + user,
+    }
+  },
   ergo: {
     countries: apiroute + 'ergo/countries',
     tags: apiroute + 'ergo/tags',
