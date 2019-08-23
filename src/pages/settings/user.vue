@@ -10,7 +10,7 @@
                   @click = "changePrimary"
                   @mouseenter =" hoverable = true"
                   @mouseleave =" hoverable = false"
-                  :src="getPrime()"
+                  :src="getPrime"
                   spinner-color="white"
                   style="height: 160px; min-width:180px; max-width: 180px;width: 180px;border: 2px solid white; border-radius:10px;margin-top:-40px;margin-left:20px;align-self:baseline" >
                   <div v-if="hoverable" class = "full-width flex flex-center primaryphoto" style =  ""> 
@@ -20,8 +20,8 @@
               <div style = "margin:30px; display:flex;justify-content:center">
                 <div class="q-pa-md" style = "width:570px">
                   <div class="q-gutter-y-md " >
-                    <q-input filled  v-model="user.name" label="name" stack-label  />
-                    <q-input filled  v-model="user.email" label="Email" stack-label  />
+                    <q-input filled  v-model="user.name" label="name" stack-label disable />
+                    <q-input filled  v-model="user.email" label="Email" stack-label disable />
                   </div>
                 </div>
               </div>
@@ -40,10 +40,20 @@ import {_glob} from 'src/statics/global'
 export default {
   computed: {
     ...mapGetters(['active']),
+    getPrime() {
+    // let this.user = _user.getUser();
+      if(this.user.primary) {
+        if(this.user.primary !== null && this.user.primary.path !== undefined) {
+          return storage + this.user.primary.path;
+        } else {
+          return "https://cdn4.vectorstock.com/i/thumb-large/21/98/male-profile-picture-vector-1862198.jpg"
+        }
+      }
+    },
   },
   data () {
     return {
-      hoverable: true,
+      hoverable: false,
       user: {}
     }
   },
@@ -53,19 +63,10 @@ export default {
       let _u = _user.getUser();
       _purl.get(route.settings.user.get(_u.id)).then(r => {
         this.user = r.data
-        console.log(r.data)
       })
     },
-    getPrime() {
-      let _u = _user.getUser();
-      if(_u.primary !== null && _u.primary.path !== undefined) {
-        return storage + _u.primary.path;
-      } else {
-        return "https://cdn4.vectorstock.com/i/thumb-large/21/98/male-profile-picture-vector-1862198.jpg"
-      }
-    },
     changePrimary () {
-      this._modals({'changePrimary': {'open' : true, 'data' : this.user, 'active': 'user', 'uri': route.properties.property.primary.update }})
+      this._modals({'changePrimary': {'open' : true, 'data' : this.user, 'active': 'user', 'uri': route.settings.user.primary }})
     },
   },
   mounted () {

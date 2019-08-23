@@ -67,6 +67,7 @@ export const route = {
   settings: {
     user: {
       get: user => apiroute + 'settings/user/' + user,
+      primary: (user, photo) => apiroute + 'settings/user/' + user.id + '/primary/' + photo.id,
     }
   },
   ergo: {
