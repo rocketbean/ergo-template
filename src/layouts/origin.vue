@@ -1,6 +1,7 @@
 <template>
   <q-layout view="lHh LpR lfr">
   <addSupplier/>
+  <utils-confirm/>
     <q-header bordered class="bg-primary text-white">
       <q-toolbar>
         <q-btn dense flat round :icon="minislot ? 'chevron_right' : 'chevron_left'" @click="minislot = minislot ? false : true" />

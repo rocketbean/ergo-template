@@ -62,5 +62,12 @@ export default {
       open: false,
       locationUrl: ''
     },
+    utils: {
+      confirm: {
+        open: false,
+        message: '',
+        callback: () => {}
+      }
+    },
   }
 }

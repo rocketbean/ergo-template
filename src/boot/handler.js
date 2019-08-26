@@ -46,6 +46,7 @@ import fileloader from 'src/components/loader/fileLoader'
 import propertyPhotos from 'src/pages/properties/parts/property-photos'
 import propertyUsers from 'src/pages/properties/parts/property-users'
 import invitePropertyUser from 'src/components/user/invite/modal'
+import utilsConfirm from 'src/components/util/confirm/modal'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
 
@@ -59,6 +60,9 @@ export default async ({ app, router, Vue }) => {
   // attachmentView
   Vue.component('attachmentView', attachmentView)
 
+  //utls
+  
+  Vue.component('utils-confirm', utilsConfirm)
     // fileloader
   Vue.component('fileloader', fileloader)
     

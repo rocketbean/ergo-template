@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <q-card class="my-card" style = "max-width:876px" >
-      <!-- <img src="https://cdn.quasar.dev/img/mountains.jpg"> -->
+  <div >
+    <q-card class="my-card" style = "max-width:876px;width:876px" >
     <q-toolbar flat class="text- bg- ">
       <q-avatar class = "shadow-2">
         <img :src="getPrime(jr.property.primary.path)">
@@ -26,6 +25,7 @@
         arrows
         navigation
         infinite
+        v-if=" jr.photos.length > 0"
       >
         <q-carousel-slide v-for="(photo, index) in jr.photos" :name="index+1" :img-src="getPrime(photo.path)" />
       </q-carousel>

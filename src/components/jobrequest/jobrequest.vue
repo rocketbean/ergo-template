@@ -15,7 +15,7 @@
 
     <q-item-section side center>
       <div class = "flex" style ="flex-direction:row">
-        <q-btn round flat icon="close" @click="destroyJr(jobrequest)" v-if="this.jobrequest.status_id && this.canAccess(this.gatepass, 'delete_jobrequest')" />
+        <q-btn round flat icon="close" @click="modalDestroy(jobrequest)" v-if="this.jobrequest.status_id && this.canAccess(this.gatepass, 'delete_jobrequest')" />
         <q-btn round flat icon="chevron_right" @click="activateJr()"  v-if="jobrequest.status_id < 2"/>
         <q-btn round flat icon="list_alt" v-if="jobrequest.quotes.length > 0" @click = "activateQuoteList()">
           <q-badge floating color="red" v-if = "unseen > 0">{{ unseen }}</q-badge>
@@ -77,8 +77,11 @@ export default {
       this._activate({jobrequest: this.jobrequest})
       this._modals({'quoteList': {open: true}})
     },
-    destroyJr(jobrequest) {
-      _purl.post(route.properties.property.jobrequest.destroy(jobrequest)).then(r => {
+    modalDestroy (jobrequest) {
+      this._modals({'utils': {'confirm': {open: true, message: 'do you really want to delete this item ?', callback: this.destroyJr}}})
+    },
+    destroyJr() {
+      _purl.post(route.properties.property.jobrequest.destroy(this.jobrequest)).then(r => {
         this.serve()
       })
     }

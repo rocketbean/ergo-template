@@ -5,7 +5,7 @@
     <q-inner-loading :showing="visible">
       <q-spinner size="50px" color="primary" />
     </q-inner-loading>
-    <div class="q-pa-md " v-for="entry in entries">
+    <div class="q-pa-md " v-for="entry in entries" style = "width:100%;margin:auto; display:flex;justify-content:center">
       <entry  :jr="entry" />
     </div>
   </q-page>
