@@ -56,25 +56,45 @@
                 </q-btn>
               </div>
 
-              <div  v-if = "item.status_id === 3">
-                <q-banner rounded inline-actions class="text-white bg-blue shadow-1" >
-                  <div style = "display:flex;flex-direction:row;align-items:center" >
-                    <q-icon name = "info"  color = "white" style = "font-size:190%;padding-right:15px"/>
-                    <span class = "text-weight-thin" style = "font-size:80%"> please wait for the supplier to confirm the request.</span>
-                  </div>
-                </q-banner>
+              <div  v-if = "item.status_id === 3" style = "width:100%">
+                <div v-if = "item.job_order_item_id === joitem.id">
+                  <q-banner rounded inline-actions class="text-white bg-blue shadow-1 margin-sm" >
+                    <div style = "display:flex;flex-direction:row;align-items:center" >
+                      <q-icon name = "info"  color = "white" style = "font-size:190%;padding-right:15px"/>
+                      <span class = "text-weight-thin" style = "font-size:80%"> please wait for the supplier to confirm the request.</span>
+                    </div>
+                  </q-banner>
+                </div>
+                <div v-else >
+                  <q-banner rounded inline-actions class="text-white bg-grey shadow-1  margin-sm" >
+                    <div style = "display:flex;flex-direction:row;align-items:center;" >
+                      <q-icon name = "warning"  color = "white" style = "font-size:190%;padding-right:15px"/>
+                      <span class = "text-weight-thin" style = "font-size:80%"> this quote has been declined</span>
+                    </div>
+                  </q-banner>
+                </div>
               </div>
 
-              <div  v-if = "item.status_id === 4">
-                <q-banner rounded inline-actions class="text-white bg-indigo shadow-1" style = "margin:5px" >
-                  <div style = "display:flex;flex-direction:row;align-items:center" >
-                    <q-icon name = "info"  color = "white" style = "font-size:190%;padding-right:15px"/>
-                    <span class = "text-weight-thin" style = "font-size:80%"> please wait for the supplier to complete the request.</span>
-                  </div>
-                </q-banner>
+              <div  v-if = "item.status_id === 4" style = "width:100%">
+                <div v-if = "item.job_order_item_id === joitem.id">
+                  <q-banner rounded inline-actions class="text-white bg-indigo shadow-1 margin-sm" style = "margin:5px" >
+                    <div style = "display:flex;flex-direction:row;align-items:center" >
+                      <q-icon name = "info"  color = "white" style = "font-size:190%;padding-right:15px"/>
+                      <span class = "text-weight-thin" style = "font-size:80%"> please wait for the supplier to complete the request.</span>
+                    </div>
+                  </q-banner>
+                </div>
+                <div v-else >
+                  <q-banner rounded inline-actions class="text-white bg-grey shadow-1 margin-sm" >
+                    <div style = "display:flex;flex-direction:row;align-items:center;" >
+                      <q-icon name = "warning"  color = "white" style = "font-size:190%;padding-right:15px"/>
+                      <span class = "text-weight-thin" style = "font-size:80%"> this quote has been declined</span>
+                    </div>
+                  </q-banner>
+                </div>
               </div>
 
-              <div v-if = "item.status_id === 5">
+              <div v-if = "item.status_id === 5" style = "width:100%">
                 <q-btn-group  outline>
                   <q-btn  flat color="warning" icon="replay" size="sm" @click= "completeJo">
                     <q-tooltip>
@@ -188,10 +208,12 @@ export default {
       this._modals({attachmentView: {open : true, data: {type: "App\\Models\\JobOrderItem", id: this.item.id, _active: this.item }, subject: ""}});
     },
     openDirection () {
-      this._modals({'direction': {open: true, data: { 'jobrequest': this.jobrequest.id }}})
+      this._modals({'direction': {open: true, data: { jobrequest: this.jobrequest.id, item: this.item.id }}})
     }
   },
   mounted () {
+    console.log(this.item)
+    console.log(this.joitem)
 
   }
 }

@@ -81,7 +81,7 @@ export const route = {
     store: apiroute + 'attachments/store'
   },
   directions: {
-    get: jobrequest => apiroute + 'directions/jobrequest/' + jobrequest,
+    get: (jobrequest, item) => apiroute + 'directions/jobrequest/' + jobrequest + '/item/' + item,
   },
   stream: {
     attempt: supplier => serviceRoute + 'attempt/' + supplier,
@@ -93,8 +93,8 @@ export const route = {
     get: joborder => apiroute + 'joborders/' + joborder,
     viewed: joborder => apiroute + 'joborders/' + joborder.id + '/viewed/',
     jobrequests: {
+      approve: (joborder, jobrequest) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/approve/',
       item: {
-        approve: (joborder, jobrequest, item) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id + '/approve/',
         confirm: (joborder, jobrequest, item) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id +  '/item/' + item.id +  '/confirm/',
         complete: (joborder, jobrequest, item) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id +  '/item/' + item.id +  '/complete/',
       }

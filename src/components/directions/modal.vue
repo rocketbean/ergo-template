@@ -87,7 +87,7 @@ export default {
   },
   methods: {
     getDestination () {
-      _purl.get(route.directions.get(this.directionModal.data.jobrequest)).then(r => {
+      _purl.get(route.directions.get(this.directionModal.data.jobrequest, this.directionModal.data.item)).then(r => {
         this.request = r.data
         this.directions.origin.lat = Number(r.data.supplier.lat)
         this.directions.origin.lng = Number(r.data.supplier.lng)
