@@ -18,14 +18,14 @@
               </div>
               <div style = "display:flex; justify-content:space-between;margin-top:14px" >
                 <div style = "justify-self:flex-start">
-                  <statusIcon :status_id = "jobrequest.status_id" outlineColor="blue"/>
+                  <statusIcon :status_id = "activeItem.status_id" outlineColor="blue"/>
                   <q-btn round flat icon="location_on" @click = "openDirection">
                     <q-tooltip>
                       locate property
                     </q-tooltip>
                   </q-btn>
                 </div>
-                <div  v-if = "jobrequest.status_id === 3" >
+                <div  v-if = "activeItem.status_id === 3" >
                   <q-btn round flat color="positive" icon = "fas fa-clipboard-check" size="sm" @click="confirmQuote">
                     <q-tooltip>
                       confirm this quotation
@@ -33,9 +33,9 @@
                   </q-btn>
                 </div>
 
-                <div v-if = "jobrequest.status_id === 4" >
+                <div v-if = "activeItem.status_id === 4" >
                   <q-btn-group rounded outline>
-                    <q-btn rounded flat color="positive" icon="playlist_add_check" size="sm" @click= "completeJo">
+                    <q-btn round flat color="positive" icon="fas fa-check-double" size="sm" @click= "completeJo">
                       <q-tooltip>
                         set as completed
                       </q-tooltip>
@@ -90,6 +90,9 @@ export default {
     jobrequest () {
       return this.active.jobrequest
     },
+    activeItem () {
+      return this.joborder.items[this.keyItem]
+    },
     pendingStatus () {
       return [3,4].includes(this.jobrequest.status_id);
     }
@@ -124,7 +127,6 @@ export default {
     }
   },
   mounted () {
-      console.log(this.jobrequest.status_id)
   }
 }
 </script>

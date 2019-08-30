@@ -97,6 +97,8 @@ export const route = {
       item: {
         confirm: (joborder, jobrequest, item) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id +  '/item/' + item.id +  '/confirm/',
         complete: (joborder, jobrequest, item) => apiroute + 'joborders/' + joborder.id + '/jobrequests/' + jobrequest.id +  '/item/' + item.id +  '/complete/',
+        done: (joborder, jobrequest, item) => apiroute + 'joborders/' + joborder + '/jobrequests/' + jobrequest +  '/item/' + item +  '/done/',
+        rollback: (joborder, jobrequest, item) => apiroute + 'joborders/' + joborder + '/jobrequests/' + jobrequest +  '/item/' + item +  '/rollback/',
       }
     }
   },

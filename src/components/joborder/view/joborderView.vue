@@ -96,7 +96,7 @@
 
               <div v-if = "item.status_id === 5" style = "width:100%">
                 <q-btn-group  outline>
-                  <q-btn  flat color="warning" icon="replay" size="sm" @click= "completeJo">
+                  <q-btn  flat color="warning" icon="replay" size="sm" @click= "rollbackJo">
                     <q-tooltip>
                       set back as In Progress
                     </q-tooltip>
@@ -202,7 +202,16 @@ export default {
       }
     },
     completeJo () {
-
+      _purl.post(route.joborders.jobrequests.item.done(this.joitem.job_order_id, this.jobrequest.id, this.joitem.id)).then(r => {
+        this.joborder = r.data.joborder
+        this.jobrequest = r.data.jobrequest
+      })
+    },
+    rollbackJo () {
+      _purl.post(route.joborders.jobrequests.item.rollback(this.joitem.job_order_id, this.jobrequest.id, this.joitem.id)).then(r => {
+        this.joborder = r.data.joborder
+        this.jobrequest = r.data.jobrequest
+      })
     },
     openAttachmentView () {
       this._modals({attachmentView: {open : true, data: {type: "App\\Models\\JobOrderItem", id: this.item.id, _active: this.item }, subject: ""}});
@@ -212,9 +221,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.item)
-    console.log(this.joitem)
-
   }
 }
 </script>

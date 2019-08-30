@@ -3,6 +3,9 @@
     <q-item-section side top>
     <q-avatar class = "shadow-2">
       <img :src="getPrime(joborder.jobrequest.property.primary.path)">
+      <pre>
+        {{joborder}}
+      </pre>
     </q-avatar>
     </q-item-section>
     <q-item-section>
@@ -39,7 +42,7 @@ export default {
     }
 	},
 	mounted () {
-
+    console.log(this.joborder)
 	}
 }
 </script>

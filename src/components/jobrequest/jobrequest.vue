@@ -26,7 +26,7 @@
           </q-tooltip>
           </v-container>
         </q-btn> -->
-        <q-btn round flat icon="chevron_right" v-if="jobrequest.status_id > 3" @click = "viewJobRequest()">
+        <q-btn round flat icon="chevron_right" v-if="jobrequest.status_id > 2" @click = "viewJobRequest()">
           <q-tooltip>
             view jobrequest
           </q-tooltip>
@@ -63,7 +63,7 @@ export default {
       this._modals({'addJrItem': {open: true}})
     },
     viewJobRequest () {
-      if(this.jobrequest.status_id > 3) {
+      if(this.jobrequest.status_id > 2) {
         this._modals({'joborderModal': {
           open: true,
           display: 'jobrequest',
