@@ -1,17 +1,6 @@
 <template>
   <div class=" q-gutter-sm">
       <q-card square class = "shadow-0">
-        <!-- <q-img src="https://media-cdn.tripadvisor.com/media/photo-s/0a/47/a8/91/chicken-salad-sandwich.jpg" /> -->
-   <!--    <q-tabs
-        dense
-        outlined
-        v-model="tab"
-        square
-        class="text-white bg-blue-grey-8"
-      >
-        <q-tab name="info" icon="info"/>
-        <q-tab name="comments" icon="comments" />
-      </q-tabs> -->
         <joborderModalCarousel :item="item" v-if="item.photos.length > 0" />
         <q-card-section class = "bg-blue-grey-8">
           <div :style = "item.photos.length > 0 ? 'margin-top:-12px' : 'display:flex;align-items:center'">
@@ -106,7 +95,6 @@
                       mark as Done
                     </q-tooltip>
                   </q-btn>
-
                 </q-btn-group>
               </div>
             </div>
@@ -114,12 +102,9 @@
               <q-chip square dense style = "justify-self:self-start">
                 <span style ="color:gray">total est: </span> ${{ generalTotal.total }}
               </q-chip>
-
               <statusIcon :status_id = "item.status_id" outlineColor="blue"/>
-
             </div>
           </div>
-
           <div style = "display:flex;justify-content:space-between;align-items:center;padding:4px">
             <span>{{ item.name }}</span>
             <div class="text-subtitle1 text-right"><small class = "text-grey">est: </small>${{ joitem.amount }}</div>
@@ -127,7 +112,6 @@
           <q-separator color="white"/>
           <div class="text-subtitle2 text-white text-weight-light" style = "padding:4px"><small>{{ joitem.remarks }}</small></div>
         </q-card-section>
-
       </q-card>
   </div>
 </template>
@@ -141,7 +125,7 @@ import {GateMixin} from 'src/mixins/GateMixin'
 
 export default {
   mixins: [GateMixin],
-  props: ['joborder', 'item', 'joitem', 'display'],
+  props: ['joborder', 'item', 'joitem', 'display', 'jractive'],
   watch: {
     joborder: {
       handler (value) {
@@ -155,9 +139,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['active']),
+    ...mapGetters(['active', 'modals']),
     jobrequest () {
       return this.active.jobrequest
+    },
+    jobModal () {
+      return this.modals.joborderModal
     },
     primaryStyle () {
       if(this.item.photos.length > 0) {
@@ -177,6 +164,7 @@ export default {
     return {
       stars: 3,
       tab: 'info',
+      index: 0,
       total: {
         amount: 0,
         taxed: false
@@ -203,15 +191,18 @@ export default {
     },
     completeJo () {
       _purl.post(route.joborders.jobrequests.item.done(this.joitem.job_order_id, this.jobrequest.id, this.joitem.id)).then(r => {
-        this.joborder = r.data.joborder
-        this.jobrequest = r.data.jobrequest
+        this.jobModal.activeItem = this.findItemById(this.jobrequest, this.item)
+        this.jobModal.data = {jobrequest: this.jobrequest.id}
       })
     },
     rollbackJo () {
       _purl.post(route.joborders.jobrequests.item.rollback(this.joitem.job_order_id, this.jobrequest.id, this.joitem.id)).then(r => {
-        this.joborder = r.data.joborder
-        this.jobrequest = r.data.jobrequest
+        this.jobModal.activeItem = this.findItemById(this.jobrequest, this.item)
+        this.jobModal.data = {jobrequest: this.jobrequest.id}
       })
+    },
+    findItemById(jobrequest, item) {
+      return jobrequest.items.findIndex(i => i.id === item.id)
     },
     openAttachmentView () {
       this._modals({attachmentView: {open : true, data: {type: "App\\Models\\JobOrderItem", id: this.item.id, _active: this.item }, subject: ""}});

@@ -10,6 +10,8 @@ export default {
     joborderModal: {
       open: false,
       display: 'jobrequest',
+      data: { },
+      activeItem: 0
     },
     approveJobOrder: {
       open: false

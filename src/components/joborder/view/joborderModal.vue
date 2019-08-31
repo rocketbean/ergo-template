@@ -6,7 +6,7 @@
           <q-icon name="fas fa-house-damage" />
           <q-space />
           <q-btn dense flat icon="minimize" @click="maximizedToggle = false" :disable="!maximizedToggle">
-            <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
+            <q-tooltip content-class="bg-white text-primary">Minimize</q-tooltip>
           </q-btn>
           <q-btn dense flat icon="crop_square" @click="maximizedToggle = true" :disable="maximizedToggle">
             <q-tooltip v-if="!maximizedToggle" content-class="bg-white text-primary">Maximize</q-tooltip>
@@ -40,7 +40,7 @@
         <div style = "height:inherit">
           <div class="q-pa-md" style = "height:inherit">
             <!-- <addJobOrder :item = "jritem" :loadItem="loadItem" :orderCallback = "orderCallback"/> -->
-            <joborderModalView :joborder= "joborder" :item="jritem" :joitem= "joitem" :display="jobModal.display" v-if="!isEmpty(joitem)"/>
+            <joborderModalView :joborder= "joborder" :item="jritem" :joitem= "joitem" :display="jobModal.display" :jractive = "activateItem" v-if="!isEmpty(joitem)"/>
             <div style = "width:100%;height:inherit; display:flex;align-items:center" v-else>
               <h5 class = "text-center text-grey">
                 <q-icon name = "not_interested" class = "text-white" style = "font-size:150%; margin-bottom: 30px"/> <br>
@@ -80,14 +80,13 @@ export default {
   watch: {
     jobModal: {
       handler (value) {
-
         if (value.open) {
           if(this.jobModal.display === 'supplier'){
-            this._FetchActivate(value.data).then(r => {
-              this.activateItem({item: this.getJobOrderRequest(this.joborder.items[0]), jo: this.joborder.items[0]})
-            })
+            this._FetchActivate(value.data).then(r => this.activateItem({item: this.getJobOrderRequest(this.joborder.items[0]), jo: this.joborder.items[0]}))
           } else {
-            this._FetchActivate(value.data).then(r => this.activateItem(this.jobrequest.items[0]) )
+            this._FetchActivate(value.data).then(r => {
+              this.activateItem(this.jobrequest.items[value.activeItem])
+            })
           }
         }
       },
@@ -106,6 +105,9 @@ export default {
     ...mapGetters(['modals', 'active']),
     jobModal () {
       return this.modals.joborderModal
+    },
+    modalData () {
+      return this.modals.joborderModal.data
     },
     jobModalOpen () {
       return this.modals.joborderModal.open

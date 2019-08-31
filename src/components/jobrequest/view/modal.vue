@@ -6,7 +6,7 @@
           <q-icon name="fas fa-house-damage" />
           <q-space />
           <q-btn dense flat icon="minimize" @click="maximizedToggle = false" :disable="!maximizedToggle">
-            <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
+            <q-tooltip content-class="bg-white text-primary">minimize</q-tooltip>
           </q-btn>
           <q-btn dense flat icon="crop_square" @click="maximizedToggle = true" :disable="maximizedToggle">
             <q-tooltip v-if="!maximizedToggle" content-class="bg-white text-primary">Maximize</q-tooltip>

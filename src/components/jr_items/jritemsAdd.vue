@@ -241,7 +241,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.active.property)
   }
 }
 </script>
