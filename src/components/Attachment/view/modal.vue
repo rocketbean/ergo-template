@@ -108,12 +108,13 @@ export default {
   },
   methods: {
     ...mapActions(['_modals', '_FetchActivate']),
-    clicke () {
-      alert()
-    },
     fetch (data) {
+      console.log(data)
       this.loaded = false
-      _purl.get(route.attachments.get, data).then( r=> {
+      _purl.get(route.attachments.get, {
+        type: data.type,
+        id: data.id,
+      }).then( r=> {
         this.attachments = r.data
         this.loaded = true
       });
