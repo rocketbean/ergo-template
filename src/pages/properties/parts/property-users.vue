@@ -41,8 +41,10 @@ import { mapGetters, mapActions } from 'vuex'
 import { _purl } from 'src/statics/purl'
 import { route, storage } from 'src/statics/backend'
 import { _glob } from 'src/statics/global'
+import {UserPrimaryMixin} from 'src/mixins/UserPrimaryMixin'
 
 export default {
+  mixins: [UserPrimaryMixin],
   watch: {
     invitePropertyUser(val) {
       if(!val) {
@@ -77,13 +79,6 @@ export default {
         console.log(r.data)
         this.permissions = r.data
       })
-    },
-    getPrime(user) {
-      if(user.primary !== undefined && user.primary !== null && user.primary.path !== undefined) {
-        return storage + user.primary.path;
-      } else {
-        return storage + 'images/default.jpg';
-      }
     },
   },
   mounted (){
