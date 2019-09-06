@@ -59,10 +59,25 @@
           </q-tab-panel>
           <q-tab-panel name="photos" style = "padding:30px;" >
             <supplier-photos :supplier="supplier"/> 
-
           </q-tab-panel>
 
           <q-tab-panel name="users" >
+            <div class="row no-wrap ">
+              <q-toolbar class=" rounded-borders">
+                <q-input borderless v-model="text" >
+                  <template v-slot:prepend>
+                    <q-icon v-if="text === ''" name="search" />
+                    <q-icon v-else name="clear" class="cursor-pointer" @click="text = ''" />
+                  </template>
+                </q-input>
+                <q-space/>
+                <q-btn icon = "person_add" round color= "deep-orange" @click="_modals({'invitePropertyUser': {open: true}})" >
+                  <q-tooltip>
+                    invite user
+                  </q-tooltip>
+                </q-btn>
+              </q-toolbar>
+            </div>
             <supplier-users :supplier="supplier"/>
           </q-tab-panel>
           <q-tab-panel name="settings" >
@@ -82,8 +97,10 @@ import { mapGetters, mapActions } from 'vuex'
 import {_purl} from 'src/statics/purl'
 import {route, storage} from 'src/statics/backend'
 import {_glob} from 'src/statics/global'
+import {GateMixin} from 'src/mixins/GateMixin'
 
 export default {
+  mixins: [GateMixin],
   watch: {
     'supplier': {
       handler(value) {
@@ -130,7 +147,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['_modals', '_activate']),
+    ...mapActions(['_modals', '_activate', 'guards']),
     changePrimary () {
       this._modals({'changePrimary': {'open' : true, 'data' : this.active.supplier, 'uri': route.suppliers.supplier.primary.update, 'active': 'supplier'}})
     },
@@ -148,15 +165,17 @@ export default {
     },
     serve () {
       _purl.post(route.suppliers.supplier.get(this.$route.params.supplier)).then(r => {
-        this.supplier = r.data
+        this.supplier = r.data.data
         this._activate({
-          'supplier': r.data
+          'supplier': r.data.data
         })
       })
     }
   },
   mounted () {
+    this.guards('supplier');
     this.serve()
+    console.log(this.supplierGatePass)
   }
 }
 </script>

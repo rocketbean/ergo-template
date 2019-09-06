@@ -7,6 +7,7 @@ export default {
       }
     },
     supplier: {
+      role:{ role: { permissions: []}},
       primary: {
         path: ''
       }

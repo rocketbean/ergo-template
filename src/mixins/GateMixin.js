@@ -6,6 +6,13 @@ export const GateMixin = {
         data : this.active.property,
         permission : btoa(JSON.stringify(this.active.property.role.role.permissions))
       }
+    },
+    supplierGatePass () {
+      return {
+        accessing : 'supplier',
+        data : this.active.supplier,
+        permission : btoa(JSON.stringify(this.active.supplier.role.role.permissions))
+      }
     }
   },
   methods: {
