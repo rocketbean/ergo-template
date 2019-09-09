@@ -8,7 +8,9 @@
       autoplay
       infinite
       arrows
-      :fullscreen.sync="fullscreen" >
+      :fullscreen.sync="fullscreen"
+      v-if="item.photos !== undefined && item.photos.length > 0"
+      >
       <q-carousel-slide v-for = "(photo, index) in item.photos" :key= "index" :name="index + 1" :img-src="photoUrl(photo.path)" />
       <template v-slot:control>
         <q-carousel-control position="bottom-right" :offset="[18, 18]" >
@@ -36,7 +38,7 @@
         </q-btn>
         <small class = "text-grey">est: </small>${{ item.amount }}
       </div>
-      <div style= "padding:10px">
+      <div style= "padding:10px;min-width:100%">
         <p > {{item.remarks}} </p>
       </div>
     </div>
@@ -52,7 +54,7 @@ export default {
   watch: {
     watchItem: {
       handler (value) {
-        console.log(value);
+        // console.log(value);
       },
       deep:true
     }

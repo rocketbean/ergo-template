@@ -71,7 +71,7 @@
                   </template>
                 </q-input>
                 <q-space/>
-                <q-btn icon = "person_add" round color= "deep-orange" @click="_modals({'invitePropertyUser': {open: true}})" >
+                <q-btn icon = "person_add" round color= "deep-orange" @click="_modals({'invitePropertyUser': {open: true}})" v-if="canAccess(supplierGatePass, 'invite_user')">
                   <q-tooltip>
                     invite user
                   </q-tooltip>
@@ -175,7 +175,6 @@ export default {
   mounted () {
     this.guards('supplier');
     this.serve()
-    console.log(this.supplierGatePass)
   }
 }
 </script>

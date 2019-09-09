@@ -16,6 +16,30 @@
                   </div>
                 </div>
               </div>
+              <div class = "full-width" >
+                <q-carousel
+                  swipeable
+                  animated
+                  v-model="slide"
+                  thumbnails
+                  autoplay
+                  infinite
+                  arrows
+                  :fullscreen.sync="fullscreen"
+                  v-if="joborderitem.jobrequestitem !== undefined && joborderitem.jobrequestitem.photos.length > 0"
+                  >
+                  <q-carousel-slide v-for = "(photo, index) in joborderitem.jobrequestitem.photos" :key= "index" :name="index + 1" :img-src="photoUrl(photo.path)" />
+                  <template v-slot:control>
+                    <q-carousel-control position="bottom-right" :offset="[18, 18]" >
+                      <q-btn
+                        push round dense color="white" text-color="primary"
+                        :icon="fullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                        @click="fullscreen = !fullscreen"
+                      />
+                    </q-carousel-control>
+                  </template>
+                </q-carousel>
+              </div>
               <div style = "display:flex; justify-content:space-between;margin-top:14px" >
                 <div style = "justify-self:flex-start">
                   <statusIcon :status_id = "activeItem.status_id" outlineColor="blue"/>
@@ -100,6 +124,8 @@ export default {
   data () {
     return {
       stars: 3,
+      slide: 1,
+      fullscreen: false
     }
   },
   methods: {
@@ -116,6 +142,9 @@ export default {
     setTextLimit (str) {
       return _glob.setTextLimiter(str, 150)
     },
+    photoUrl(photo) {
+      return storage + photo;
+    },
     completeJo () {
       _purl.post(route.joborders.jobrequests.item.complete(this.joborder, this.jobrequest, this.joborderitem)).then(r => {
         this._activate({'joborder': r.data.joborder});
@@ -123,7 +152,8 @@ export default {
       })
     },
     openDirection () {
-      this._modals({'direction': {open: true, data: { 'jobrequest': this.jobrequest.id }}})
+      console.log(this.joborderitem.jobrequestitem)
+      this._modals({'direction': {open: true, data: { 'jobrequest': this.jobrequest.id, 'item': this.joborderitem.jobrequestitem.id }}})
     }
   },
   mounted () {
