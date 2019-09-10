@@ -9,6 +9,7 @@
     <attachmentView/>
     <directions/>
     <invitePropertyUser/>
+    <reviews/>
     <q-menu v-model = "menu" content-class="bg-primary text-white shadow-3" auto-close max-height="480px" >
       <q-infinite-scroll ref="qis" @load="getAlerts" :offset="offset" >
         <q-list separator >

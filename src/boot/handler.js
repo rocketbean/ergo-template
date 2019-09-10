@@ -48,6 +48,7 @@ import propertyPhotos from 'src/pages/properties/parts/property-photos'
 import propertyUsers from 'src/pages/properties/parts/property-users'
 import invitePropertyUser from 'src/components/user/invite/modal'
 import utilsConfirm from 'src/components/util/confirm/modal'
+import reviews from 'src/components/reviews/modal'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
 
@@ -62,8 +63,8 @@ export default async ({ app, router, Vue }) => {
   Vue.component('attachmentView', attachmentView)
 
   //utls
-  
   Vue.component('utils-confirm', utilsConfirm)
+
     // fileloader
   Vue.component('fileloader', fileloader)
     
@@ -89,6 +90,8 @@ export default async ({ app, router, Vue }) => {
   Vue.component('joborderModal-joborder-item', JobOrderItem)
   Vue.component('joborderModal-jobrequest-item', JobRequestItem)
 
+  //reviews
+  Vue.component('reviews', reviews)
 
   
   Vue.component('quoteList-items', quoteList_items)

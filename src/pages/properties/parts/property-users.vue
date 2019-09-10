@@ -41,10 +41,10 @@ import { mapGetters, mapActions } from 'vuex'
 import { _purl } from 'src/statics/purl'
 import { route, storage } from 'src/statics/backend'
 import { _glob } from 'src/statics/global'
-import {UserPrimaryMixin} from 'src/mixins/UserPrimaryMixin'
+import {PrimaryMixin} from 'src/mixins/PrimaryMixin'
 
 export default {
-  mixins: [UserPrimaryMixin],
+  mixins: [PrimaryMixin],
   watch: {
     invitePropertyUser(val) {
       if(!val) {

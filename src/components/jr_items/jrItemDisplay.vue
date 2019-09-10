@@ -37,8 +37,9 @@
           update this line
         </q-tooltip>
        </q-btn> -->
-      <br>
-      <small class = ""> {{item.description}} </small>
+        <div style="width:100%;padding:10px">
+          <small class = ""> {{item.description}} </small>
+        </div>
     </div>
   </div>
 </template>

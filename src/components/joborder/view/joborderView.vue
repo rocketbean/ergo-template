@@ -97,6 +97,14 @@
                   </q-btn>
                 </q-btn-group>
               </div>
+
+              <div  v-if = "item.status_id === 6 ">
+                <q-btn round  color="amber" icon = "far fa-star" size="sm" @click = "getReviews()">
+                  <q-tooltip>
+                    write a review
+                  </q-tooltip>
+                </q-btn>
+              </div>
             </div>
             <div class = "actions flex" style = "justify-content:space-between">
               <q-chip square dense style = "justify-self:self-start">
@@ -173,6 +181,9 @@ export default {
   },
   methods: {
     ...mapActions(['_modals']),
+    getReviews() {
+      this._modals({reviews:{open:true, data: {supplier: this.joitem.supplier}}})
+    },
     getPrime(path) {
       return storage + path;
     },

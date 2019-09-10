@@ -7,6 +7,10 @@ export default {
       open: false,
       jobrequest: 0
     },
+    reviews: {
+      open: false,
+      data: {}
+    },
     joborderModal: {
       open: false,
       display: 'jobrequest',
