@@ -10,7 +10,8 @@ module.exports = function (ctx) {
       'axios',
       'vuemaps',
       'geocoder',
-      'notification'
+      'notification',
+      'vuemoment'
     ],
 
     css: [
