@@ -21,6 +21,7 @@ import addSupplier from 'src/components/supplier/add'
 import SupplierJoborderList from 'src/pages/suppliers/parts/joborders/list'
 import supplierPhotos from 'src/pages/suppliers/parts/supplier-photos'
 import supplierUsers from 'src/pages/suppliers/parts/supplier-users'
+import supplierReviews from 'src/pages/suppliers/parts/supplier-reviews'
 import entry from 'src/components/stream/entry'
 import addJobOrder from 'src/components/stream/jo_add'
 import jrview from 'src/components/stream/jrview'
@@ -125,6 +126,7 @@ export default async ({ app, router, Vue }) => {
   Vue.component('SupplierJoborderList', SupplierJoborderList)
   Vue.component('supplier-photos', supplierPhotos)
   Vue.component('supplier-users', supplierUsers)
+  Vue.component('supplier-reviews', supplierReviews)
 
 
   app.watch = {

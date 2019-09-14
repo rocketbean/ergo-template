@@ -42,6 +42,7 @@
               <q-tab name="joborders" icon="fas fa-house-damage"  />
               <q-tab name="photos" icon="photo_library"  />
               <q-tab name="users" icon="fas fa-users" />
+              <q-tab name="reviews" icon="fas fa-star" />
               <q-tab name="settings" icon="fas fa-cogs"  />
             </q-tabs>
             <q-space />
@@ -80,6 +81,9 @@
               </q-toolbar>
             </div>
             <supplier-users :supplier="supplier"/>
+          </q-tab-panel>
+          <q-tab-panel name="reviews" >
+            <supplier-reviews :supplier="supplier"/>
           </q-tab-panel>
           <q-tab-panel name="settings" >
             <h1>settings</h1>
