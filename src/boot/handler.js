@@ -47,12 +47,14 @@ import fileloader from 'src/components/loader/fileLoader'
 import propertyPhotos from 'src/pages/properties/parts/property-photos'
 import propertyUsers from 'src/pages/properties/parts/property-users'
 import invitePropertyUser from 'src/components/user/invite/modal'
+import inviteSupplierUser from 'src/components/user/invite/supplier/modal'
 import utilsConfirm from 'src/components/util/confirm/modal'
 import reviews from 'src/components/reviews/modal'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
 
   Vue.component('invitePropertyUser',invitePropertyUser)
+  Vue.component('inviteSupplierUser',inviteSupplierUser)
   Vue.component('property-photos',propertyPhotos)
   Vue.component('property-users',propertyUsers)
 

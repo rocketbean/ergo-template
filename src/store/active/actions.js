@@ -31,9 +31,13 @@ export function _FetchActivate ({commit}, payload) {
   return new Promise ((resolve, reject) => {
     let _resolver = [];
     Object.keys(payload).map(p => {
-      let _r = prereq(p)
+      let _r     = prereq(p)
+      let params = {}
+      if(payload[p].parameters !== undefined) {
+        params = payload[p].parameters
+      }
       axios.defaults.headers.common['Authorization'] = _token.getRawToken()
-      _purl.post(typeof _r === "function" ? _r(payload[p]) : _r).then(r => {
+      _purl.post(typeof _r === "function" ? _r(payload[p]) : _r, params).then(r => {
         _resolver.push(p);
         if(resolver(_resolver, payload)) {
           resolve('test')

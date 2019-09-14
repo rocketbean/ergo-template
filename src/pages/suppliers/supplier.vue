@@ -4,6 +4,7 @@
     <addJobRequest/>
     <addJrItem/>
     <changePrimary/>
+    <inviteSupplierUser/>
     <div class = "flex">
       <div class = "bg-grey-8 full-width" style = "height:25vh; border-radius:4px" v-if="!loadMap">
       </div>
@@ -71,7 +72,7 @@
                   </template>
                 </q-input>
                 <q-space/>
-                <q-btn icon = "person_add" round color= "deep-orange" @click="_modals({'invitePropertyUser': {open: true}})" v-if="canAccess(supplierGatePass, 'invite_user')">
+                <q-btn icon = "person_add" round color= "deep-orange" @click="checkadd()" >
                   <q-tooltip>
                     invite user
                   </q-tooltip>
@@ -148,6 +149,9 @@ export default {
   },
   methods: {
     ...mapActions(['_modals', '_activate', 'guards']),
+    checkadd () {
+      this._modals({'inviteSupplierUser': {open: true}})
+    },
     changePrimary () {
       this._modals({'changePrimary': {'open' : true, 'data' : this.active.supplier, 'uri': route.suppliers.supplier.primary.update, 'active': 'supplier'}})
     },
