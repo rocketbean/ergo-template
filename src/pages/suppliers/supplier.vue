@@ -35,15 +35,15 @@
             <q-icon name = "add_a_photo" color="white" style = "font-size:300%;"/>            
           </div>
       </q-img>
-        <div class="q-pa-md full-width" style = "align-self:flex-start">
+        <div class="q-pa-md full-width" style = "align-self:flex-start" v-if = "onPageLoad">
           <q-btn flat :label="supplier.name" />
           <q-toolbar color="primary">
             <q-tabs v-model="tab" shrink>
-              <q-tab name="joborders" icon="fas fa-house-damage"  />
+              <q-tab name="joborders" icon="fas fa-house-damage" v-if="secures('show_joborders')" />
               <q-tab name="photos" icon="photo_library"  />
-              <q-tab name="users" icon="fas fa-users" />
+              <q-tab name="users" icon="fas fa-users" v-if="secures('read_user')"/>
               <q-tab name="reviews" icon="fas fa-star" />
-              <q-tab name="settings" icon="fas fa-cogs"  />
+              <q-tab name="settings" icon="fas fa-cogs"  v-if="secures('update_settings')" />
             </q-tabs>
             <q-space />
             <q-btn flat round icon="location_on" @click="_modals({'attachLocation': {'open': true, 'locationUrl': saveLocationUrl}})"/>
@@ -53,8 +53,8 @@
     </div>
     <div class = "row">
       <div class="col-sm-9">
-        <q-tab-panels v-model="tab" animated transition-prev="slide-right" transition-next="slide-left" >
-          <q-tab-panel name="joborders">
+        <q-tab-panels v-model="tab" animated transition-prev="slide-right" transition-next="slide-left" v-if = "onPageLoad">
+          <q-tab-panel name="joborders" v-if="secures('show_joborders')">
             <q-list >
               <SupplierJoborderList  v-for= "(joborder, index) in supplier.joborders" :key="index" :joborder="joborder"/>
             </q-list>
@@ -63,7 +63,7 @@
             <supplier-photos :supplier="supplier"/> 
           </q-tab-panel>
 
-          <q-tab-panel name="users" >
+          <q-tab-panel name="users" v-if="secures('read_user')">
             <div class="row no-wrap ">
               <q-toolbar class=" rounded-borders">
                 <q-input borderless v-model="text" >
@@ -85,7 +85,7 @@
           <q-tab-panel name="reviews" >
             <supplier-reviews :supplier="supplier"/>
           </q-tab-panel>
-          <q-tab-panel name="settings" >
+          <q-tab-panel name="settings" v-if="secures('update_settings')">
             <h1>settings</h1>
           </q-tab-panel>
         </q-tab-panels>
@@ -147,8 +147,9 @@ export default {
         lat: 10,
         lng: 10
       },
-      tab: 'joborders',
-      loadMap: false
+      tab: 'reviews',
+      loadMap: false,
+      onPageLoad: false
     }
   },
   methods: {
@@ -173,7 +174,9 @@ export default {
     },
     serve () {
       _purl.post(route.suppliers.supplier.get(this.$route.params.supplier)).then(r => {
-        this.supplier = r.data.data
+        this.identify(r.data.data.build, 'supplier')
+        this.onPageLoad = true
+        this.supplier   = r.data.data
         this._activate({
           'supplier': r.data.data
         })
@@ -181,6 +184,7 @@ export default {
     }
   },
   mounted () {
+    this._activate({instance: 'supplier'});
     this.guards('supplier');
     this.serve()
   }
