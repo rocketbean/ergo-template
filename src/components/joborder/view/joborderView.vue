@@ -5,18 +5,8 @@
         <q-card-section class = "bg-blue-grey-8">
           <div :style = "item.photos.length > 0 ? 'margin-top:-12px' : 'display:flex;align-items:center'">
               <div class = "full-width" :style="primaryStyle">
-                <div class="text-weight-medium text-capitalize ellipsis" style = " display: flex;align-items: center;padding-bottom: 10px; width: 100%">
-                  <q-avatar avatar class=" shadow-3" size="50px">
-                    <q-img  round :src="getPrime(joitem.supplier.primary.thumb)" style = "height:100%"/> 
-                  </q-avatar>
-                  <div class = "rounded-borders" style = "display: flex;flex-direction: column;padding-left: 4px; width: 100%">
-                    <div style = "display: flex;width: 100% ">
-                      {{ joitem.supplier.name }}
-                    </div>
-                    <q-rating v-model="stars" :max="5" size="16px" />
-                  </div>
-                  <q-space/>
-                </div>
+                <profile-header :data="joitem.supplier"/>
+                <q-space/>
               </div>
           </div>
         </q-card-section>

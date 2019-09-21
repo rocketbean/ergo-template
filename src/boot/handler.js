@@ -51,8 +51,13 @@ import invitePropertyUser from 'src/components/user/invite/modal'
 import inviteSupplierUser from 'src/components/user/invite/supplier/modal'
 import utilsConfirm from 'src/components/util/confirm/modal'
 import reviews from 'src/components/reviews/modal'
+import profileHeader from 'src/components/MacroObject/profile-header'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
+
+  //macro objects 
+  Vue.component('profile-header',profileHeader)
+
 
   Vue.component('invitePropertyUser',invitePropertyUser)
   Vue.component('inviteSupplierUser',inviteSupplierUser)
