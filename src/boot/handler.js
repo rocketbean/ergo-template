@@ -54,13 +54,7 @@ import reviews from 'src/components/reviews/modal'
 import profileHeader from 'src/components/MacroObject/profile-header'
 // "async" is optional
 export default async ({ app, router, Vue }) => {
-  Vue.config.keyCodes = {
-    digit1: 49,
-    digit2: 50,
-    digit3: 51,
-    digit4: 52,
-    digit5: 53,
-  }
+
   //macro objects 
   Vue.component('profile-header',profileHeader)
 

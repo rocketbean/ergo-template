@@ -1,5 +1,5 @@
 <template>
-  <q-page style = "background-color:whitesmoke" >
+  <div >
     <GlobalEvents
       :filter="(event, handler, eventName) => event.target.tagName !== 'INPUT'"
       @keyup.alt.digit1="pushRoute(properties[0])"
@@ -7,6 +7,11 @@
       @keyup.alt.digit3="pushRoute(properties[2])"
       @keyup.alt.digit4="pushRoute(properties[3])"
       @keyup.alt.digit5="pushRoute(properties[4])"
+      @keyup.alt.digit6="pushRoute(properties[5])"
+      @keyup.alt.digit7="pushRoute(properties[6])"
+      @keyup.alt.digit8="pushRoute(properties[7])"
+      @keyup.alt.digit9="pushRoute(properties[8])"
+      @keyup.alt.digit0="pushRoute(properties[9])"
     />
     <addProperties/>
     <div v-if="properties.length < 1" class = "full-width" style = "height: 80vh; display:flex; align-items:center; justify-content:center ">
@@ -45,7 +50,7 @@
     <q-inner-loading :showing="propLoad">
       <q-spinner-puff size="110px" color="primary" />
     </q-inner-loading>
-  </q-page>
+  </div>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
