@@ -1,5 +1,13 @@
 <template>
-  <q-page style = "background-color:whitesmoke">
+  <q-page style = "background-color:whitesmoke" >
+    <GlobalEvents
+      :filter="(event, handler, eventName) => event.target.tagName !== 'INPUT'"
+      @keyup.alt.digit1="pushRoute(properties[0])"
+      @keyup.alt.digit2="pushRoute(properties[1])"
+      @keyup.alt.digit3="pushRoute(properties[2])"
+      @keyup.alt.digit4="pushRoute(properties[3])"
+      @keyup.alt.digit5="pushRoute(properties[4])"
+    />
     <addProperties/>
     <div v-if="properties.length < 1" class = "full-width" style = "height: 80vh; display:flex; align-items:center; justify-content:center ">
       <h5 class = "text-grey">
@@ -42,6 +50,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import {_purl} from 'src/statics/purl'
+import {_glob} from 'src/statics/global'
 import {route, storage} from 'src/statics/backend'
 export default {
   computed: {
@@ -65,7 +74,11 @@ export default {
       })
     },
     pushRoute (property) {
-      this.$router.push('/properties/' + property.id)
+      if(property === undefined || property.id === null) {
+        _glob.notify('the property does not exist!', 'warning');
+      } else {
+        this.$router.push('/properties/' + property.id)
+      }
     }
   },
   mounted () {

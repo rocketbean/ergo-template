@@ -1,5 +1,8 @@
 <template>
   <q-page style = "margin: 10px;background-color:whitesmoke">
+  <GlobalEvents
+    @keyup.alt.n="_modals({'addJobRequest': {open: true}})"
+  />
     <attachLocation/>
     <addJobRequest/>
     <addJrItem/>

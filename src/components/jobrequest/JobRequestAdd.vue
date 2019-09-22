@@ -25,7 +25,7 @@
         <div class="q-pa-md">
           
           <div class="q-gutter-y-md column" style="min-width: 300px">
-            <q-input filled dark v-model="jr.name" label="Name" stack-label  />
+            <q-input filled dark v-model="jr.name" label="Name" stack-label autofocus />
             <q-input type="textarea" filled dark v-model="jr.description" label="tell us about your problem..." stack-label  autogrow />
           </div>
 

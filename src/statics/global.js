@@ -40,7 +40,7 @@ export const _glob = {
         message: message,
         timeout: timeout,
         icon: 'info',
-        color: 'warning',
+        color: 'amber',
         position: 'bottom-right',
         actions: [{icon: 'close',handler: () => {return true} }]
       })
