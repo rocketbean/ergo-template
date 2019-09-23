@@ -96,15 +96,6 @@
             <q-item-label>Twitter</q-item-label>
           </q-item-section>
         </q-item>
-        <q-space/>
-        <q-item clickable @click.native="pushRoute('/dashboard')">
-          <q-item-section avatar>
-            <q-icon color="grey-8" name="rss_feed" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Twitter</q-item-label>
-          </q-item-section>
-        </q-item>
       </q-list>
 
     </q-drawer>
@@ -112,27 +103,7 @@
     <q-page-container style = "background-color:whitesmoke">
       <q-page style = "height:100%;">
         <router-view />
-        <q-page-sticky position="bottom-right" :offset="[18, 18]">
-          <q-badge floating style = "z-index:9999" color="amber-9" dense class = "shadow-2">
-            22
-          </q-badge>
-          <q-fab color="amber" text-color="black" icon="keyboard_arrow_left" active-icon="keyboard_arrow_right" direction="left" push >
-            <q-scroll-area style="height: 200px; max-width: 300px;width: 300px;margin-bottom:150px;border-radius:4px" class = "shadow-2 bg-primary">
-              <q-list class="q-py-xs">
-                <q-item v-for= "n in 20" clickable>
-                  <q-item-section avatar>
-                    <q-icon color="warning" name="info" />
-                  </q-item-section>
-                  <q-item-section>
-                    <span style = "color:white">
-                      property does not exist!
-                    </span>
-                  </q-item-section>
-                </q-item>
-              </q-list>
-            </q-scroll-area>
-          </q-fab>
-        </q-page-sticky>
+        <info-stack/>
       </q-page>
     </q-page-container>
   </q-layout>
