@@ -1,6 +1,6 @@
 import { Notify } from 'quasar'
 import store from 'src/store'
-import states from 'vuex'
+import {_stack} from './token'
 export const _glob = {
   loopErrors (obj) {
     if(typeof obj === 'object') {

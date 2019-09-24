@@ -1,9 +1,44 @@
 import { route, axe } from 'src/statics/backend'
 import { _glob } from 'src/statics/global'
 export const ignoreRoutes = ['/forgotPassword', '/set-password', '/login']
+export const _stack = {
 
+  /**
+   * @param [token, user] sets up the token;
+   * @var x;
+  */
+  integrate (_stack) {
+    _stack.date = new Date()
+    this.store(_stack)
+  },
+  /**
+   * @param stack | stores raw stack;
+   * @var x;
+  */
+  store (stack) {
+    let _stacked = this.get();
+    let arr      = []
+    arr.push(stack)
+    if(!_stacked) {
+      localStorage.setItem('_s', window.btoa(JSON.stringify(arr)))
+    } else {
+      _stacked.push(stack)
+      localStorage.setItem('_s', window.btoa(JSON.stringify(_stacked)))
+    }
+  },
+
+  /**
+   * @param returns the parsed stack;
+   * @var str;
+  */
+  get () {
+    if(localStorage.getItem('_s') === null)
+      return false;
+    else
+      return JSON.parse(window.atob(localStorage.getItem('_s')))
+  },
+}
 export const _token = {
-
   /**
    * @param [token, user] sets up the token;
    * @var x;

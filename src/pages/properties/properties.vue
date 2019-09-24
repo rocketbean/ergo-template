@@ -2,6 +2,7 @@
   <div >
     <GlobalEvents
       :filter="(event, handler, eventName) => event.target.tagName !== 'INPUT'"
+      @keyup.alt.a="stacktest"
       @keyup.alt.digit1="pushRoute(properties[0])"
       @keyup.alt.digit2="pushRoute(properties[1])"
       @keyup.alt.digit3="pushRoute(properties[2])"
@@ -57,7 +58,10 @@ import { mapGetters, mapActions } from 'vuex'
 import {_purl} from 'src/statics/purl'
 import {_glob} from 'src/statics/global'
 import {route, storage} from 'src/statics/backend'
+import {StackMixin} from 'src/mixins/StackMixin'
+
 export default {
+  mixins: [StackMixin],
   computed: {
     ...mapGetters(['properties', 'requests'])
   },
@@ -80,10 +84,13 @@ export default {
     },
     pushRoute (property) {
       if(property === undefined || property.id === null) {
-        _glob.notify('the property does not exist!', 'warning');
+        this.stackpush('the property does not exist!', 'warning')
       } else {
         this.$router.push('/properties/' + property.id)
       }
+    },
+    stacktest () {
+      this.stackpush('you are very successful', 'positive')
     }
   },
   mounted () {
