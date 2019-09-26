@@ -7,8 +7,17 @@ export const _stack = {
    * @param [token, user] sets up the token;
    * @var x;
   */
+  batch (stacks) {
+      localStorage.removeItem('_s');
+      localStorage.setItem('_s', window.btoa(JSON.stringify(stacks)))
+  },
+  /**
+   * @param [token, user] sets up the token;
+   * @var x;
+  */
   integrate (_stack) {
     _stack.date = new Date()
+    _stack.unread = true
     this.store(_stack)
   },
   /**
@@ -18,10 +27,12 @@ export const _stack = {
   store (stack) {
     let _stacked = this.get();
     let arr      = []
-    arr.push(stack)
     if(!_stacked) {
+      stack.id = arr.length
+      arr.push(stack)
       localStorage.setItem('_s', window.btoa(JSON.stringify(arr)))
     } else {
+      stack.id = _stacked.length
       _stacked.push(stack)
       localStorage.setItem('_s', window.btoa(JSON.stringify(_stacked)))
     }

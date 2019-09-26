@@ -1,3 +1,5 @@
+import {_stack} from 'src/statics/token'
+
 export function configure_ (state, payload) {
    state.config.infostack.data = payload
   if(state.config.infostack.data.length > 0) {
@@ -7,8 +9,13 @@ export function configure_ (state, payload) {
 }
 
 export function configure_stackUnread (state, payload) {
-  if(state.config.infostack.unreads > 0) {
-    state.config.infostack.unreads = payload
-  }
+  state.config.infostack.data.map((stack, index) => {
+  	payload.map(pl => {
+  		if(stack.id === pl.$attrs.data.id) {
+  			return stack.unread = false
+  		}
+  	})
+  })
+  _stack.batch(state.config.infostack.data)
 }
 

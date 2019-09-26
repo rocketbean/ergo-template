@@ -1,12 +1,13 @@
 <template>
   <q-page-sticky position="bottom-right" :offset="[18, 18]" v-if = "infostack.show">
-    <q-badge floating style = "z-index:9999" color="amber-9" dense class = "shadow-2" v-if= "infostack.unreads > 0">
-      {{infostack.unreads}}
+    <q-badge floating style = "z-index:9999" color="amber-9" dense class = "shadow-2" v-if= "unreads > 0">
+      {{unreads}}
     </q-badge>
     <q-fab color="amber" text-color="black" icon="keyboard_arrow_left" active-icon="keyboard_arrow_right" direction="left" push >
-      <q-scroll-area style="height: 320px; max-width: 300px;width: 300px;margin-bottom:260px;border-radius:4px" class = "shadow-2 bg-primary">
-        <q-list>
-            <q-item clickable v-for= "(data, index) in infostack.data" :class = "'detectScroll' + index" >
+        <q-list >
+        <q-scroll-area style="height: 320px; max-width: 300px;width: 300px;margin-bottom:260px;border-radius:4px;" class = "shadow-2 bg-primary">
+          <q-scroll-observer ref = "scroller"  @scroll="scrollHandler"/>
+            <q-item clickable v-for= "(data, index) in infostack.data" ref="stackList" v-bind:data="data">
               <q-item-section avatar>
                 <q-icon color="warning" name="warning" v-if="data.status === 'warning'"/>
                 <q-icon color="positive" name="check" v-if="data.status === 'positive'"/>
@@ -22,8 +23,8 @@
               </q-item-section>
             </q-item>
           </q-scroll-observer>
-        </q-list>
-      </q-scroll-area>
+        </q-scroll-area>
+      </q-list>
     </q-fab>
   </q-page-sticky>
 </template>
@@ -34,18 +35,46 @@ import {DateMixin} from 'src/mixins/DateMixin'
 
 export default {
   mixins: [DateMixin],
+  watch: {
+    infostackData: {
+      handler(value) {
+        this.unreads = this.config.infostack.data.filter(d => d.unread).length
+      },
+      deep: true
+    }
+  },
   computed: {
     ...mapGetters(['config']),
     infostack () {
+      console.log('ommit')
       return this.config.infostack
+    },
+    infostackData () {
+      return this.config.infostack.data
+    },
+    // unreads () {
+    //   // console.log(this.infostackData)
+    //   return this.config.infostack.data.filter(d => d.unread).length
+    // }
+  },
+  data () {
+    return {
+      unreads: 0
     }
   },
   methods: {
     ...mapActions(['configure', 'configureStackUnread']),
     scrollHandler(obj) {
-      console.log(obj)
-      // let ln = this.infostack.unreads - 1
-      // this.configureStackUnread(ln)
+      let max = this.$refs.scroller.target.clientHeight + obj.position
+      let min = obj.position
+      let items = this.$refs.stackList.filter(v => {
+        let bottom = v.$el.offsetTop + v.$el.offsetHeight;
+        if (v.$el.offsetTop >= min  &&  bottom <= max) {
+          return v
+        }
+      })
+      this.configureStackUnread(items)
+      // $attrs.data
     }
   },
   mounted () {

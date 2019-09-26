@@ -12,7 +12,7 @@ export const StackMixin = {
     ...mapActions(['configure']),
     stackpush(message, status) {
         _glob.notify(message, status);
-        setTimeout(() => this.configure({message, status}), 4000);
+        setTimeout(() => this.configure({message, status}));
     }
   }
 }
