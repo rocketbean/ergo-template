@@ -5,11 +5,11 @@
       <q-input type="textarea" filled dark v-model="modal.form.remarks" label="add notes to this joborder..." stack-label  autogrow />
     </div>
     <div class = "q-gutter-y-md flex" style = "padding:5px; justify-content:flex-end">
-      <q-btn flat icon-right = "" @click = "publish" >
+<!--       <q-btn flat icon-right = "" @click = "publish" >
         <q-tooltip>
           publish
         </q-tooltip>
-      </q-btn>
+      </q-btn> -->
     </div>
   </div>
 </template>

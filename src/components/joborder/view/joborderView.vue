@@ -1,7 +1,7 @@
 <template>
   <div class=" q-gutter-sm">
       <q-card square class = "shadow-0">
-        <joborderModalCarousel :item="item" v-if="item.photos.length > 0" />
+        <joborderModalCarousel :item="joitem" v-if="joitem.photos.length > 0" />
         <q-card-section class = "bg-blue-grey-8">
           <div :style = "item.photos.length > 0 ? 'margin-top:-12px' : 'display:flex;align-items:center'">
               <div class = "full-width" :style="primaryStyle">
@@ -13,9 +13,10 @@
                     <div style = "display: flex;width: 100% ">
                       {{ joitem.supplier.name }}
                     </div>
-                    <q-rating v-model="stars" :max="5" size="16px" />
+                    <q-rating v-model="parsedRatings" :max="5" size="16px" />
                   </div>
                   <q-space/>
+                  <q-btn round icon = "far fa-star" color="amber" size = "xs" @click = "getReviews()" v-if = "!joitem.supplier.enable_reviews"/>
                 </div>
               </div>
           </div>
@@ -150,6 +151,9 @@ export default {
     ...mapGetters(['active', 'modals']),
     jobrequest () {
       return this.active.jobrequest
+    },
+    parsedRatings () {
+      return parseFloat(this.joitem.supplier.ratings)
     },
     jobModal () {
       return this.modals.joborderModal

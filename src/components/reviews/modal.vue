@@ -10,8 +10,8 @@
         </div>
         <div v-else>
           <q-btn fab size="sm" color="blue-grey-9" :icon="showForm ? 'keyboard_arrow_up' : 'keyboard_arrow_down'" @click = "showForm = !showForm" class="absolute" 
-          style="top: 0; right: 12px; transform: translateY(-60%);" />
-          <q-btn fab color="primary" icon="place" size="sm" class="absolute" style="top: 0; right: 73px; transform: translateY(-60%);"/>
+          style="top: 0; right: 73px; transform: translateY(-60%);" v-if="supplier.enable_review"/>
+          <q-btn fab color="primary" icon="place" size="sm" class="absolute" style="top: 0; right: 12px; transform: translateY(-60%);"/>
           <div class="row no-wrap items-center">
             <div class="col text-h6 ellipsis text-grey-8">{{ supplier.name }}</div>
             <div class="col-auto text-grey q-pt-md" style="display:flex; align-items:center; ">
@@ -56,7 +56,7 @@
 
       </q-card-section>
       <q-slide-transition>
-        <div v-show = "showForm" class = "bg-blue-grey-8">
+        <div v-show = "showForm" class = "bg-blue-grey-8" v-if="supplier.enable_review">
           <q-separator />
           <q-card-actions v-if="!loading" style = "width:100%;">
               <q-tab-panels v-model="reviewFormStep" animated style = "width:100%">
