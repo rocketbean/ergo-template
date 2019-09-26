@@ -3,7 +3,7 @@
     <q-badge floating style = "z-index:9999" color="amber-9" dense class = "shadow-2" v-if= "unreads > 0">
       {{unreads}}
     </q-badge>
-    <q-fab color="amber" text-color="black" icon="keyboard_arrow_left" active-icon="keyboard_arrow_right" direction="left" push >
+    <q-fab color="amber" text-color="black" icon="keyboard_arrow_left" active-icon="keyboard_arrow_right" direction="left" @click = "fab = !fab">
         <q-list >
         <q-scroll-area style="height: 320px; max-width: 300px;width: 300px;margin-bottom:260px;border-radius:4px;" class = "shadow-2 bg-primary">
           <q-scroll-observer ref = "scroller"  @scroll="scrollHandler"/>
@@ -31,8 +31,6 @@
 <script>
 import {mapGetters, mapActions} from 'vuex'
 import {DateMixin} from 'src/mixins/DateMixin'
-
-
 export default {
   mixins: [DateMixin],
   watch: {
@@ -41,6 +39,11 @@ export default {
         this.unreads = this.config.infostack.data.filter(d => d.unread).length
       },
       deep: true
+    },
+    fab (value) {
+      if(value) {
+        this.scrollHandler({position: 0})
+      }
     }
   },
   computed: {
@@ -52,14 +55,11 @@ export default {
     infostackData () {
       return this.config.infostack.data
     },
-    // unreads () {
-    //   // console.log(this.infostackData)
-    //   return this.config.infostack.data.filter(d => d.unread).length
-    // }
   },
   data () {
     return {
-      unreads: 0
+      unreads: 0,
+      fab: false
     }
   },
   methods: {
