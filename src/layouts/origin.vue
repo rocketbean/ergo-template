@@ -1,5 +1,11 @@
 <template>
   <q-layout view="lHh LpR lfr">
+  <GlobalEvents
+    :filter="(event, handler, eventName) => event.target.tagName !== 'INPUT'"
+    @keyup.ctrl.alt.d="pushRoute('/dashboard')"
+    @keyup.ctrl.alt.p="pushRoute('/properties')"
+    @keyup.ctrl.alt.s="pushRoute('/suppliers')"
+  />
   <addSupplier/>
   <utils-confirm/>
     <q-header bordered class="bg-primary text-white">
@@ -40,6 +46,9 @@
           <q-item-section>
             <q-item-label>Dashboard</q-item-label>
           </q-item-section>
+          <q-tooltip>
+            Dashboard (ctrl+alt+d)
+          </q-tooltip>
         </q-item>
         <q-item clickable @click.native="pushRoute('/properties')">
           <q-item-section avatar>
@@ -48,6 +57,9 @@
           <q-item-section>
             <q-item-label>Properties</q-item-label>
           </q-item-section>
+          <q-tooltip>
+            Properties (ctrl+alt+p)
+          </q-tooltip>
         </q-item>
         <q-item clickable @click.native="pushRoute('/suppliers')" v-if="showSupplier">
           <q-item-section avatar>
@@ -56,6 +68,9 @@
           <q-item-section>
             <q-item-label>suppliers</q-item-label>
           </q-item-section>
+          <q-tooltip>
+            Suppliers (ctrl+alt+s)
+          </q-tooltip>
         </q-item>
         <q-item clickable @click.native="pushRoute('/joborders')">
           <q-item-section avatar>
@@ -85,10 +100,12 @@
 
     </q-drawer>
 
-    <q-page-container>
-      <router-view />
+    <q-page-container style = "background-color:whitesmoke">
+      <q-page style = "height:100%;">
+        <router-view />
+        <info-stack/>
+      </q-page>
     </q-page-container>
-
   </q-layout>
 </template>
 
@@ -133,6 +150,9 @@ export default {
     pushRoute(route) {
       this.$router.push(route)
     },
+    keymonitor () {
+      alert()
+    },
     onMainClick () {
       console.log('Clicked on main button')
     },
@@ -142,6 +162,7 @@ export default {
     }
   },
   mounted () {
+
   }
 } 
 </script>

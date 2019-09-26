@@ -1,11 +1,9 @@
 <template>
-	<q-dialog v-model="invitePropertyUser.open"  transition-show="flip-down" transition-hide="flip-up">
+  <q-dialog v-model="inviteSupplierUser.open"  transition-show="flip-down" transition-hide="flip-up">
     <q-card class="bg-primary text-white">
       <q-bar>
-        <q-icon name="fas fa-home" />
-
+        <q-icon name="fas fa-truck-moving" />
         <q-space />
-
         <q-btn dense flat icon="minimize" @click="maximizedToggle = false" :disable="!maximizedToggle">
           <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
         </q-btn>
@@ -43,7 +41,7 @@
         </div>
       </q-card-section>
     </q-card>
-	</q-dialog>
+  </q-dialog>
 </template>
 <script >
 import { mapGetters, mapActions } from 'vuex'
@@ -55,7 +53,7 @@ export default {
   watch: {
     modal (val) {
       if(val) {
-        this._FetchActivate({'roles': {'parameters': {type: 'Property'}}});
+        this._FetchActivate({'roles': {'parameters': {type: 'Supplier'}}});
       }
     },
     'roles': {
@@ -70,14 +68,14 @@ export default {
     roles () {
       return this.active.roles;
     },
-    invitePropertyUser () {
-      return this.modals.invitePropertyUser;
+    inviteSupplierUser () {
+      return this.modals.inviteSupplierUser;
     },
     modal () {
-      return this.modals.invitePropertyUser.open;
+      return this.modals.inviteSupplierUser.open;
     },
-    property () {
-      return this.active.property;
+    supplier () {
+      return this.active.supplier;
     }
   },
   data () {
@@ -91,9 +89,9 @@ export default {
     }
   },
   methods: {
-  	...mapActions(['_FetchActivate','_modals']),
+    ...mapActions(['_FetchActivate','_modals']),
     invite () {
-      _purl.post(route.properties.property.users.invite(this.property.id),{
+      _purl.post(route.suppliers.supplier.users.invite(this.supplier.id),{
         email: this.form.email,
         role: this.form.role.id,
       }).then(r => {

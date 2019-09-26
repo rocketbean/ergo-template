@@ -119,6 +119,8 @@ export const route = {
       }, 
       users: {
         get: supplier => apiroute + 'suppliers/' + supplier + '/users',
+        invite: supplier => apiroute + 'suppliers/' + supplier + '/users/invite',
+        
       },
       location: {
         store: supplier => apiroute + 'suppliers/' + supplier + '/locations/store'

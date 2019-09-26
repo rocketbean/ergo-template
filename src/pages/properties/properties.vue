@@ -1,5 +1,19 @@
 <template>
-  <q-page style = "background-color:whitesmoke">
+  <div >
+    <GlobalEvents
+      :filter="(event, handler, eventName) => event.target.tagName !== 'INPUT'"
+      @keyup.alt.a="stacktest"
+      @keyup.alt.digit1="pushRoute(properties[0])"
+      @keyup.alt.digit2="pushRoute(properties[1])"
+      @keyup.alt.digit3="pushRoute(properties[2])"
+      @keyup.alt.digit4="pushRoute(properties[3])"
+      @keyup.alt.digit5="pushRoute(properties[4])"
+      @keyup.alt.digit6="pushRoute(properties[5])"
+      @keyup.alt.digit7="pushRoute(properties[6])"
+      @keyup.alt.digit8="pushRoute(properties[7])"
+      @keyup.alt.digit9="pushRoute(properties[8])"
+      @keyup.alt.digit0="pushRoute(properties[9])"
+    />
     <addProperties/>
     <div v-if="properties.length < 1" class = "full-width" style = "height: 80vh; display:flex; align-items:center; justify-content:center ">
       <h5 class = "text-grey">
@@ -37,13 +51,17 @@
     <q-inner-loading :showing="propLoad">
       <q-spinner-puff size="110px" color="primary" />
     </q-inner-loading>
-  </q-page>
+  </div>
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import {_purl} from 'src/statics/purl'
+import {_glob} from 'src/statics/global'
 import {route, storage} from 'src/statics/backend'
+import {StackMixin} from 'src/mixins/StackMixin'
+
 export default {
+  mixins: [StackMixin],
   computed: {
     ...mapGetters(['properties', 'requests'])
   },
@@ -65,7 +83,14 @@ export default {
       })
     },
     pushRoute (property) {
-      this.$router.push('/properties/' + property.id)
+      if(property === undefined || property.id === null) {
+        this.stackpush('the property does not exist!', 'warning')
+      } else {
+        this.$router.push('/properties/' + property.id)
+      }
+    },
+    stacktest () {
+      this.stackpush('you are very successful', 'positive')
     }
   },
   mounted () {

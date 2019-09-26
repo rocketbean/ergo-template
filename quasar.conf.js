@@ -11,7 +11,8 @@ module.exports = function (ctx) {
       'vuemaps',
       'geocoder',
       'notification',
-      'vuemoment'
+      'vuemoment',
+      'vueglobalevents'
     ],
 
     css: [

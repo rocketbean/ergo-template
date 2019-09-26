@@ -1,5 +1,6 @@
 export default {
   active: {
+    instance: '',
     property: {
       role:{ role: { permissions: []}},
       primary: {

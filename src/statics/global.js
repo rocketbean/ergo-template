@@ -1,6 +1,6 @@
 import { Notify } from 'quasar'
 import store from 'src/store'
-
+import {_stack} from './token'
 export const _glob = {
   loopErrors (obj) {
     if(typeof obj === 'object') {
@@ -40,7 +40,7 @@ export const _glob = {
         message: message,
         timeout: timeout,
         icon: 'info',
-        color: 'warning',
+        color: 'amber',
         position: 'bottom-right',
         actions: [{icon: 'close',handler: () => {return true} }]
       })

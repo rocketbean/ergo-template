@@ -21,6 +21,7 @@ import addSupplier from 'src/components/supplier/add'
 import SupplierJoborderList from 'src/pages/suppliers/parts/joborders/list'
 import supplierPhotos from 'src/pages/suppliers/parts/supplier-photos'
 import supplierUsers from 'src/pages/suppliers/parts/supplier-users'
+import supplierReviews from 'src/pages/suppliers/parts/supplier-reviews'
 import entry from 'src/components/stream/entry'
 import addJobOrder from 'src/components/stream/jo_add'
 import jrview from 'src/components/stream/jrview'
@@ -40,6 +41,7 @@ import joborderModalCarousel from 'src/components/joborder/view/joborderCarousel
 import approveJoborderModal from 'src/components/joborder/approve'
 import topMenuGeneral from 'src/layouts/parts/top-menu-general'
 import topMenuUserNotification from 'src/layouts/parts/top-menu-user-notification'
+import infoStack from 'src/layouts/parts/info-stack'
 import jobrequestView from 'src/components/jobrequest/view/modal'
 import jobrequestViewSide from 'src/components/jobrequest/view/side-right'
 import jobrequestViewItemDisplay from 'src/components/jobrequest/view/itemDisplay'
@@ -47,12 +49,20 @@ import fileloader from 'src/components/loader/fileLoader'
 import propertyPhotos from 'src/pages/properties/parts/property-photos'
 import propertyUsers from 'src/pages/properties/parts/property-users'
 import invitePropertyUser from 'src/components/user/invite/modal'
+import inviteSupplierUser from 'src/components/user/invite/supplier/modal'
 import utilsConfirm from 'src/components/util/confirm/modal'
 import reviews from 'src/components/reviews/modal'
+import profileHeader from 'src/components/MacroObject/profile-header'
+
 // "async" is optional
 export default async ({ app, router, Vue }) => {
 
+  //macro objects 
+  Vue.component('profile-header',profileHeader)
+
+
   Vue.component('invitePropertyUser',invitePropertyUser)
+  Vue.component('inviteSupplierUser',inviteSupplierUser)
   Vue.component('property-photos',propertyPhotos)
   Vue.component('property-users',propertyUsers)
 
@@ -118,11 +128,13 @@ export default async ({ app, router, Vue }) => {
 
   Vue.component('topMenuGeneral', topMenuGeneral)
   Vue.component('topMenuUserNotification', topMenuUserNotification)
+  Vue.component('info-stack', infoStack)
 
   //supplier
   Vue.component('SupplierJoborderList', SupplierJoborderList)
   Vue.component('supplier-photos', supplierPhotos)
   Vue.component('supplier-users', supplierUsers)
+  Vue.component('supplier-reviews', supplierReviews)
 
 
   app.watch = {
