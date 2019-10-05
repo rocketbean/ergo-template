@@ -53,7 +53,10 @@ export default {
   watch: {
     modal (val) {
       if(val) {
-        this._FetchActivate({'roles': {'parameters': {type: 'Supplier'}}});
+        _purl.post(route.suppliers.supplier.roles.get(this.supplier.id)).then(r => {
+          this._activate({'roles': {data: r.data.data}})
+        })
+        // this._FetchActivate({'roles': {'parameters': {type: 'Supplier'}}});
       }
     },
     'roles': {
@@ -89,7 +92,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['_FetchActivate','_modals']),
+    ...mapActions(['_FetchActivate','_modals', '_activate']),
     invite () {
       _purl.post(route.suppliers.supplier.users.invite(this.supplier.id),{
         email: this.form.email,

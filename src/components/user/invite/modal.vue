@@ -55,7 +55,10 @@ export default {
   watch: {
     modal (val) {
       if(val) {
-        this._FetchActivate({'roles': {'parameters': {type: 'Property'}}});
+        _purl.post(route.properties.property.roles.get(this.property.id)).then(r => {
+          this._activate({'roles': {data: r.data.data}})
+        })
+        // this._FetchActivate({'roles': {'parameters': {type: 'Property'}}});
       }
     },
     'roles': {
@@ -91,7 +94,7 @@ export default {
     }
   },
   methods: {
-  	...mapActions(['_FetchActivate','_modals']),
+  	...mapActions(['_FetchActivate','_modals', '_activate']),
     invite () {
       _purl.post(route.properties.property.users.invite(this.property.id),{
         email: this.form.email,

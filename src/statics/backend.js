@@ -120,7 +120,9 @@ export const route = {
       users: {
         get: supplier => apiroute + 'suppliers/' + supplier + '/users',
         invite: supplier => apiroute + 'suppliers/' + supplier + '/users/invite',
-        
+      },
+      roles: {
+        get: supplier => apiroute + 'suppliers/' + supplier + '/roles',
       },
       location: {
         store: supplier => apiroute + 'suppliers/' + supplier + '/locations/store'
@@ -142,6 +144,9 @@ export const route = {
     store: apiroute + 'properties/store',
     property: {
       get: property => apiroute + 'properties/' + property + '/show',
+      roles: {
+        get: property => apiroute + 'properties/' + property + '/roles',
+      },
       permissions: {
         get: property => apiroute + 'properties/' + property + '/permissions/get',
       },

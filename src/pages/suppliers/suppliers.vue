@@ -1,5 +1,19 @@
 <template>
   <q-page style = "background-color:whitesmoke">
+    <GlobalEvents
+      :filter="(event, handler, eventName) => event.target.tagName !== 'INPUT'"
+      @keyup.alt.a="stacktest"
+      @keyup.alt.digit1="pushRoute(suppliers[0])"
+      @keyup.alt.digit2="pushRoute(suppliers[1])"
+      @keyup.alt.digit3="pushRoute(suppliers[2])"
+      @keyup.alt.digit4="pushRoute(suppliers[3])"
+      @keyup.alt.digit5="pushRoute(suppliers[4])"
+      @keyup.alt.digit6="pushRoute(suppliers[5])"
+      @keyup.alt.digit7="pushRoute(suppliers[6])"
+      @keyup.alt.digit8="pushRoute(suppliers[7])"
+      @keyup.alt.digit9="pushRoute(suppliers[8])"
+      @keyup.alt.digit0="pushRoute(suppliers[9])"
+    />
     <div class="row">
       <q-card class="my-card" style = "max-width:300px;margin:5px" v-for = "supplier in suppliers" >
         <q-img :src="getPrime(supplier.primary.path)" style = "min-width:300px; max-width:300px; min-height:250px;max-height:250px">
@@ -22,7 +36,10 @@
 import { mapGetters, mapActions } from 'vuex'
 import {_purl} from 'src/statics/purl'
 import {route, storage} from 'src/statics/backend'
+import {StackMixin} from 'src/mixins/StackMixin'
+
 export default {
+  mixins: [StackMixin],
   computed: {
     ...mapGetters(['suppliers', 'requests']),
   },
@@ -47,7 +64,10 @@ export default {
       })
     },
     pushRoute (supplier) {
-      this.$router.push('/suppliers/' + supplier.id)
+      if(supplier === undefined || supplier.id === null)
+        this.stackpush('the supplier does not exist!', 'warning')
+      else
+        this.$router.push('/suppliers/' + supplier.id)
     }
   },
   mounted () {

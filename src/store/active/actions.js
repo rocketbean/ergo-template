@@ -6,7 +6,8 @@ function prereq (payload) {
   let _route = {
     jobrequest: route.jobrequests.get,
     joborder : route.joborders.get,
-    roles: route.roles.get
+    roles: route.roles.get,
+    SupplierRoles: route.suppliers.supplier.roles.get
   }
   return _route[payload];
 }
