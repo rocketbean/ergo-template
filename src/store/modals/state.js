@@ -39,6 +39,9 @@ export default {
     inviteSupplierUser: {
       open: false,
     },
+    addRoles: {
+      open:false
+    },
     publishJo: {
       open: false,
       data: {},

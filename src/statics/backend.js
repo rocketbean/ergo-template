@@ -124,6 +124,9 @@ export const route = {
       roles: {
         get: supplier => apiroute + 'suppliers/' + supplier + '/roles',
       },
+      permissions: {
+        get: supplier => apiroute + 'suppliers/' + supplier + '/permissions',
+      },
       location: {
         store: supplier => apiroute + 'suppliers/' + supplier + '/locations/store'
       },

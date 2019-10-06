@@ -5,6 +5,8 @@
     <addJrItem/>
     <changePrimary/>
     <inviteSupplierUser/>
+    <add-roles />
+
     <div class = "flex">
       <div class = "bg-grey-8 full-width" style = "height:25vh; border-radius:4px" v-if="!loadMap">
       </div>
@@ -73,9 +75,16 @@
                   </template>
                 </q-input>
                 <q-space/>
-                <q-btn icon = "person_add" round color= "deep-orange" @click="checkadd()" >
+
+                <q-btn icon = "person_add" round style = "margin:3px" color= "deep-orange" @click="checkadd()" >
                   <q-tooltip>
                     invite user
+                  </q-tooltip>
+                </q-btn>
+
+                <q-btn icon = "group_add" round style = "margin:3px" color= "blue" @click="groupadd()" >
+                  <q-tooltip>
+                    Add Role Template
                   </q-tooltip>
                 </q-btn>
               </q-toolbar>
@@ -156,6 +165,9 @@ export default {
     ...mapActions(['_modals', '_activate', 'guards']),
     checkadd () {
       this._modals({'inviteSupplierUser': {open: true}})
+    },
+    groupadd () {
+      this._modals({'addRoles': {open: true}})
     },
     changePrimary () {
       this._modals({'changePrimary': {'open' : true, 'data' : this.active.supplier, 'uri': route.suppliers.supplier.primary.update, 'active': 'supplier'}})
