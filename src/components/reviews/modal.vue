@@ -23,62 +23,55 @@
           </div>
         </div>
       </q-card-section>
-
       <q-card-section v-if="!loading">
             <div class="text-subtitle3 text-grey " style = "padding-bottom:12px">
               <small>
                 {{ setTextLimit(supplier.description) }}
               </small>
             </div>
-            <q-scroll-area ref="scrollArea" style="height: 180px; " :delay="550">
+            <q-scroll-area ref="scrollArea" style="height: 180px; " :delay="550" v-if = "reviews.length > 0">
               <q-list class ="padding-md" >
-                <q-item v-for="review in reviews"  v-ripple>
+                <q-item v-for="rev in reviews"  v-ripple>
                   <q-item-section avatar>
                     <q-avatar class = "shadow-1">
-                      <img :src="getPrime(review.respondent)" />
+                      <img :src="getPrime(rev.respondent)" />
                     </q-avatar>
                   </q-item-section>
                   <q-item-section>
                     <q-item-label> 
                       <div style ="display:flex;justify-content:space-between">
-                        {{review.respondent.name}}
+                        {{rev.respondent.name}}
                         <small class = "self-end">
-                          {{ getDate(review.created_at) }}
+                          {{ getDate(rev.created_at) }}
                         </small>
                       </div>
-                      <q-rating v-model = "review.score" size="12px" color= "amber-5" disable style = "width:100%"/>
+                      <q-rating v-model = "rev.score" size="12px" color= "amber-5" disable style = "width:100%" v-if = "rev.score !== null  "/>
                     </q-item-label>
-                    <q-item-label caption> <small>{{review.content}}</small> </q-item-label>
+                    <q-item-label caption> <small>{{rev.content}}</small> </q-item-label>
                   </q-item-section>
                 </q-item>
               </q-list>
             </q-scroll-area>
-
       </q-card-section>
       <q-slide-transition>
         <div v-show = "showForm" class = "bg-blue-grey-8" v-if="supplier.enable_review">
           <q-separator />
           <q-card-actions v-if="!loading" style = "width:100%;">
               <q-tab-panels v-model="reviewFormStep" animated style = "width:100%">
-
                 <q-tab-panel name="remark" class = "bg-blue-grey-8">
                   <q-input standout="text-amber" dark type="textarea" input-class = "hideOverFlow" filled  v-model="review.remarks" label="add remarks to your reviews" stack-label  autogrow style = "width:100%;" row="6" cols="4" />
                   <div style = "width:100%;text-align:right">
                     <q-btn label = "submit" align="right" size = "sm" class = "margin-sm" color = "white" flat style = "text-align:right" @click = "reviewFormStep='score'"/>
                   </div>
                 </q-tab-panel>
-
                 <q-tab-panel name="score" class = "bg-blue-grey-8" style ="display:flex;justify-content:center">
                   <q-btn flat icon = "chevron_left" color="white" @click = "reviewFormStep = 'remark'" style = "justify-self:flex-start"/>
                   <q-rating v-model="review.score" :max="5" size="32px" class = "padding-sm" color= "amber" @click = "submitReview()"/>
                 </q-tab-panel>
-
                 <q-tab-panel name="submitted" class = "bg-blue-grey-8" style ="display:flex;justify-content:center;">
                   <small class = "text-white"> the review has been submitted. </small>
                 </q-tab-panel>
-
               </q-tab-panels>
-
           </q-card-actions>
         </div>
       </q-slide-transition>
@@ -125,6 +118,7 @@ export default {
       },
       loading: true,
       supplier: {
+        enable_review: false,
         primary: {
           path: ''
         }
