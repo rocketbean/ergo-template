@@ -136,9 +136,10 @@ import {_purl} from 'src/statics/purl'
 import {route, storage} from 'src/statics/backend'
 import {_glob} from 'src/statics/global'
 import {GateMixin} from 'src/mixins/GateMixin'
+import {ModalMixin} from 'src/mixins/PropertyMixin'
 
 export default {
-  mixins: [GateMixin],
+  mixins: [GateMixin, ModalMixin],
   watch: {
     'property': {
       handler(value) {

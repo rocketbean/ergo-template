@@ -95,15 +95,15 @@
   </q-dialog>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex'
 import {route} from 'src/statics/backend'
 import {_token} from 'src/statics/token'
 import {_purl} from 'src/statics/purl'
 import {GateMixin} from 'src/mixins/GateMixin'
 import {_glob} from 'src/statics/global'
+import {ModalMixin} from 'src/mixins/PropertyMixin'
 
 export default {
-  mixins:[GateMixin],
+  mixins:[GateMixin, ModalMixin],
   watch: {
     'items': {
       handler (value) {
@@ -134,7 +134,6 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['modals', 'active']),
     jri () {
       return this.modals.addJrItem;
     },
@@ -173,7 +172,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['_activate', '_FetchActivate']),
     loadItem (item) {
       this.itemForm = item
     },
@@ -185,6 +183,8 @@ export default {
     },
     publish() {
       _purl.post(route.properties.property.jobrequest.publish(this.jr.property, this.jr)).then(r => {
+        this.jr.status_id = 2
+        this.jri.open = false
       }).catch(e => {
         _glob.loopErrors(e.response.data);
       })
@@ -226,7 +226,7 @@ export default {
       console.log('delayed filter aborted')
     },
     save () {
-      _purl.post(route.properties.property.jobrequest.item.store(this.active.property.id, this.active.jobrequest.id), {
+      _purl.post(route.properties.property.jobrequest.item.store(this.mixProperty.id, this.active.jobrequest.id), {
         name: this.itemForm.name,
         description: this.itemForm.description,
         videos: this.itemForm.videos,
@@ -236,7 +236,8 @@ export default {
         uploaderData: this.itemForm.uploaderData
       }).then(r => {
         this.resetItemForm()
-        this._activate({jobrequest: r.data})
+        // this._activate({jobrequest: r.data});
+        this.mapJobRequest(r.data)
       })
     }
   },

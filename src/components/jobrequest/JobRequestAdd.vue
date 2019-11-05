@@ -40,15 +40,18 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
 import {_purl} from 'src/statics/purl'
 import {route} from 'src/statics/backend'
+import {ModalMixin} from 'src/mixins/PropertyMixin'
 
 export default {
-  computed :{ 
-    ...mapGetters(['modals', 'active']),
+  mixins: [ModalMixin],
+  computed :{
     ajm () {
       return this.modals.addJobRequest
+    },
+    modal () {
+      return this.ajm.open
     }
   },
   data () {
@@ -62,12 +65,17 @@ export default {
   },
   methods: {
     save () {
-      _purl.post(route.properties.property.jobrequest.store(this.active.property.id),{
+      _purl.post(route.properties.property.jobrequest.store(this.mixProperty.id),{
         name: this.jr.name,
         description: this.jr.description,
       }).then(r => {
+        this._modals({'addJobRequest': {open: false}});
+        this.mixProperty.jobrequests.push(r.data)
       })
     }
+  },
+  mounted() {
+    console.log(this.ajm)
   }
 }
 

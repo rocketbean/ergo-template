@@ -81,10 +81,16 @@ export default {
       this._modals({'utils': {'confirm': {open: true, message: 'do you really want to delete this item ?', callback: this.destroyJr}}})
     },
     destroyJr() {
-      _purl.post(route.properties.property.jobrequest.destroy(this.jobrequest)).then(r => {
-        this.serve()
-      })
-    }
+      return new Promise((resolve, reject) => {
+        let ace = false
+        _purl.post(route.properties.property.jobrequest.destroy(this.jobrequest)).then(r => {
+          this.serve()
+          resolve()
+        }).catch(e => {
+          reject()
+        })
+    })
+  }
   }
 }
 </script>

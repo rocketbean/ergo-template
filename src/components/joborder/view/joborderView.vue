@@ -87,8 +87,8 @@
                   </q-btn>
                 </q-btn-group>
               </div>
-
-              <div  v-if = "item.status_id === 6 ">
+    <!-- v-if = "item.status_id === 6 " -->
+              <div  v-if = "validForReview">
                 <q-btn round  color="amber" icon = "far fa-star" size="sm" @click = "getReviews()">
                   <q-tooltip>
                     write a review
@@ -140,6 +140,15 @@ export default {
     ...mapGetters(['active', 'modals']),
     jobrequest () {
       return this.active.jobrequest
+    },
+    validForReview () {
+      let rev = true
+      this.jobrequest.items.map(i => {
+        if(i.status_id < 6) {
+          rev = false
+        }
+      })
+      return rev
     },
     parsedRatings () {
       return parseFloat(this.joitem.supplier.ratings)
