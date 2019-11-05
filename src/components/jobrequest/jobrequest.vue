@@ -40,12 +40,12 @@ import { mapGetters, mapActions } from 'vuex'
 import { _purl } from 'src/statics/purl'
 import { route } from 'src/statics/backend'
 import {GateMixin} from 'src/mixins/GateMixin'
+import {ModalMixin} from 'src/mixins/PropertyMixin'
 
 export default {  
-  mixins: [GateMixin],
+  mixins: [GateMixin, ModalMixin],
   props: ['jobrequest', 'serve'],
   computed: {
-    ...mapGetters(['active']),
     unseen () {
       let val = 0;
       this.jobrequest.quotes.map(jo => {
@@ -57,11 +57,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['_modals', '_FetchActivate', '_activate']),
-    activateJr() {
-      this._activate({jobrequest: this.jobrequest})
-      this._modals({'addJrItem': {open: true}})
-    },
     viewJobRequest () {
       if(this.jobrequest.status_id > 2) {
         this._modals({'joborderModal': {
@@ -76,21 +71,7 @@ export default {
     activateQuoteList () {
       this._activate({jobrequest: this.jobrequest})
       this._modals({'quoteList': {open: true}})
-    },
-    modalDestroy (jobrequest) {
-      this._modals({'utils': {'confirm': {open: true, message: 'do you really want to delete this item ?', callback: this.destroyJr}}})
-    },
-    destroyJr() {
-      return new Promise((resolve, reject) => {
-        let ace = false
-        _purl.post(route.properties.property.jobrequest.destroy(this.jobrequest)).then(r => {
-          this.serve()
-          resolve()
-        }).catch(e => {
-          reject()
-        })
-    })
-  }
+    }
   }
 }
 </script>

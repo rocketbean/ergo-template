@@ -2,6 +2,16 @@
   <q-page style = "margin: 10px;background-color:whitesmoke">
   <GlobalEvents
     @keyup.alt.n="_modals({'addJobRequest': {open: true}})"
+    @keyup.ctrl.alt.digit1="modalDestroy(property.jobrequests[0])"
+    @keyup.ctrl.alt.digit2="modalDestroy(property.jobrequests[1])"
+    @keyup.ctrl.alt.digit3="modalDestroy(property.jobrequests[2])"
+    @keyup.ctrl.alt.digit4="modalDestroy(property.jobrequests[3])"
+    @keyup.ctrl.alt.digit5="modalDestroy(property.jobrequests[4])"
+    @keyup.ctrl.alt.digit6="modalDestroy(property.jobrequests[5])"
+    @keyup.ctrl.alt.digit7="modalDestroy(property.jobrequests[6])"
+    @keyup.ctrl.alt.digit8="modalDestroy(property.jobrequests[7])"
+    @keyup.ctrl.alt.digit9="modalDestroy(property.jobrequests[8])"
+    @keyup.ctrl.alt.digit0="modalDestroy(property.jobrequests[9])"
   />
     <attachLocation/>
     <addJobRequest/>
