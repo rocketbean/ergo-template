@@ -34,7 +34,15 @@ import {mapTypes} from 'src/statics/backend'
 import {mapGetters, mapActions} from 'vuex'
 
 export default {
-  props: ['country','city'],
+  props: ['locals'],
+  watch: {
+    locals: {
+      handler(value) {
+        this.getAddress()
+      },
+      deep:true
+    }
+  },
   data () {
     return {
       formatted_address: '',
@@ -43,6 +51,7 @@ export default {
         lng: 10
       },
       result: {},
+      autoLocate: {},
       marker: {
         lat: 10,
         lng: 10
@@ -78,10 +87,11 @@ export default {
       this.$geocoder.send(this.marker, response => {
         this.processResponse(response)
       })
-
     },
     getAddress () {
-      this.$geocoder.send({country: this.country.label, city: this.city}, response => {
+      this.$geocoder.setDefaultMode('address');
+      this.$geocoder.send({country: this.locals.country.label, city: this.locals.city}, response => {
+        console.log(response)
         this.center = response.results[0].geometry.location;
         this.marker = response.results[0].geometry.location;
         this.processResponse(response)
@@ -105,6 +115,7 @@ export default {
     },
     formatAddress (address) {
       return address.results.filter(adr => {
+        console.log(adr)
         if(this.setType(adr)) {
           return adr;
         }
@@ -155,7 +166,8 @@ export default {
     }
   },
   mounted () {
-    this.getAddress()
+    // this.LocatMe()
+    // console.log(this.locals)
   },
 }
 </script>

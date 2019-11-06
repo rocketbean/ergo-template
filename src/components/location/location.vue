@@ -20,12 +20,17 @@
           >
             <q-card class="bg-grey-10 text-white no-shadow">
               <q-card-section>
-                <div class=" text-center"> Please tell us about your location. </div>
+                <div class=" text-center">
+                  <q-btn round color="deep-orange" icon ="location_on" size="xs" class = "shadow-2" @click="LocatMe">
+                    <q-tooltip> locate me </q-tooltip>
+                  </q-btn>
+                 Please tell us about your location. 
+                </div>
               </q-card-section>
               <q-card-section>
                 <div class="q-pa-md">
                   <div class="q-gutter-y-md column" style="min-width: 300px">
-                    <q-select filled dark  v-model="loc.country" label="Country" use-input input-debounce="0" :options="countries" @filter="filterFn" @filter-abort="abortFilterFn"  >
+                    <q-select filled dark  v-model="loc.country" label="Country" use-input input-debounce="0" :options="countries" @filter="filterFn" @filter-abort="abortFilterFn" ref="CountrySelection" >
                       <template v-slot:no-option>
                         <q-item>
                           <q-item-section class="text-grey">
@@ -49,7 +54,7 @@
             :done="step > 2"
           >
 
-            <mapPointer :country= "loc.country" :city="loc.city"/>
+            <mapPointer :locals= "loc"/>
           </q-step>
 
           <template v-slot:navigation>
@@ -75,6 +80,13 @@ import { _purl } from 'src/statics/purl'
 import { route } from 'src/statics/backend'
 
 export default {
+  watch: {
+    loc: {
+      handler (val) {
+        console.log(val)
+      }, deep:true
+    }
+  },
   data () {
     return {
       maximizedToggle: false,
@@ -92,6 +104,12 @@ export default {
     attachLoc () {
       return this.modals.attachLocation
     },
+    property () {
+      return this.active.property
+    },
+    locals () {
+      return this.loc
+    }
   },
   methods: {
     ...mapActions(['_addProperty']),
@@ -105,15 +123,26 @@ export default {
         lat: this.active.location.lat,
         lng: this.active.location.lng,
       }).then(r => {
-        console.log(r.data)
+        this.property.location = r.data.location;
+        this.property.location_id = r.data.location_id;
+        this.attachLoc.open = false
+
+      })
+    },
+    getCountryOptions() {
+      return new Promise ((res, rej) => {
+        _purl.get(route.ergo.countries).then(r => {
+          this.countries = r.data
+          res()
+        }).catch(e => {
+          rej(e)
+        })
       })
     },
     filterFn (val, update, abort) {
       update (() => {
         if (val === '') {
-          _purl.get(route.ergo.countries).then(r => {
-            this.countries = r.data
-          })
+          this.getCountryOptions()
         }
         else {
           const needle = val.toLowerCase()
@@ -123,6 +152,33 @@ export default {
     },
     abortFilterFn () {
       console.log('delayed filter aborted')
+    },
+    LocatMe () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition);
+      } else {
+        _glob.notify("error locating your position")
+      }
+    },
+    showPosition(position) {
+      let latLngObj = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      }
+      this.$geocoder.setDefaultMode('lat-lng');
+      this.$geocoder.send(latLngObj, r => {
+        r.results[0].address_components.map((c,i) => {
+          if(c.types.includes("country")) {
+            this.getCountryOptions().then(e => {
+              this.loc.country = this.countries.filter(v => v.label.toLowerCase().indexOf(c.long_name.toLowerCase()) > -1)[0]
+            })
+          }
+          if(c.types.includes("locality")) {
+            this.loc.city = c.long_name
+          }
+        })
+      })
+      this.$refs.stepper.next()
     },
     save () {
       _purl.post(route.properties.store, {

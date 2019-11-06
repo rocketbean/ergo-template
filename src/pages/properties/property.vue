@@ -154,6 +154,7 @@ export default {
     'property': {
       handler(value) {
         if(this.property.location_id !== '') {
+          this.setMapping()
           this.loadMap = true
         } else {
           this.loadMap = false
@@ -203,10 +204,28 @@ export default {
       }
     },
     setMapping () {
-      this.center = {
-        lat: parseFloat(this.property.location.lat),
-        lng: parseFloat(this.property.location.lng)
+      if(this.property.location === null) {
+        this._modals({'attachLocation': {'open': true, 'locationUrl': this.saveLocationUrl}})
+        this.getLocation()
+      } else {
+        this.center = {
+          lat: parseFloat(this.property.location.lat),
+          lng: parseFloat(this.property.location.lng)
+        }
       }
+    },
+    getLocation () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition);
+      } else {
+        _glob.notify("error locating your position")
+      }
+    },
+    showPosition(position) {
+        this.center = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        }
     },
     changePrimary () {
       this._modals({'changePrimary': {'open' : true, 'data' : this.property, 'active': 'property', 'uri': route.properties.property.primary.update }})

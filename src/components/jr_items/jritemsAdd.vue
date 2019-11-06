@@ -62,7 +62,7 @@
               </q-select>
               <q-input filled dark v-model="itemForm.name" label="Name" stack-label  />
               <q-input type="textarea" filled dark v-model="itemForm.description" label="tell us about your problem..." stack-label  autogrow /> 
-              <q-uploader multiple ref="imageUploader" class="full-width shadow-0" :url="beroute" dark @uploaded = "getFile" :field-name="(file) => 'file'"/>
+              <q-uploader multiple ref="imageUploader" class="full-width shadow-0" :url="beroute" dark @uploaded = "getFile" :field-name="(file) => 'file'" auto-upload/>
             </div>
             <div class = "q-gutter-y-md flex" style = "padding:5px; justify-content:flex-end">
               <q-btn flat round icon = "fas fa-pen-square" @click = "updateItem" v-if = "itemForm.id !== 0">
@@ -95,7 +95,7 @@
   </q-dialog>
 </template>
 <script>
-import {route} from 'src/statics/backend'
+import {route, storage} from 'src/statics/backend'
 import {_token} from 'src/statics/token'
 import {_purl} from 'src/statics/purl'
 import {GateMixin} from 'src/mixins/GateMixin'
@@ -200,7 +200,6 @@ export default {
         tags: [],
         uploaderData: []
       }
-      // this.$refs.imageUploader.reset();
     },
     getFile (data) {
       let file = JSON.parse(data.xhr.response)
@@ -208,6 +207,7 @@ export default {
       this.itemForm.videos.push(file.video)
       this.itemForm.files.push(file.file)
       this.itemForm.uploaderData = this.$refs.imageUploader.files;
+      this.$refs.imageUploader.reset()
     },
     filterFn (val, update, abort) {
       update (() => {
@@ -233,15 +233,15 @@ export default {
         files: this.itemForm.files,
         photos: this.itemForm.photos,
         tags: this.itemForm.tags,
-        uploaderData: this.itemForm.uploaderData
+        uploaderData: this.itemForm.uploaderData,
+        raw: this.$refs.imageUploader.files,
       }).then(r => {
         this.resetItemForm()
+        this.$refs.imageUploader.reset();
         // this._activate({jobrequest: r.data});
         this.mapJobRequest(r.data)
       })
     }
   },
-  mounted () {
-  }
 }
 </script>
