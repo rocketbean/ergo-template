@@ -177,7 +177,7 @@ export const _token = {
     var _time = new Date(_t.exp * 1000)
     var _now = new Date()
     if (_time < _now) {
-      // user.rehash()
+      toekn.release()
       return true
     } else {
       return false
@@ -199,7 +199,11 @@ export const _user = {
   getUser () {
     let _u = localStorage.getItem('_u')
     if (_u !== null) {
-      return JSON.parse(window.atob(_u))
+      try {
+        return JSON.parse(window.atob(_u))
+      } catch (e) {
+        _token.release();
+      }
     } else {
       return []
     }
